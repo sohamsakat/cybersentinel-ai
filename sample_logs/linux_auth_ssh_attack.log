@@ -1,0 +1,15 @@
+Oct 14 03:12:01 srv-prod-01 CRON[18421]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
+Oct 14 03:12:02 srv-prod-01 CRON[18421]: pam_unix(cron:session): session closed for user root
+Oct 14 03:14:15 srv-prod-01 sshd[19001]: Failed password for invalid user admin from 198.51.100.45 port 41256 ssh2
+Oct 14 03:14:18 srv-prod-01 sshd[19003]: Failed password for invalid user admin from 198.51.100.45 port 41258 ssh2
+Oct 14 03:14:21 srv-prod-01 sshd[19005]: Failed password for invalid user root from 198.51.100.45 port 41260 ssh2
+Oct 14 03:14:25 srv-prod-01 sshd[19007]: Failed password for invalid user root from 198.51.100.45 port 41264 ssh2
+Oct 14 03:14:29 srv-prod-01 sshd[19009]: Failed password for invalid user test from 198.51.100.45 port 41268 ssh2
+Oct 14 03:14:33 srv-prod-01 sshd[19011]: Failed password for invalid user oracle from 198.51.100.45 port 41272 ssh2
+Oct 14 03:14:38 srv-prod-01 sshd[19014]: Failed password for invalid user postgres from 198.51.100.45 port 41276 ssh2
+Oct 14 03:14:44 srv-prod-01 sshd[19018]: Failed password for deploy from 198.51.100.45 port 41280 ssh2
+Oct 14 03:14:50 srv-prod-01 sshd[19022]: Accepted password for deploy from 198.51.100.45 port 41286 ssh2
+Oct 14 03:14:50 srv-prod-01 sshd[19022]: pam_unix(sshd:session): session opened for user deploy(uid=1002) by (uid=0)
+Oct 14 03:15:02 srv-prod-01 sudo:   deploy : TTY=pts/0 ; PWD=/home/deploy ; USER=root ; COMMAND=/bin/cat /etc/shadow
+Oct 14 03:15:02 srv-prod-01 sudo: pam_unix(sudo:auth): authentication failure; logname=deploy uid=1002 euid=0 tty=/dev/pts/0 ruser=deploy rhost= user=deploy
+Oct 14 03:15:20 srv-prod-01 sudo:   deploy : 3 incorrect password attempts ; TTY=pts/0 ; PWD=/home/deploy ; USER=root ; COMMAND=/bin/cat /etc/shadow

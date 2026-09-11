@@ -1,0 +1,84 @@
+[
+  {
+    "EventID": 4625,
+    "TimeCreated": "2026-09-11T14:22:01.120Z",
+    "Computer": "DC01.corp.internal",
+    "Channel": "Security",
+    "EventData": {
+      "TargetUserName": "Administrator",
+      "TargetDomainName": "CORP",
+      "Status": "0xC000006D",
+      "SubStatus": "0xC000006A",
+      "FailureReason": "Unknown user name or bad password",
+      "WorkstationName": "WORKSTATION-09",
+      "IpAddress": "192.168.1.185",
+      "IpPort": "51240",
+      "LogonType": "3",
+      "LogonProcessName": "NtLmSsp"
+    }
+  },
+  {
+    "EventID": 4625,
+    "TimeCreated": "2026-09-11T14:22:03.450Z",
+    "Computer": "DC01.corp.internal",
+    "Channel": "Security",
+    "EventData": {
+      "TargetUserName": "Administrator",
+      "TargetDomainName": "CORP",
+      "Status": "0xC000006D",
+      "SubStatus": "0xC000006A",
+      "FailureReason": "Unknown user name or bad password",
+      "WorkstationName": "WORKSTATION-09",
+      "IpAddress": "192.168.1.185",
+      "IpPort": "51242",
+      "LogonType": "3",
+      "LogonProcessName": "NtLmSsp"
+    }
+  },
+  {
+    "EventID": 4625,
+    "TimeCreated": "2026-09-11T14:22:05.810Z",
+    "Computer": "DC01.corp.internal",
+    "Channel": "Security",
+    "EventData": {
+      "TargetUserName": "Administrator",
+      "TargetDomainName": "CORP",
+      "Status": "0xC000006D",
+      "SubStatus": "0xC000006A",
+      "FailureReason": "Unknown user name or bad password",
+      "WorkstationName": "WORKSTATION-09",
+      "IpAddress": "192.168.1.185",
+      "IpPort": "51246",
+      "LogonType": "3",
+      "LogonProcessName": "NtLmSsp"
+    }
+  },
+  {
+    "EventID": 4624,
+    "TimeCreated": "2026-09-11T14:22:12.300Z",
+    "Computer": "DC01.corp.internal",
+    "Channel": "Security",
+    "EventData": {
+      "TargetUserName": "Administrator",
+      "TargetDomainName": "CORP",
+      "TargetUserSid": "S-1-5-21-397955417-626881126-18844144-500",
+      "LogonType": "3",
+      "LogonProcessName": "NtLmSsp",
+      "WorkstationName": "WORKSTATION-09",
+      "IpAddress": "192.168.1.185",
+      "IpPort": "51250"
+    }
+  },
+  {
+    "EventID": 4672,
+    "TimeCreated": "2026-09-11T14:22:12.310Z",
+    "Computer": "DC01.corp.internal",
+    "Channel": "Security",
+    "EventData": {
+      "SubjectUserName": "Administrator",
+      "SubjectDomainName": "CORP",
+      "SubjectUserSid": "S-1-5-21-397955417-626881126-18844144-500",
+      "PrivilegeList": "SeSecurityPrivilege\nSeBackupPrivilege\nSeRestorePrivilege\nSeTakeOwnershipPrivilege\nSeDebugPrivilege"
+    }
+  }
+]

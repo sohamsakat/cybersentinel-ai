@@ -1,0 +1,23 @@
+[
+  {
+    "category_id": "A03:2021",
+    "name": "Injection",
+    "description": "User-supplied data is not validated, filtered, or sanitized by the application, allowing SQL, NoSQL, OS command, or LDAP injection. Attackers extract confidential databases or execute arbitrary commands.",
+    "common_patterns": ["UNION SELECT", "' OR '1'='1", "EXEC xp_cmdshell", "; cat /etc/passwd"],
+    "mitigation": "Use parameterized queries / prepared statements (Object Relational Mappers), validate input against strict allow-lists, limit administrative database permissions."
+  },
+  {
+    "category_id": "A01:2021",
+    "name": "Broken Access Control",
+    "description": "Restrictions on what authenticated users are allowed to do are not properly enforced. Attackers can exploit these flaws to access unauthorized functionality or data (e.g. Path Traversal ../../etc/passwd, BOLA, IDOR).",
+    "common_patterns": ["../", "..%2F", "/etc/passwd", "/winnt/system32"],
+    "mitigation": "Enforce record-level ownership checks on the server, disable web server directory listing, use hardened path sanitizers."
+  },
+  {
+    "category_id": "A07:2021",
+    "name": "Identification and Authentication Failures",
+    "description": "Confirmation of the user's identity, authentication, and session management are critical to protect against authentication-related attacks such as credential stuffing and brute force.",
+    "common_patterns": ["Repeated 401 Unauthorized", "High frequency login attempts from single IP"],
+    "mitigation": "Implement multi-factor authentication (MFA), limit or delay repeated failed login attempts, harden session tokens."
+  }
+]

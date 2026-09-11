@@ -1,0 +1,65 @@
+[
+  {
+    "technique_id": "T1110",
+    "name": "Brute Force",
+    "tactic": "Credential Access",
+    "description": "Adversaries may use brute force techniques to attempt credential access by systematically guessing passwords, passphrases, or encryption keys. Variations include password guessing, password spraying, and credential stuffing.",
+    "detection": "Monitor for numerous failed authentication attempts followed by a success from the same source IP or targeting multiple accounts within a short window (e.g., Windows Event ID 4625 followed by 4624, or repeated sshd Failed password).",
+    "mitigations": [
+      "M1036: Account lockout policies after a threshold of failed attempts.",
+      "M1032: Multi-factor authentication (MFA) on all external facing portals.",
+      "M1027: Rate limiting and IP-based automated blocking using fail2ban or WAF."
+    ],
+    "cve_references": ["CVE-2023-48795", "CVE-2020-0601"]
+  },
+  {
+    "technique_id": "T1190",
+    "name": "Exploit Public-Facing Application",
+    "tactic": "Initial Access",
+    "description": "Adversaries may attempt to exploit a weakness in an Internet-facing computer or program using software, firmware, or virtual machine flaws to gain access or execute arbitrary commands. Includes SQL Injection, Remote Code Execution (RCE), and Path Traversal.",
+    "detection": "Analyze web server access logs for anomalous request payloads containing SQL keywords (UNION SELECT, OR 1=1), directory traversal patterns (../..), or non-standard user agents (sqlmap, Nikto).",
+    "mitigations": [
+      "M1050: Exploit Protection and Web Application Firewall (WAF) rule sets.",
+      "M1016: Strict input validation and parameterized queries (prepared statements).",
+      "M1051: Timely security patch management for web servers and runtime dependencies."
+    ],
+    "cve_references": ["CVE-2021-44228", "CVE-2017-5638", "CVE-2023-34362"]
+  },
+  {
+    "technique_id": "T1078",
+    "name": "Valid Accounts",
+    "tactic": "Defense Evasion, Persistence, Privilege Escalation, Initial Access",
+    "description": "Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Compromised credentials can be default, local, or domain accounts.",
+    "detection": "Correlate logins at abnormal hours or from unusual geographic IP addresses. Monitor Windows Event ID 4624 with unusual LogonType (e.g. Type 3 network logon to domain controllers from non-admin workstations) and Event ID 4672 (Special privileges assigned).",
+    "mitigations": [
+      "M1026: Privileged Account Management and Just-In-Time (JIT) access.",
+      "M1030: Network segmentation restricting workstation-to-workstation access.",
+      "M1018: User account management and continuous credential auditing."
+    ],
+    "cve_references": ["CVE-2021-34527", "CVE-2020-1472"]
+  },
+  {
+    "technique_id": "T1046",
+    "name": "Network Service Discovery",
+    "tactic": "Discovery",
+    "description": "Adversaries may attempt to get a listing of services running on remote hosts, including port scans (TCP SYN scans) or banner grabs, to identify vulnerable software versions.",
+    "detection": "Detect high volume of connection attempts to sequential or distinct closed/filtered ports from a single IP address within firewall and IDS/IPS logs over a brief duration.",
+    "mitigations": [
+      "M1030: Network segmentation and perimeter firewall egress/ingress filtering.",
+      "M1031: Network intrusion detection and automated dynamic blacklisting."
+    ],
+    "cve_references": []
+  },
+  {
+    "technique_id": "T1548",
+    "name": "Abuse Elevation Control Mechanism",
+    "tactic": "Privilege Escalation, Defense Evasion",
+    "description": "Adversaries may circumvent mechanisms designed to control elevate privileges to gain higher-level permissions (e.g. abusing sudo misconfigurations, setuid binaries, or Windows UAC bypass).",
+    "detection": "Monitor audit logs for unexpected invocations of sudo, especially attempts to read sensitive files like /etc/shadow or /etc/sudoers (e.g., Linux pam_unix sudo auth failure followed by repeated attempts).",
+    "mitigations": [
+      "M1026: Restrict sudoers permissions to specific necessary binaries with NOEXEC.",
+      "M1038: Execution prevention and SELinux / AppArmor mandatory access controls."
+    ],
+    "cve_references": ["CVE-2021-3156", "CVE-2023-22809"]
+  }
+]
