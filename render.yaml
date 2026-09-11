@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: cybersentinel-ai
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
