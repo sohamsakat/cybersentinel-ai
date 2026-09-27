@@ -7,6 +7,7 @@ import SeverityBadge from '../components/SeverityBadge';
 export default function Dashboard({ onSelectIncident }) {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   const fetchStats = async () => {
     try {
@@ -16,32 +17,43 @@ export default function Dashboard({ onSelectIncident }) {
       console.error('Unable to load telemetry metrics.', err);
     } finally {
       setLoading(false);
+      // Slight delay so CSS transitions render after paint
+      setTimeout(() => setVisible(true), 60);
     }
   };
 
   useEffect(() => {
     fetchStats();
-    const interval = setInterval(fetchStats, 10000); // 10s auto-refresh
+    const interval = setInterval(fetchStats, 10000);
     return () => clearInterval(interval);
   }, []);
 
   if (loading) {
     return (
       <div className="p-8 flex items-center justify-center min-h-[60vh]">
-        <div className="flex items-center space-x-3 text-white font-mono text-sm">
-          <Radio className="w-5 h-5 animate-spin" />
-          <span>Polling SOC Telemetry Stream...</span>
+        <div className="flex flex-col items-center gap-5">
+          {/* Animated concentric rings */}
+          <div className="relative w-16 h-16 flex items-center justify-center">
+            <span className="absolute inline-flex w-full h-full rounded-full bg-[#C10230]/20 animate-ping" />
+            <span className="absolute inline-flex w-10 h-10 rounded-full bg-[#C10230]/30 animate-ping delay-200" />
+            <Radio className="w-7 h-7 text-white relative z-10 animate-spin" />
+          </div>
+          <span className="text-white font-mono text-sm tracking-widest typewriter">
+            Polling SOC Telemetry Stream...
+          </span>
         </div>
       </div>
     );
   }
 
+  const total = stats?.total_incidents || 1;
+
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
       {/* Top Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-zinc-800">
+      <div className={`flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-zinc-800 transition-all duration-500 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-3'}`}>
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+          <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2 text-shimmer">
             SOC SITUATIONAL AWARENESS
           </h1>
           <p className="text-xs text-zinc-400 font-mono mt-0.5">
@@ -51,14 +63,14 @@ export default function Dashboard({ onSelectIncident }) {
         <div className="flex items-center space-x-3">
           <button
             onClick={fetchStats}
-            className="px-3 py-1.5 rounded-lg bg-[#111114] border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-300 transition-colors"
+            className="px-3 py-1.5 rounded-lg bg-[#111114] border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-300 transition-all hover:scale-105 active:scale-95"
           >
             Auto-Refresh: 10s
           </button>
         </div>
       </div>
 
-      {/* Top 4 Stat Cards */}
+      {/* Top 4 Stat Cards — staggered slide-in */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="TOTAL CORRELATED INCIDENTS"
@@ -66,6 +78,7 @@ export default function Dashboard({ onSelectIncident }) {
           subtitle="Processed across all log streams"
           icon={Activity}
           color="white"
+          delay={0}
         />
         <StatCard
           title="CRITICAL THREATS"
@@ -74,6 +87,7 @@ export default function Dashboard({ onSelectIncident }) {
           icon={Flame}
           color="red"
           alert={(stats?.critical_count || 0) > 0}
+          delay={100}
         />
         <StatCard
           title="HIGH SEVERITY ALERTS"
@@ -81,6 +95,7 @@ export default function Dashboard({ onSelectIncident }) {
           subtitle="Active credential / web probes"
           icon={AlertOctagon}
           color="orange"
+          delay={200}
         />
         <StatCard
           title="CONTAINED / RESOLVED"
@@ -88,13 +103,14 @@ export default function Dashboard({ onSelectIncident }) {
           subtitle="Mitigated via NIST playbooks"
           icon={CheckCircle2}
           color="emerald"
+          delay={300}
         />
       </div>
 
-      {/* Middle Grid: Threat Breakdown & MITRE Intelligence */}
+      {/* Middle Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Severity Distribution */}
-        <div className="p-5 rounded-xl bg-[#111114] border border-zinc-800 space-y-4">
+        <div className={`p-5 rounded-xl bg-[#111114] border border-zinc-800 space-y-4 card-hover animate-fade-in-up delay-400 transition-all duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-semibold text-white tracking-wide font-mono uppercase">
               SEVERITY SPECTRUM
@@ -102,63 +118,34 @@ export default function Dashboard({ onSelectIncident }) {
             <span className="text-[11px] text-zinc-400 font-mono">CVSS Weighted</span>
           </div>
 
-          <div className="space-y-3 pt-1">
-            <div>
-              <div className="flex justify-between text-xs font-mono mb-1">
-                <span className="text-[#ff4d6d] font-bold">CRITICAL</span>
-                <span className="text-zinc-300 font-bold">{stats?.critical_count || 0}</span>
-              </div>
-              <div className="w-full bg-[#09090b] h-2 rounded-full overflow-hidden border border-zinc-900">
-                <div
-                  className="bg-[#C10230] h-full rounded-full transition-all duration-500"
-                  style={{ width: `${stats?.total_incidents ? (stats.critical_count / stats.total_incidents) * 100 : 0}%` }}
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex justify-between text-xs font-mono mb-1">
-                <span className="text-amber-400 font-bold">HIGH</span>
-                <span className="text-zinc-300 font-bold">{stats?.high_count || 0}</span>
-              </div>
-              <div className="w-full bg-[#09090b] h-2 rounded-full overflow-hidden border border-zinc-900">
-                <div
-                  className="bg-amber-500 h-full rounded-full transition-all duration-500"
-                  style={{ width: `${stats?.total_incidents ? (stats.high_count / stats.total_incidents) * 100 : 0}%` }}
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex justify-between text-xs font-mono mb-1">
-                <span className="text-sky-300 font-bold">MEDIUM</span>
-                <span className="text-zinc-300 font-bold">{stats?.medium_count || 0}</span>
-              </div>
-              <div className="w-full bg-[#09090b] h-2 rounded-full overflow-hidden border border-zinc-900">
-                <div
-                  className="bg-[#154372] h-full rounded-full transition-all duration-500"
-                  style={{ width: `${stats?.total_incidents ? (stats.medium_count / stats.total_incidents) * 100 : 0}%` }}
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex justify-between text-xs font-mono mb-1">
-                <span className="text-emerald-400 font-bold">LOW</span>
-                <span className="text-zinc-300 font-bold">{stats?.low_count || 0}</span>
-              </div>
-              <div className="w-full bg-[#09090b] h-2 rounded-full overflow-hidden border border-zinc-900">
-                <div
-                  className="bg-emerald-500 h-full rounded-full transition-all duration-500"
-                  style={{ width: `${stats?.total_incidents ? (stats.low_count / stats.total_incidents) * 100 : 0}%` }}
-                />
-              </div>
-            </div>
+          <div className="space-y-4 pt-1">
+            {[
+              { label: 'CRITICAL', count: stats?.critical_count || 0, color: 'bg-[#C10230]', textColor: 'text-[#ff4d6d]' },
+              { label: 'HIGH',     count: stats?.high_count    || 0, color: 'bg-amber-500',  textColor: 'text-amber-400' },
+              { label: 'MEDIUM',   count: stats?.medium_count  || 0, color: 'bg-[#154372]',  textColor: 'text-sky-300' },
+              { label: 'LOW',      count: stats?.low_count     || 0, color: 'bg-emerald-500', textColor: 'text-emerald-400' },
+            ].map(({ label, count, color, textColor }, i) => {
+              const pct = total > 0 ? (count / total) * 100 : 0;
+              return (
+                <div key={label} className="group">
+                  <div className="flex justify-between text-xs font-mono mb-1.5">
+                    <span className={`${textColor} font-bold`}>{label}</span>
+                    <span className="text-zinc-300 font-bold">{count}</span>
+                  </div>
+                  <div className="w-full bg-[#09090b] h-2 rounded-full overflow-hidden border border-zinc-900 relative">
+                    <div
+                      className={`${color} h-full rounded-full bar-animated transition-all`}
+                      style={{ width: `${pct}%`, '--bar-width': `${pct}%`, animationDelay: `${400 + i * 120}ms` }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
         {/* Top MITRE ATT&CK Techniques */}
-        <div className="lg:col-span-2 p-5 rounded-xl bg-[#111114] border border-zinc-800 space-y-4">
+        <div className={`lg:col-span-2 p-5 rounded-xl bg-[#111114] border border-zinc-800 space-y-4 animate-fade-in-up delay-500 transition-all duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-semibold text-white tracking-wide font-mono uppercase">
               TOP MITRE ATT&CK TECHNIQUES DETECTED
@@ -171,7 +158,11 @@ export default function Dashboard({ onSelectIncident }) {
               stats.top_techniques.map((item, idx) => {
                 const [tech, count] = Object.entries(item)[0];
                 return (
-                  <div key={idx} className="p-3 bg-[#09090b] rounded-lg border border-zinc-800 hover:border-zinc-600 transition-colors">
+                  <div
+                    key={idx}
+                    className="p-3 bg-[#09090b] rounded-lg border border-zinc-800 hover:border-zinc-500 hover:bg-[#111114] transition-all duration-200 card-hover animate-fade-in-up"
+                    style={{ animationDelay: `${550 + idx * 80}ms` }}
+                  >
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-xs font-mono font-bold text-white">{tech}</span>
                       <span className="text-[11px] font-mono px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/20">
@@ -196,8 +187,8 @@ export default function Dashboard({ onSelectIncident }) {
         </div>
       </div>
 
-      {/* Real-time Recent Alerts Feed Table */}
-      <div className="p-5 rounded-xl bg-[#111114] border border-zinc-800 space-y-4">
+      {/* Recent Alerts Feed */}
+      <div className={`p-5 rounded-xl bg-[#111114] border border-zinc-800 space-y-4 animate-fade-in-up delay-600 transition-all duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-xs font-semibold text-white tracking-wide font-mono uppercase">
@@ -222,21 +213,22 @@ export default function Dashboard({ onSelectIncident }) {
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-800/60 font-mono">
-              {stats?.recent_alerts?.map((inc) => (
+              {stats?.recent_alerts?.map((inc, idx) => (
                 <tr
                   key={inc.id}
                   onClick={() => onSelectIncident(inc.id)}
-                  className="hover:bg-[#18181c] cursor-pointer transition-colors group"
+                  className="hover:bg-[#18181c] cursor-pointer transition-all group animate-slide-in-right"
+                  style={{ animationDelay: `${650 + idx * 60}ms` }}
                 >
                   <td className="py-3 px-3 text-zinc-400 font-mono">#{inc.id}</td>
                   <td className="py-3 px-3">
                     <SeverityBadge severity={inc.severity} />
                   </td>
-                  <td className="py-3 px-3 font-sans font-medium text-white group-hover:underline transition-colors">
+                  <td className="py-3 px-3 font-sans font-medium text-white group-hover:underline group-hover:text-[#ff4d6d] transition-colors">
                     {inc.title}
                   </td>
                   <td className="py-3 px-3">
-                    <span className="px-2 py-0.5 rounded bg-zinc-900 text-zinc-300 border border-zinc-800 text-[11px]">
+                    <span className="px-2 py-0.5 rounded bg-zinc-900 text-zinc-300 border border-zinc-800 text-[11px] group-hover:border-zinc-600 transition-colors">
                       {inc.mitre_technique_id || 'T1110'}
                     </span>
                   </td>
@@ -244,7 +236,7 @@ export default function Dashboard({ onSelectIncident }) {
                     {inc.source_ip || 'Internal'}
                   </td>
                   <td className="py-3 px-3">
-                    <span className={`text-[11px] font-bold ${
+                    <span className={`text-[11px] font-bold transition-all ${
                       inc.risk_score >= 80 ? 'text-[#ff4d6d]' :
                       inc.risk_score >= 60 ? 'text-amber-400' : 'text-zinc-300'
                     }`}>
@@ -258,11 +250,8 @@ export default function Dashboard({ onSelectIncident }) {
                   </td>
                   <td className="py-3 px-3 text-right">
                     <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onSelectIncident(inc.id);
-                      }}
-                      className="text-zinc-400 hover:text-white p-1 rounded hover:bg-zinc-800"
+                      onClick={(e) => { e.stopPropagation(); onSelectIncident(inc.id); }}
+                      className="text-zinc-400 hover:text-white p-1 rounded hover:bg-zinc-800 transition-all hover:scale-110 active:scale-90"
                     >
                       <ArrowUpRight className="w-4 h-4" />
                     </button>

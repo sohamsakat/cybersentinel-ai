@@ -308,7 +308,7 @@ export default function LiveRadar({ onSelectIncident }) {
                 return (
                   <div
                     key={log.uniqueKey}
-                    className={`p-2 rounded-lg border transition-all duration-300 animate-fadeIn ${
+                    className={`p-2 rounded-lg border transition-all duration-300 animate-log-slide ${
                       isThreat
                         ? 'bg-[#C10230]/15 border-l-4 border-l-[#C10230] border-zinc-800 text-[#ffb3c1] shadow-[0_0_15px_rgba(193,2,48,0.2)]'
                         : 'bg-[#0e0e11] border-zinc-900 text-zinc-300 hover:bg-[#16161a]'
@@ -380,7 +380,7 @@ export default function LiveRadar({ onSelectIncident }) {
               interceptedThreats.map((threat, idx) => (
                 <div
                   key={idx}
-                  className="p-3.5 rounded-xl bg-[#111114] border-l-4 border-l-[#C10230] border border-zinc-800 hover:border-zinc-700 transition-all shadow-[0_0_15px_rgba(193,2,48,0.15)] space-y-2 animate-fadeIn"
+                  className="p-3.5 rounded-xl bg-[#111114] border-l-4 border-l-[#C10230] border border-zinc-800 hover:border-zinc-700 transition-all shadow-[0_0_15px_rgba(193,2,48,0.15)] space-y-2 animate-log-slide"
                 >
                   <div className="flex items-start justify-between">
                     <div>
