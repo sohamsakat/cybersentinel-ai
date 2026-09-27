@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Radio, Play, Pause, ShieldAlert, 
-  Terminal, ShieldCheck, Cpu, ArrowRight, Zap, Layers
+  Terminal, ShieldCheck, Cpu, ArrowRight, Zap, Layers, Activity, AlertTriangle
 } from 'lucide-react';
 import SeverityBadge from '../components/SeverityBadge';
 
@@ -122,6 +122,8 @@ export default function LiveRadar({ onSelectIncident }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [speed, setSpeed] = useState(1800); // ms per log line
   const [activeTabFilter, setActiveTabFilter] = useState('all'); // 'all' or 'threats'
+  const [attackWaveActive, setAttackWaveActive] = useState(false);
+  const [radarAngle, setRadarAngle] = useState(0);
 
   const scrollRef = useRef(null);
 
@@ -163,32 +165,71 @@ export default function LiveRadar({ onSelectIncident }) {
   const triggerAttackWave = () => {
     setStreamIndex(6);
     setIsPlaying(true);
+    setAttackWaveActive(true);
+    setTimeout(() => setAttackWaveActive(false), 8000);
   };
 
   const filteredLogs = activeTabFilter === 'threats' ? logs.filter(l => l.type === 'threat') : logs;
+  const hasActiveThreat = attackWaveActive || (logs.length > 0 && logs[logs.length - 1]?.type === 'threat');
 
   return (
     <div className="p-6 space-y-5 max-w-7xl mx-auto">
+      {/* Emergency Flash Banner on Attack Wave */}
+      {attackWaveActive && (
+        <div className="p-3.5 rounded-xl border border-[#ff4d6d] bg-[#C10230]/20 animate-strobe-alert flex items-center justify-between text-white font-mono text-xs shadow-2xl">
+          <div className="flex items-center gap-3">
+            <span className="w-3 h-3 rounded-full bg-[#ff4d6d] animate-ping" />
+            <AlertTriangle className="w-5 h-5 text-[#ff4d6d] animate-bounce" />
+            <div>
+              <span className="font-bold tracking-wider text-sm">CRITICAL THREAT INJECTION IN PROGRESS:</span>
+              <span className="text-zinc-200 ml-2">MITRE T1110 (Brute Force) &amp; T1548 (Privilege Escalation)</span>
+            </div>
+          </div>
+          <span className="px-2 py-0.5 rounded bg-[#C10230] text-white font-bold tracking-widest text-[10px] animate-pulse">
+            DEFCON 1 • CONTAINMENT ACTIVE
+          </span>
+        </div>
+      )}
+
       {/* Header & Controls */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-zinc-800">
         <div>
           <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2.5">
-            <Radio className="w-5 h-5 text-emerald-400 animate-pulse" />
-            LIVE TELEMETRY STREAM & AI RADAR
+            <Radio className={`w-5 h-5 ${hasActiveThreat ? 'text-[#ff4d6d] animate-ping' : 'text-emerald-400 animate-pulse'}`} />
+            LIVE TELEMETRY STREAM &amp; AI RADAR
           </h1>
           <p className="text-xs text-zinc-400 font-mono mt-0.5">
             Real-time Log Stream • Automated RAG Threat Interception • Zero Delay Detection
           </p>
         </div>
 
-        {/* Playback Controls */}
-        <div className="flex items-center space-x-2.5">
+        {/* Live Packet Waveform & Playback Controls */}
+        <div className="flex items-center space-x-3 flex-wrap gap-y-2">
+          {/* Animated Audio-style Equalizer Bars */}
+          <div className="hidden sm:flex items-center gap-1 bg-[#111114] px-3 py-1.5 rounded-lg border border-zinc-800">
+            <Activity className="w-3.5 h-3.5 text-emerald-400 mr-1 animate-pulse" />
+            <div className="flex items-end gap-0.5 h-4 w-16">
+              {[60, 100, 45, 80, 30, 90, 70, 40, 95, 55, 85, 35].map((h, i) => (
+                <span
+                  key={i}
+                  className={`w-1 rounded-sm ${hasActiveThreat ? 'bg-[#ff4d6d]' : 'bg-emerald-400'} transition-all`}
+                  style={{
+                    height: `${isPlaying ? h : 20}%`,
+                    animation: isPlaying ? `eqBounce 0.${6 + (i % 5)}s ease-in-out infinite alternate` : 'none',
+                    animationDelay: `${i * 70}ms`
+                  }}
+                />
+              ))}
+            </div>
+            <span className="text-[10px] font-mono text-zinc-400 ml-1">1,840 pkts/s</span>
+          </div>
+
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold font-mono border border-zinc-700 bg-zinc-900 text-zinc-300 hover:text-white transition-all shadow-sm"
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold font-mono border border-zinc-700 bg-zinc-900 text-zinc-300 hover:text-white transition-all shadow-sm active:scale-95"
           >
             {isPlaying ? <Pause className="w-3.5 h-3.5 text-amber-400" /> : <Play className="w-3.5 h-3.5 text-emerald-400" />}
-            <span>{isPlaying ? 'Pause Stream' : 'Resume Stream'}</span>
+            <span>{isPlaying ? 'Pause' : 'Resume'}</span>
           </button>
 
           {/* Speed Buttons */}
@@ -213,53 +254,155 @@ export default function LiveRadar({ onSelectIncident }) {
             </button>
           </div>
 
-          {/* Trigger Attack Wave Button: NexBank Signature Crimson */}
+          {/* Trigger Attack Wave Button */}
           <button
             onClick={triggerAttackWave}
-            className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg bg-[#C10230] hover:bg-[#9E0025] text-white border border-[#C10230] text-xs font-mono font-bold shadow-[0_0_15px_rgba(193,2,48,0.35)] active:scale-95 transition-all"
+            className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg bg-[#C10230] hover:bg-[#9E0025] text-white border border-[#C10230] text-xs font-mono font-bold shadow-[0_0_15px_rgba(193,2,48,0.35)] active:scale-95 transition-all hover:scale-105"
           >
-            <Zap className="w-3.5 h-3.5 text-white" />
+            <Zap className="w-3.5 h-3.5 text-white animate-pulse" />
             <span>Simulate Attack Wave</span>
           </button>
         </div>
       </div>
 
-      {/* Pictorial Threat Kill Chain / Attack Flow Diagram */}
-      <div className="p-4 rounded-xl bg-[#111114] border border-zinc-800">
-        <div className="text-[11px] font-mono uppercase text-zinc-400 font-bold mb-3 flex items-center justify-between">
-          <span className="flex items-center gap-1.5 text-white">
-            <Layers className="w-3.5 h-3.5 text-zinc-300" />
-            Automated Threat Interception Architecture (Real-Time Pipeline)
-          </span>
-          <span className="text-[10px] text-emerald-400 font-mono">MITRE Grounding: Sub-15ms</span>
+      {/* Cyber Radar HUD + Animated Pipeline Strip */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        {/* Visual Circular Radar Scope (4 cols) */}
+        <div className="lg:col-span-4 p-4 rounded-xl bg-[#111114] border border-zinc-800 flex flex-col items-center justify-between relative overflow-hidden card-hover">
+          <div className="w-full flex items-center justify-between text-[11px] font-mono text-zinc-400 mb-2">
+            <span className="flex items-center gap-1.5 text-white font-bold">
+              <Radio className={`w-3.5 h-3.5 ${hasActiveThreat ? 'text-[#ff4d6d]' : 'text-emerald-400'}`} />
+              CIRCULAR SONAR SCOPE
+            </span>
+            <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${hasActiveThreat ? 'bg-[#C10230]/20 text-[#ff4d6d] border border-[#C10230]/40' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'}`}>
+              {hasActiveThreat ? 'THREAT IN RANGE' : 'SECTOR CLEAR'}
+            </span>
+          </div>
+
+          {/* Circular Radar Screen */}
+          <div className="relative w-48 h-48 my-2 rounded-full border border-emerald-500/30 bg-[#050507] flex items-center justify-center overflow-hidden shadow-[inset_0_0_20px_rgba(16,185,129,0.15)]">
+            {/* Concentric Sonar Rings */}
+            <div className="absolute w-36 h-36 rounded-full border border-emerald-500/20" />
+            <div className="absolute w-24 h-24 rounded-full border border-emerald-500/20" />
+            <div className="absolute w-12 h-12 rounded-full border border-emerald-500/25" />
+
+            {/* Crosshairs */}
+            <div className="absolute inset-x-0 top-1/2 h-px bg-emerald-500/20" />
+            <div className="absolute inset-y-0 left-1/2 w-px bg-emerald-500/20" />
+
+            {/* Rotating Radar Sweep Beam */}
+            <div
+              className={`absolute inset-0 ${hasActiveThreat ? 'radar-sweep-beam-crimson animate-radar-spin-fast' : 'radar-sweep-beam animate-radar-spin'}`}
+            />
+
+            {/* Pulsing center ping */}
+            <div className={`w-2 h-2 rounded-full relative z-10 ${hasActiveThreat ? 'bg-[#ff4d6d] animate-ping' : 'bg-emerald-400 animate-ping'}`} />
+
+            {/* Simulated Target Blips */}
+            <div className="absolute top-10 left-12 flex items-center justify-center">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981]" />
+              <span className="absolute w-4 h-4 rounded-full border border-emerald-400 animate-radar-ping-ring" />
+            </div>
+
+            <div className="absolute bottom-12 right-14 flex items-center justify-center">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981]" />
+              <span className="absolute w-4 h-4 rounded-full border border-emerald-400 animate-radar-ping-ring delay-300" />
+            </div>
+
+            {hasActiveThreat && (
+              <div className="absolute top-8 right-10 flex items-center justify-center">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#ff4d6d] shadow-[0_0_12px_#ff4d6d]" />
+                <span className="absolute w-6 h-6 rounded-full border border-[#ff4d6d] animate-threat-ping-ring" />
+                <span className="absolute -top-3 text-[9px] font-mono text-[#ff4d6d] font-bold">T1110</span>
+              </div>
+            )}
+          </div>
+
+          {/* Radar Telemetry Readout */}
+          <div className="w-full grid grid-cols-2 gap-2 text-[10px] font-mono text-zinc-400 pt-2 border-t border-zinc-800/80">
+            <div>SWEEP: <span className="text-white font-bold">360° CONTINUOUS</span></div>
+            <div className="text-right">TARGETS: <span className={hasActiveThreat ? 'text-[#ff4d6d] font-bold' : 'text-emerald-400 font-bold'}>{interceptedThreats.length > 0 ? interceptedThreats.length : 2} NODES</span></div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-center text-xs font-mono">
-          <div className="p-3 bg-[#09090b] rounded-lg border border-zinc-800 relative">
-            <div className="text-[10px] text-zinc-500 font-semibold">STAGE 1: INGESTION</div>
-            <div className="font-bold text-white mt-1">Raw Telemetry Stream</div>
-            <div className="text-[10px] text-zinc-400 mt-0.5">Windows, Linux, Apache, FW</div>
-            <div className="hidden sm:block absolute -right-2.5 top-1/2 -translate-y-1/2 text-zinc-600">➔</div>
+        {/* Animated Interception Pipeline (8 cols) */}
+        <div className="lg:col-span-8 p-4 rounded-xl bg-[#111114] border border-zinc-800 flex flex-col justify-between card-hover">
+          <div className="text-[11px] font-mono uppercase text-zinc-400 font-bold mb-3 flex items-center justify-between">
+            <span className="flex items-center gap-1.5 text-white">
+              <Layers className="w-3.5 h-3.5 text-zinc-300" />
+              Real-Time Automated Threat Interception Architecture
+            </span>
+            <span className="text-[10px] text-emerald-400 font-mono flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping inline-block" />
+              MITRE Grounding: Sub-15ms
+            </span>
           </div>
 
-          <div className="p-3 bg-[#09090b] rounded-lg border border-zinc-800 relative">
-            <div className="text-[10px] text-zinc-500 font-semibold">STAGE 2: NORMALIZATION</div>
-            <div className="font-bold text-white mt-1">ECS Pydantic Parser</div>
-            <div className="text-[10px] text-zinc-400 mt-0.5">Regex Signature Matching</div>
-            <div className="hidden sm:block absolute -right-2.5 top-1/2 -translate-y-1/2 text-zinc-600">➔</div>
+          {/* 4 Pipeline Stages with Animated Data Cables */}
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-center text-xs font-mono relative my-auto">
+            {/* Stage 1 */}
+            <div className="p-3 bg-[#09090b] rounded-lg border border-zinc-800 relative group hover:border-zinc-600 transition-colors">
+              <div className="flex items-center justify-between text-[10px] text-zinc-500 font-semibold mb-1">
+                <span>STAGE 1</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              </div>
+              <div className="font-bold text-white">Ingestion</div>
+              <div className="text-[10px] text-zinc-400 mt-0.5">Raw Telemetry Tail</div>
+              <div className="text-[9px] text-emerald-400/80 mt-1 font-mono">Win/Lin/Apache/FW</div>
+
+              {/* Animated Data Wire to Stage 2 */}
+              <div className="hidden sm:block absolute -right-3 top-1/2 -translate-y-1/2 w-3 h-0.5 bg-zinc-800 z-10 overflow-hidden">
+                <span className="absolute top-0 bottom-0 w-2 bg-emerald-400 rounded-full animate-packet-travel" style={{ animation: 'packetTravel 1.4s ease-in-out infinite' }} />
+              </div>
+            </div>
+
+            {/* Stage 2 */}
+            <div className="p-3 bg-[#09090b] rounded-lg border border-zinc-800 relative group hover:border-zinc-600 transition-colors">
+              <div className="flex items-center justify-between text-[10px] text-zinc-500 font-semibold mb-1">
+                <span>STAGE 2</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse delay-100" />
+              </div>
+              <div className="font-bold text-white">Normalization</div>
+              <div className="text-[10px] text-zinc-400 mt-0.5">ECS Schema Engine</div>
+              <div className="text-[9px] text-zinc-500 mt-1 font-mono">Regex Filters</div>
+
+              {/* Animated Data Wire to Stage 3 */}
+              <div className="hidden sm:block absolute -right-3 top-1/2 -translate-y-1/2 w-3 h-0.5 bg-zinc-800 z-10 overflow-hidden">
+                <span className="absolute top-0 bottom-0 w-2 bg-emerald-400 rounded-full" style={{ animation: 'packetTravel 1.4s ease-in-out infinite 0.35s' }} />
+              </div>
+            </div>
+
+            {/* Stage 3 */}
+            <div className="p-3 bg-[#09090b] rounded-lg border border-zinc-800 relative group hover:border-zinc-600 transition-colors">
+              <div className="flex items-center justify-between text-[10px] text-zinc-500 font-semibold mb-1">
+                <span>STAGE 3</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse delay-200" />
+              </div>
+              <div className="font-bold text-white">Vector RAG</div>
+              <div className="text-[10px] text-zinc-400 mt-0.5">ChromaDB MITRE v14</div>
+              <div className="text-[9px] text-zinc-500 mt-1 font-mono">600+ TTPs Indexed</div>
+
+              {/* Animated Data Wire to Stage 4 */}
+              <div className="hidden sm:block absolute -right-3 top-1/2 -translate-y-1/2 w-3 h-0.5 bg-zinc-800 z-10 overflow-hidden">
+                <span className="absolute top-0 bottom-0 w-2 bg-[#ff4d6d] rounded-full" style={{ animation: 'packetTravel 1.4s ease-in-out infinite 0.7s' }} />
+              </div>
+            </div>
+
+            {/* Stage 4 */}
+            <div className={`p-3 bg-[#09090b] rounded-lg border transition-all ${hasActiveThreat ? 'border-[#C10230] bg-[#C10230]/15 glow-crimson animate-border-pulse' : 'border-[#C10230]/40 bg-[#C10230]/5'}`}>
+              <div className="flex items-center justify-between text-[10px] text-[#ff4d6d] font-semibold mb-1">
+                <span>STAGE 4</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#ff4d6d] animate-ping" />
+              </div>
+              <div className="font-bold text-white">Containment</div>
+              <div className="text-[10px] text-[#ffb3c1] mt-0.5">CVSS &amp; Auto-Block</div>
+              <div className="text-[9px] text-[#ff4d6d] mt-1 font-mono">NIST SP 800-61</div>
+            </div>
           </div>
 
-          <div className="p-3 bg-[#09090b] rounded-lg border border-zinc-800 relative">
-            <div className="text-[10px] text-zinc-500 font-semibold">STAGE 3: RAG VECTOR DB</div>
-            <div className="font-bold text-white mt-1">ChromaDB MITRE v14</div>
-            <div className="text-[10px] text-zinc-400 mt-0.5">Zero-Hallucination k-NN</div>
-            <div className="hidden sm:block absolute -right-2.5 top-1/2 -translate-y-1/2 text-zinc-600">➔</div>
-          </div>
-
-          <div className="p-3 bg-[#09090b] rounded-lg border border-[#C10230]/40 bg-[#C10230]/5">
-            <div className="text-[10px] text-[#ff4d6d] font-semibold">STAGE 4: CONTAINMENT</div>
-            <div className="font-bold text-white mt-1">CVSS Risk & Playbook</div>
-            <div className="text-[10px] text-[#ffb3c1] mt-0.5">NIST SP 800-61 PDF</div>
+          <div className="mt-3 pt-2 border-t border-zinc-800/80 flex justify-between items-center text-[10px] font-mono text-zinc-400">
+            <span>Edge Filter Efficiency: <strong className="text-white">99.2% Benign Discarded</strong></span>
+            <span>Zero-Hallucination Rate: <strong className="text-emerald-400">0.0% Verified</strong></span>
           </div>
         </div>
       </div>
@@ -267,7 +410,10 @@ export default function LiveRadar({ onSelectIncident }) {
       {/* Main Split Grid: Live Stream vs AI Interceptor */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Left Column (7 Cols): Live Telemetry Stream */}
-        <div className="lg:col-span-7 flex flex-col h-[520px] rounded-xl bg-[#09090b] border border-zinc-800 overflow-hidden shadow-2xl">
+        <div className="lg:col-span-7 flex flex-col h-[520px] rounded-xl bg-[#09090b] border border-zinc-800 overflow-hidden shadow-2xl relative">
+          {/* Scanning Laser Beam */}
+          <div className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-400 to-transparent pointer-events-none z-20 animate-laser-sweep opacity-70" />
+
           {/* Stream Header */}
           <div className="px-4 py-2.5 bg-[#111114] border-b border-zinc-800 flex justify-between items-center text-xs font-mono">
             <div className="flex items-center space-x-2">
@@ -280,13 +426,13 @@ export default function LiveRadar({ onSelectIncident }) {
             <div className="flex items-center space-x-1.5">
               <button
                 onClick={() => setActiveTabFilter('all')}
-                className={`px-2.5 py-1 rounded text-[10px] font-bold transition-colors ${activeTabFilter === 'all' ? 'bg-white text-black' : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'}`}
+                className={`px-2.5 py-1 rounded text-[10px] font-bold transition-all active:scale-95 ${activeTabFilter === 'all' ? 'bg-white text-black' : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'}`}
               >
                 All Telemetry ({logs.length})
               </button>
               <button
                 onClick={() => setActiveTabFilter('threats')}
-                className={`px-2.5 py-1 rounded text-[10px] font-bold transition-colors ${activeTabFilter === 'threats' ? 'bg-[#C10230] text-white shadow-sm' : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'}`}
+                className={`px-2.5 py-1 rounded text-[10px] font-bold transition-all active:scale-95 ${activeTabFilter === 'threats' ? 'bg-[#C10230] text-white shadow-sm' : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'}`}
               >
                 Threats Only ({logs.filter(l => l.type === 'threat').length})
               </button>
@@ -299,8 +445,9 @@ export default function LiveRadar({ onSelectIncident }) {
             className="flex-1 p-3.5 overflow-y-auto space-y-2 font-mono text-xs select-text scroll-smooth bg-[#050507]"
           >
             {filteredLogs.length === 0 ? (
-              <div className="h-full flex items-center justify-center text-zinc-500 text-xs">
-                Connecting to telemetry socket stream...
+              <div className="h-full flex items-center justify-center text-zinc-500 text-xs gap-2">
+                <span className="w-4 h-4 rounded-full border-2 border-emerald-400/30 border-t-emerald-400 animate-spin" />
+                <span>Connecting to telemetry socket stream...</span>
               </div>
             ) : (
               filteredLogs.map((log) => {
@@ -310,7 +457,7 @@ export default function LiveRadar({ onSelectIncident }) {
                     key={log.uniqueKey}
                     className={`p-2 rounded-lg border transition-all duration-300 animate-log-slide ${
                       isThreat
-                        ? 'bg-[#C10230]/15 border-l-4 border-l-[#C10230] border-zinc-800 text-[#ffb3c1] shadow-[0_0_15px_rgba(193,2,48,0.2)]'
+                        ? 'bg-[#C10230]/20 border-l-4 border-l-[#C10230] border-zinc-800 text-[#ffb3c1] shadow-[0_0_18px_rgba(193,2,48,0.35)]'
                         : 'bg-[#0e0e11] border-zinc-900 text-zinc-300 hover:bg-[#16161a]'
                     }`}
                   >
@@ -347,7 +494,10 @@ export default function LiveRadar({ onSelectIncident }) {
 
           <div className="px-3.5 py-1.5 bg-[#111114] border-t border-zinc-800 flex justify-between items-center text-[10px] font-mono text-zinc-400">
             <span>Buffer: 45 events (Auto-pruned)</span>
-            <span className="text-emerald-400 font-semibold">Stream Status: ACTIVE</span>
+            <span className="text-emerald-400 font-semibold flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping inline-block" />
+              Stream Status: ACTIVE
+            </span>
           </div>
         </div>
 
@@ -359,7 +509,8 @@ export default function LiveRadar({ onSelectIncident }) {
               <ShieldAlert className="w-4 h-4 text-[#ff4d6d]" />
               <span className="font-bold text-white">AI THREAT INTERCEPTOR</span>
             </div>
-            <span className="text-[10px] px-2 py-0.5 rounded bg-[#C10230]/20 text-[#ff4d6d] border border-[#C10230]/40 font-bold">
+            <span className="text-[10px] px-2 py-0.5 rounded bg-[#C10230]/20 text-[#ff4d6d] border border-[#C10230]/40 font-bold flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#ff4d6d] animate-ping" />
               {interceptedThreats.length} Interceptions
             </span>
           </div>
@@ -368,19 +519,20 @@ export default function LiveRadar({ onSelectIncident }) {
           <div className="flex-1 p-3.5 overflow-y-auto space-y-3 bg-[#050507]">
             {interceptedThreats.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center p-6 text-zinc-500">
-                <div className="w-12 h-12 rounded-full bg-[#111114] border border-zinc-800 flex items-center justify-center mb-3">
-                  <Cpu className="w-6 h-6 text-zinc-500 animate-spin" />
+                <div className="w-14 h-14 rounded-full bg-[#111114] border border-zinc-800 flex items-center justify-center mb-3 relative">
+                  <span className="absolute inset-0 rounded-full border border-zinc-700 animate-ping opacity-30" />
+                  <Cpu className="w-6 h-6 text-zinc-400 animate-spin" />
                 </div>
-                <div className="text-xs font-mono text-zinc-400">Listening to Telemetry Stream...</div>
-                <div className="text-[11px] text-zinc-600 font-mono mt-1">
-                  Threat signatures will automatically trigger RAG reasoning cards here
+                <div className="text-xs font-mono text-zinc-300 font-bold">Listening to Telemetry Stream...</div>
+                <div className="text-[11px] text-zinc-500 font-mono mt-1 max-w-xs">
+                  Threat signatures automatically trigger RAG reasoning cards and NIST containment playbooks
                 </div>
               </div>
             ) : (
               interceptedThreats.map((threat, idx) => (
                 <div
                   key={idx}
-                  className="p-3.5 rounded-xl bg-[#111114] border-l-4 border-l-[#C10230] border border-zinc-800 hover:border-zinc-700 transition-all shadow-[0_0_15px_rgba(193,2,48,0.15)] space-y-2 animate-log-slide"
+                  className="p-3.5 rounded-xl bg-[#111114] border-l-4 border-l-[#C10230] border border-zinc-800 hover:border-zinc-700 transition-all shadow-[0_0_20px_rgba(193,2,48,0.25)] space-y-2 animate-log-slide card-hover"
                 >
                   <div className="flex items-start justify-between">
                     <div>
@@ -417,10 +569,10 @@ export default function LiveRadar({ onSelectIncident }) {
             <span className="text-zinc-500 text-[10px]">ChromaDB Index: T1110, T1548, T1190</span>
             <button
               onClick={() => onSelectIncident(1)}
-              className="text-white hover:underline text-[11px] flex items-center gap-1 font-bold"
+              className="text-white hover:underline text-[11px] flex items-center gap-1 font-bold group"
             >
               <span>View Full Incident Triage</span>
-              <ArrowRight className="w-3 h-3" />
+              <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
             </button>
           </div>
         </div>
