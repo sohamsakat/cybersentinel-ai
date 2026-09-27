@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1200" width="100%" height="100%" font-family="Helvetica, Arial, sans-serif">
+    <rect width="2000" height="1200" fill="#FFFFFF"/>
+    
+    <!-- Title Banner -->
+    <rect width="2000" height="120" fill="#0F172A"/>
+    <text x="60" y="55" font-size="36" font-weight="bold" fill="#F8FAFC">FIGURE 7.1: QUANTITATIVE BENCHMARK EVALUATION COMPARISON</text>
+    <text x="60" y="95" font-size="22" fill="#94A3B8">Empirical Performance Comparison: Traditional SOC vs Direct LLM vs CyberSentinel AI</text>
+
+    <!-- Card 1: MTTR -->
+    <g transform="translate(60, 160)">
+        <rect width="900" height="480" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+        <path d="M0,12 Q0,0 12,0 L888,0 Q900,0 900,12 L900,60 L0,60 Z" fill="#1E293B"/>
+        <text x="25" y="32" font-size="22" font-weight="bold" fill="#FFFFFF">Mean Time to Respond (MTTR)</text>
+        <text x="25" y="50" font-size="13" fill="#94A3B8">Seconds (Lower is Better)</text>
+        
+        <!-- Bars -->
+        <text x="25" y="100" font-size="16" fill="#0F172A">Traditional SOC</text>
+        <rect x="25" y="115" width="540" height="35" rx="6" fill="#EF4444"/>
+        <text x="580" y="140" font-size="15" font-family="monospace" fill="#0F172A">3,000s (50 min)</text>
+
+        <text x="25" y="215" font-size="16" fill="#0F172A">Direct LLM (ChatGPT)</text>
+        <rect x="25" y="230" width="180" height="35" rx="6" fill="#F59E0B"/>
+        <text x="580" y="255" font-size="15" font-family="monospace" fill="#0F172A">25s</text>
+
+        <text x="25" y="330" font-size="16" font-weight="bold" fill="#0F172A">CyberSentinel AI</text>
+        <rect x="25" y="345" width="35" height="35" rx="6" fill="#10B981"/>
+        <text x="580" y="370" font-size="15" font-family="monospace" font-weight="bold" fill="#047857">2.1s (99.9% faster)</text>
+    </g>
+
+    <!-- Card 2: Noise Filter -->
+    <g transform="translate(1020, 160)">
+        <rect width="900" height="480" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+        <path d="M0,12 Q0,0 12,0 L888,0 Q900,0 900,12 L900,60 L0,60 Z" fill="#1E293B"/>
+        <text x="25" y="32" font-size="22" font-weight="bold" fill="#FFFFFF">Alert Noise Pre-Filtering Rate</text>
+        <text x="25" y="50" font-size="13" fill="#94A3B8">Percentage (Higher is Better)</text>
+        
+        <!-- Bars -->
+        <text x="25" y="100" font-size="16" fill="#0F172A">Traditional SOC</text>
+        <rect x="25" y="115" width="20" height="35" rx="6" fill="#EF4444"/>
+        <text x="580" y="140" font-size="15" font-family="monospace" fill="#0F172A">0.0% (No pre-filter)</text>
+
+        <text x="25" y="215" font-size="16" fill="#0F172A">Direct LLM (ChatGPT)</text>
+        <rect x="25" y="230" width="81" height="35" rx="6" fill="#F59E0B"/>
+        <text x="580" y="255" font-size="15" font-family="monospace" fill="#0F172A">15.0% (Uncalibrated)</text>
+
+        <text x="25" y="330" font-size="16" font-weight="bold" fill="#0F172A">CyberSentinel AI</text>
+        <rect x="25" y="345" width="535" height="35" rx="6" fill="#10B981"/>
+        <text x="580" y="370" font-size="15" font-family="monospace" font-weight="bold" fill="#047857">99.2% (Edge parser)</text>
+    </g>
+
+    <!-- Card 3: Hallucination Rate -->
+    <g transform="translate(60, 680)">
+        <rect width="900" height="480" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+        <path d="M0,12 Q0,0 12,0 L888,0 Q900,0 900,12 L900,60 L0,60 Z" fill="#1E293B"/>
+        <text x="25" y="32" font-size="22" font-weight="bold" fill="#FFFFFF">AI Hallucination Rate</text>
+        <text x="25" y="50" font-size="13" fill="#94A3B8">Percentage (0.0% is Perfect)</text>
+        
+        <!-- Bars -->
+        <text x="25" y="100" font-size="16" fill="#0F172A">Traditional SOC</text>
+        <rect x="25" y="115" width="20" height="35" rx="6" fill="#64748B"/>
+        <text x="580" y="140" font-size="15" font-family="monospace" fill="#0F172A">N/A (Rule-based)</text>
+
+        <text x="25" y="215" font-size="16" fill="#0F172A">Direct LLM (ChatGPT)</text>
+        <rect x="25" y="230" width="192" height="35" rx="6" fill="#EF4444"/>
+        <text x="580" y="255" font-size="15" font-family="monospace" fill="#0F172A">35.7% (High risk)</text>
+
+        <text x="25" y="330" font-size="16" font-weight="bold" fill="#0F172A">CyberSentinel AI</text>
+        <rect x="25" y="345" width="20" height="35" rx="6" fill="#10B981"/>
+        <text x="580" y="370" font-size="15" font-family="monospace" font-weight="bold" fill="#047857">0.0% (Vector grounded)</text>
+    </g>
+
+    <!-- Card 4: MITRE Accuracy -->
+    <g transform="translate(1020, 680)">
+        <rect width="900" height="480" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+        <path d="M0,12 Q0,0 12,0 L888,0 Q900,0 900,12 L900,60 L0,60 Z" fill="#1E293B"/>
+        <text x="25" y="32" font-size="22" font-weight="bold" fill="#FFFFFF">MITRE Technique Mapping Accuracy</text>
+        <text x="25" y="50" font-size="13" fill="#94A3B8">Percentage (Higher is Better)</text>
+        
+        <!-- Bars -->
+        <text x="25" y="100" font-size="16" fill="#0F172A">Traditional SOC</text>
+        <rect x="25" y="115" width="383" height="35" rx="6" fill="#EF4444"/>
+        <text x="580" y="140" font-size="15" font-family="monospace" fill="#0F172A">71.0% (Manual lookup)</text>
+
+        <text x="25" y="215" font-size="16" fill="#0F172A">Direct LLM (ChatGPT)</text>
+        <rect x="25" y="230" width="347" height="35" rx="6" fill="#F59E0B"/>
+        <text x="580" y="255" font-size="15" font-family="monospace" fill="#0F172A">64.3% (Hallucination risk)</text>
+
+        <text x="25" y="330" font-size="16" font-weight="bold" fill="#0F172A">CyberSentinel AI</text>
+        <rect x="25" y="345" width="508" height="35" rx="6" fill="#10B981"/>
+        <text x="580" y="370" font-size="15" font-family="monospace" font-weight="bold" fill="#047857">94.2% (Cosine similarity)</text>
+    </g>
+
+    <text x="60" y="1165" font-size="14" fill="#64748B">Figure 7.1: Quantitative Performance Benchmarks Across Four Mission-Critical Security Metrics.</text>
+</svg>

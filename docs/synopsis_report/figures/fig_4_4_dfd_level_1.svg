@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200 1400" width="100%" height="100%" font-family="Helvetica, Arial, sans-serif">
+    <rect width="2200" height="1400" fill="#FFFFFF"/>
+    
+    <!-- Title Banner -->
+    <rect width="2200" height="120" fill="#0F172A"/>
+    <text x="60" y="55" font-size="36" font-weight="bold" fill="#F8FAFC">FIGURE 4.4: DATA FLOW DIAGRAM (DFD LEVEL 1 - FUNCTIONAL DECOMPOSITION)</text>
+    <text x="60" y="95" font-size="22" fill="#94A3B8">Detailed Subsystem Transformations, Intermediate Data Stores, and Control Paths</text>
+    
+    <defs>
+        <marker id="arrB" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284C7" />
+        </marker>
+        <marker id="arrG" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#059669" />
+        </marker>
+        <marker id="arrP" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#7E22CE" />
+        </marker>
+        <marker id="arrR" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#DC2626" />
+        </marker>
+        <marker id="arrO" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#B45309" />
+        </marker>
+    </defs>
+
+    <!-- 5 Processes -->
+    <!-- P1.0 -->
+    <g transform="translate(80, 200)">
+        <rect width="480" height="130" rx="16" fill="#F0F9FF" stroke="#0284C7" stroke-width="3"/>
+        <text x="20" y="32" font-size="18" font-weight="bold" fill="#0369A1">Process 1.0</text>
+        <text x="20" y="65" font-size="22" font-weight="bold" fill="#0F172A">Ingest &amp; Auto-Detect Telemetry</text>
+        <text x="20" y="95" font-size="14" fill="#475569">Asynchronous chunked file stream / SSE tail</text>
+    </g>
+    <!-- P2.0 -->
+    <g transform="translate(80, 460)">
+        <rect width="480" height="130" rx="16" fill="#F0F9FF" stroke="#0284C7" stroke-width="3"/>
+        <text x="20" y="32" font-size="18" font-weight="bold" fill="#0369A1">Process 2.0</text>
+        <text x="20" y="65" font-size="22" font-weight="bold" fill="#0F172A">Normalize &amp; Pre-Filter Events</text>
+        <text x="20" y="95" font-size="14" fill="#475569">BaseLogParser factory &amp; Elastic Common Schema</text>
+    </g>
+    <!-- P3.0 -->
+    <g transform="translate(800, 460)">
+        <rect width="520" height="130" rx="16" fill="#F0F9FF" stroke="#0284C7" stroke-width="3"/>
+        <text x="20" y="32" font-size="18" font-weight="bold" fill="#0369A1">Process 3.0</text>
+        <text x="20" y="65" font-size="22" font-weight="bold" fill="#0F172A">Dense Vector Embedding &amp; RAG</text>
+        <text x="20" y="95" font-size="14" fill="#475569">all-MiniLM-L6 ONNX &amp; ChromaDB k-NN</text>
+    </g>
+    <!-- P4.0 -->
+    <g transform="translate(1540, 460)">
+        <rect width="580" height="130" rx="16" fill="#F0F9FF" stroke="#0284C7" stroke-width="3"/>
+        <text x="20" y="32" font-size="18" font-weight="bold" fill="#0369A1">Process 4.0</text>
+        <text x="20" y="65" font-size="22" font-weight="bold" fill="#0F172A">Algorithmic CVSS &amp; Reasoning</text>
+        <text x="20" y="95" font-size="14" fill="#475569">Deterministic scoring &amp; Pydantic guardrail</text>
+    </g>
+    <!-- P5.0 -->
+    <g transform="translate(1540, 850)">
+        <rect width="580" height="130" rx="16" fill="#F0F9FF" stroke="#0284C7" stroke-width="3"/>
+        <text x="20" y="32" font-size="18" font-weight="bold" fill="#0369A1">Process 5.0</text>
+        <text x="20" y="65" font-size="22" font-weight="bold" fill="#0F172A">SOAR Orchestration &amp; PDF Export</text>
+        <text x="20" y="95" font-size="14" fill="#475569">NIST playbooks, iptables shun &amp; ReportLab</text>
+    </g>
+
+    <!-- 3 Data Stores -->
+    <!-- D1 -->
+    <g transform="translate(80, 760)">
+        <line x1="0" y1="0" x2="480" y2="0" stroke="#334155" stroke-width="3"/>
+        <line x1="0" y1="80" x2="480" y2="80" stroke="#334155" stroke-width="3"/>
+        <line x1="65" y1="0" x2="65" y2="80" stroke="#94A3B8" stroke-width="2"/>
+        <text x="18" y="48" font-size="22" font-weight="bold" fill="#0F172A">D1</text>
+        <text x="80" y="48" font-size="18" fill="#1E293B">Normalized Event Buffer (ECS)</text>
+    </g>
+    <!-- D2 -->
+    <g transform="translate(800, 200)">
+        <line x1="0" y1="0" x2="520" y2="0" stroke="#334155" stroke-width="3"/>
+        <line x1="0" y1="80" x2="520" y2="80" stroke="#334155" stroke-width="3"/>
+        <line x1="65" y1="0" x2="65" y2="80" stroke="#94A3B8" stroke-width="2"/>
+        <text x="18" y="48" font-size="22" font-weight="bold" fill="#0F172A">D2</text>
+        <text x="80" y="48" font-size="18" fill="#1E293B">MITRE ATT&amp;CK v14 Index (ChromaDB)</text>
+    </g>
+    <!-- D3 -->
+    <g transform="translate(800, 760)">
+        <line x1="0" y1="0" x2="520" y2="0" stroke="#334155" stroke-width="3"/>
+        <line x1="0" y1="80" x2="520" y2="80" stroke="#334155" stroke-width="3"/>
+        <line x1="65" y1="0" x2="65" y2="80" stroke="#94A3B8" stroke-width="2"/>
+        <text x="18" y="48" font-size="22" font-weight="bold" fill="#0F172A">D3</text>
+        <text x="80" y="48" font-size="18" fill="#1E293B">Incidents &amp; Audit Database (SQLite)</text>
+    </g>
+
+    <!-- Connectors -->
+    <line x1="320" y1="330" x2="320" y2="460" stroke="#0284C7" stroke-width="3" marker-end="url(#arrB)"/>
+    <text x="330" y="395" font-size="15" font-family="monospace" fill="#0369A1">Raw Log Chunks</text>
+
+    <line x1="240" y1="590" x2="240" y2="760" stroke="#059669" stroke-width="3" marker-end="url(#arrG)"/>
+    <text x="250" y="680" font-size="15" font-family="monospace" fill="#047857">Store Filtered ECS</text>
+
+    <line x1="560" y1="525" x2="800" y2="525" stroke="#0284C7" stroke-width="3" marker-end="url(#arrB)"/>
+    <text x="580" y="500" font-size="15" font-family="monospace" fill="#0369A1">Normalized Event Stream</text>
+
+    <line x1="1060" y1="280" x2="1060" y2="460" stroke="#7E22CE" stroke-width="3" marker-end="url(#arrP)"/>
+    <text x="1070" y="370" font-size="15" font-family="monospace" fill="#6B21A8">600+ Technique Embeddings</text>
+
+    <line x1="1320" y1="525" x2="1540" y2="525" stroke="#0284C7" stroke-width="3" marker-end="url(#arrB)"/>
+    <text x="1340" y="500" font-size="15" font-family="monospace" fill="#0369A1">Top-2 Mitre Techniques</text>
+
+    <path d="M1600,590 L1600,700 L1150,700 L1150,760" fill="none" stroke="#B45309" stroke-width="2" marker-end="url(#arrO)"/>
+    <text x="1200" y="685" font-size="15" font-family="monospace" fill="#92400E">Persist Incident Record &amp; CVSS Score</text>
+
+    <line x1="1830" y1="590" x2="1830" y2="850" stroke="#DC2626" stroke-width="3" marker-end="url(#arrR)"/>
+    <text x="1840" y="720" font-size="15" font-family="monospace" fill="#B91C1C">AIThreatAnalysisResult</text>
+
+    <text x="60" y="1365" font-size="14" fill="#64748B">Figure 4.4: Data Flow Diagram (DFD Level 1) - Detailed Functional Decomposition.</text>
+</svg>

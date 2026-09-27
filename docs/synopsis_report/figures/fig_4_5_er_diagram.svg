@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200 1400" width="100%" height="100%" font-family="Helvetica, Arial, sans-serif">
+    <rect width="2200" height="1400" fill="#FFFFFF"/>
+    
+    <!-- Title Banner -->
+    <rect width="2200" height="120" fill="#0F172A"/>
+    <text x="60" y="55" font-size="36" font-weight="bold" fill="#F8FAFC">FIGURE 4.5: ENTITY-RELATIONSHIP (E-R) DIAGRAM &amp; DATA SCHEMA</text>
+    <text x="60" y="95" font-size="22" fill="#94A3B8">Relational Database Entities, Primary/Foreign Keys, and Cardinality (1:N, M:N)</text>
+
+    <!-- INCIDENTS -->
+    <g transform="translate(850, 200)">
+        <rect width="500" height="340" rx="8" fill="#FFFFFF" stroke="#475569" stroke-width="2"/>
+        <path d="M0,8 Q0,0 8,0 L492,0 Q500,0 500,8 L500,45 L0,45 Z" fill="#0F172A"/>
+        <text x="15" y="32" font-size="22" font-weight="bold" fill="#FFFFFF">INCIDENTS</text>
+        <text x="15" y="80" font-size="15" font-family="monospace" fill="#B45309">[PK] incident_id: VARCHAR(36)</text>
+        <text x="15" y="112" font-size="14" font-family="monospace" fill="#1E293B">title: VARCHAR(255)</text>
+        <text x="15" y="140" font-size="14" font-family="monospace" fill="#1E293B">severity: VARCHAR(20) [HIGH|CRIT]</text>
+        <text x="15" y="168" font-size="14" font-family="monospace" fill="#1E293B">status: VARCHAR(30) [OPEN|SHUNNED]</text>
+        <text x="15" y="196" font-size="14" font-family="monospace" fill="#1E293B">risk_score: FLOAT (0.0 - 100.0)</text>
+        <text x="15" y="224" font-size="14" font-family="monospace" fill="#1E293B">threat_classification: VARCHAR(100)</text>
+        <text x="15" y="252" font-size="14" font-family="monospace" fill="#1E293B">created_at, updated_at: DATETIME</text>
+    </g>
+
+    <!-- LOG_EVENTS -->
+    <g transform="translate(80, 200)">
+        <rect width="500" height="380" rx="8" fill="#FFFFFF" stroke="#475569" stroke-width="2"/>
+        <path d="M0,8 Q0,0 8,0 L492,0 Q500,0 500,8 L500,45 L0,45 Z" fill="#1E3A8A"/>
+        <text x="15" y="32" font-size="22" font-weight="bold" fill="#FFFFFF">LOG_EVENTS</text>
+        <text x="15" y="80" font-size="15" font-family="monospace" fill="#B45309">[PK] event_id: VARCHAR(36)</text>
+        <text x="15" y="110" font-size="14" font-family="monospace" fill="#2563EB">[FK] incident_id REFERENCES INCIDENTS</text>
+        <text x="15" y="140" font-size="14" font-family="monospace" fill="#1E293B">timestamp: DATETIME (UTC)</text>
+        <text x="15" y="168" font-size="14" font-family="monospace" fill="#1E293B">source_type: VARCHAR(50)</text>
+        <text x="15" y="196" font-size="14" font-family="monospace" fill="#1E293B">source_ip, destination_ip: VARCHAR(45)</text>
+        <text x="15" y="224" font-size="14" font-family="monospace" fill="#1E293B">username, event_type: VARCHAR(50)</text>
+        <text x="15" y="252" font-size="14" font-family="monospace" fill="#1E293B">severity_hint: VARCHAR(20)</text>
+        <text x="15" y="280" font-size="14" font-family="monospace" fill="#1E293B">raw_payload: TEXT, is_benign: BOOL</text>
+    </g>
+
+    <!-- MITRE_TECHNIQUES -->
+    <g transform="translate(1600, 200)">
+        <rect width="520" height="340" rx="8" fill="#FFFFFF" stroke="#475569" stroke-width="2"/>
+        <path d="M0,8 Q0,0 8,0 L512,0 Q520,0 520,8 L520,45 L0,45 Z" fill="#6B21A8"/>
+        <text x="15" y="32" font-size="22" font-weight="bold" fill="#FFFFFF">MITRE_TECHNIQUES</text>
+        <text x="15" y="80" font-size="15" font-family="monospace" fill="#B45309">[PK] technique_id: VARCHAR(20) [T1110]</text>
+        <text x="15" y="112" font-size="14" font-family="monospace" fill="#1E293B">tactic: VARCHAR(50) [Credential Access]</text>
+        <text x="15" y="140" font-size="14" font-family="monospace" fill="#1E293B">name: VARCHAR(150) [Brute Force]</text>
+        <text x="15" y="168" font-size="14" font-family="monospace" fill="#1E293B">description: TEXT</text>
+        <text x="15" y="196" font-size="14" font-family="monospace" fill="#1E293B">verified_mitigations: TEXT</text>
+        <text x="15" y="224" font-size="14" font-family="monospace" fill="#1E293B">dense_embedding_vector: BLOB(384x4)</text>
+    </g>
+
+    <!-- INCIDENT_MITRE_MAP -->
+    <g transform="translate(1250, 660)">
+        <rect width="480" height="220" rx="8" fill="#FFFFFF" stroke="#475569" stroke-width="2"/>
+        <path d="M0,8 Q0,0 8,0 L472,0 Q480,0 480,8 L480,45 L0,45 Z" fill="#4338CA"/>
+        <text x="15" y="32" font-size="22" font-weight="bold" fill="#FFFFFF">INCIDENT_MITRE_MAP</text>
+        <text x="15" y="75" font-size="14" font-family="monospace" fill="#B45309">[PK] map_id: INTEGER AUTOINCREMENT</text>
+        <text x="15" y="105" font-size="14" font-family="monospace" fill="#2563EB">[FK] incident_id REFERENCES INCIDENTS</text>
+        <text x="15" y="135" font-size="14" font-family="monospace" fill="#2563EB">[FK] technique_id REFERENCES MITRE</text>
+        <text x="15" y="165" font-size="14" font-family="monospace" fill="#1E293B">cosine_similarity_score: FLOAT</text>
+    </g>
+
+    <!-- CONTAINMENT_ACTIONS -->
+    <g transform="translate(450, 700)">
+        <rect width="520" height="320" rx="8" fill="#FFFFFF" stroke="#475569" stroke-width="2"/>
+        <path d="M0,8 Q0,0 8,0 L512,0 Q520,0 520,8 L520,45 L0,45 Z" fill="#991B1B"/>
+        <text x="15" y="32" font-size="22" font-weight="bold" fill="#FFFFFF">CONTAINMENT_ACTIONS</text>
+        <text x="15" y="75" font-size="15" font-family="monospace" fill="#B45309">[PK] action_id: VARCHAR(36)</text>
+        <text x="15" y="105" font-size="14" font-family="monospace" fill="#2563EB">[FK] incident_id REFERENCES INCIDENTS</text>
+        <text x="15" y="135" font-size="14" font-family="monospace" fill="#1E293B">action_type: VARCHAR(50) [IPTABLES_DROP]</text>
+        <text x="15" y="165" font-size="14" font-family="monospace" fill="#1E293B">target_ip: VARCHAR(45)</text>
+        <text x="15" y="195" font-size="14" font-family="monospace" fill="#1E293B">command_syntax: TEXT</text>
+        <text x="15" y="225" font-size="14" font-family="monospace" fill="#1E293B">execution_status, executed_at: DATETIME</text>
+    </g>
+
+    <!-- AUDIT_REPORTS -->
+    <g transform="translate(1050, 980)">
+        <rect width="520" height="280" rx="8" fill="#FFFFFF" stroke="#475569" stroke-width="2"/>
+        <path d="M0,8 Q0,0 8,0 L512,0 Q520,0 520,8 L520,45 L0,45 Z" fill="#0F766E"/>
+        <text x="15" y="32" font-size="22" font-weight="bold" fill="#FFFFFF">AUDIT_REPORTS</text>
+        <text x="15" y="75" font-size="15" font-family="monospace" fill="#B45309">[PK] report_id: VARCHAR(36)</text>
+        <text x="15" y="105" font-size="14" font-family="monospace" fill="#2563EB">[FK] incident_id REFERENCES INCIDENTS</text>
+        <text x="15" y="135" font-size="14" font-family="monospace" fill="#1E293B">sha256_checksum: VARCHAR(64)</text>
+        <text x="15" y="165" font-size="14" font-family="monospace" fill="#1E293B">pdf_file_path: VARCHAR(255)</text>
+        <text x="15" y="195" font-size="14" font-family="monospace" fill="#1E293B">report_page_count: INTEGER, generated_at</text>
+    </g>
+
+    <!-- Lines -->
+    <line x1="850" y1="350" x2="580" y2="350" stroke="#2563EB" stroke-width="3"/>
+    <text x="820" y="340" font-size="20" font-weight="bold" fill="#0F172A">1</text>
+    <text x="600" y="340" font-size="20" font-weight="bold" fill="#0F172A">N</text>
+
+    <path d="M950,540 L950,640 L710,640 L710,700" fill="none" stroke="#DC2626" stroke-width="3"/>
+    <text x="960" y="565" font-size="20" font-weight="bold" fill="#0F172A">1</text>
+    <text x="720" y="690" font-size="20" font-weight="bold" fill="#0F172A">N</text>
+
+    <path d="M1200,540 L1200,750 L1250,750" fill="none" stroke="#4338CA" stroke-width="3"/>
+    <text x="1210" y="565" font-size="20" font-weight="bold" fill="#0F172A">1</text>
+    <text x="1230" y="740" font-size="20" font-weight="bold" fill="#0F172A">N</text>
+
+    <path d="M1750,540 L1750,750 L1730,750" fill="none" stroke="#6B21A8" stroke-width="3"/>
+    <text x="1760" y="565" font-size="20" font-weight="bold" fill="#0F172A">1</text>
+    <text x="1700" y="740" font-size="20" font-weight="bold" fill="#0F172A">N</text>
+
+    <line x1="1100" y1="540" x2="1100" y2="980" stroke="#0F766E" stroke-width="3"/>
+    <text x="1110" y="565" font-size="20" font-weight="bold" fill="#0F172A">1</text>
+    <text x="1110" y="965" font-size="20" font-weight="bold" fill="#0F172A">1</text>
+
+    <text x="60" y="1365" font-size="14" fill="#64748B">Figure 4.5: Entity-Relationship Diagram Depicting Database Schema and Key Relationships.</text>
+</svg>

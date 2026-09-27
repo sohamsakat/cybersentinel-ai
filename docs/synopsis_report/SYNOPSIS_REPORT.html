@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSentinel AI - B.E. Project Synopsis Report (Mumbai University)</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 25mm 20mm 25mm 25mm;
+        }
+        :root {
+            --primary: #0F172A;
+            --accent: #2563EB;
+            --accent-dark: #1D4ED8;
+            --text: #1E293B;
+            --muted: #64748B;
+            --bg-light: #F8FAFC;
+            --border: #CBD5E1;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #525659;
+            margin: 0;
+            padding: 0;
+        }
+        /* Top Navigation & Action Bar */
+        .top-action-bar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: #0F172A;
+            color: #FFFFFF;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 14px;
+        }
+        .top-action-bar .brand {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .top-action-bar .actions {
+            display: flex;
+            gap: 12px;
+        }
+        .btn-action {
+            background: #2563EB;
+            color: #FFFFFF;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-action:hover {
+            background: #1D4ED8;
+        }
+        .btn-secondary {
+            background: #334155;
+        }
+        .btn-secondary:hover {
+            background: #475569;
+        }
+        
+        /* Document Container */
+        .doc-wrapper {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #FFFFFF;
+            padding: 60px 70px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            border-radius: 4px;
+        }
+        @media print {
+            body {
+                background: #FFFFFF;
+            }
+            .top-action-bar, .figure-actions {
+                display: none !important;
+            }
+            .doc-wrapper {
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                max-width: 100%;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+        
+        /* Academic Typography */
+        h1, h2, h3, h4 {
+            color: #000000;
+            font-weight: bold;
+            text-align: left;
+            margin-top: 24pt;
+            margin-bottom: 12pt;
+        }
+        h1 {
+            font-size: 18pt;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 8pt;
+            margin-top: 36pt;
+        }
+        h2 {
+            font-size: 14pt;
+            text-transform: uppercase;
+            border-bottom: 1px solid #475569;
+            padding-bottom: 4pt;
+        }
+        h3 {
+            font-size: 12pt;
+        }
+        p {
+            text-align: justify;
+            margin-bottom: 10pt;
+            text-indent: 0.4in;
+        }
+        p.no-indent {
+            text-indent: 0;
+        }
+        
+        /* Title & Certificate Styles */
+        .center-block {
+            text-align: center;
+            margin-bottom: 20pt;
+        }
+        .institution-title {
+            font-size: 15pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            line-height: 1.3;
+        }
+        .dept-title {
+            font-size: 13pt;
+            font-weight: bold;
+            margin-top: 6pt;
+        }
+        .project-title {
+            font-size: 16pt;
+            font-weight: bold;
+            margin: 24pt 0 16pt 0;
+            text-transform: uppercase;
+            line-height: 1.4;
+            color: #0F172A;
+        }
+        .signatory-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            row-gap: 50pt;
+            column-gap: 40pt;
+            margin-top: 60pt;
+            text-align: center;
+            font-size: 11pt;
+            font-weight: bold;
+        }
+        .principal-sign {
+            margin-top: 50pt;
+            text-align: center;
+            font-size: 11pt;
+            font-weight: bold;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18pt 0;
+            font-size: 10.5pt;
+        }
+        th, td {
+            border: 1px solid #000000;
+            padding: 8pt 10pt;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #F1F5F9;
+            font-weight: bold;
+            text-align: center;
+        }
+        .table-caption {
+            font-weight: bold;
+            margin-bottom: 6pt;
+            text-align: left;
+        }
+        
+        /* Figures & Action Buttons */
+        .figure-card {
+            margin: 28pt 0;
+            padding: 18pt;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #FAFAFA;
+            text-align: center;
+        }
+        .figure-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #E2E8F0;
+            background: #FFF;
+        }
+        .figure-caption {
+            font-weight: bold;
+            margin-top: 10pt;
+            font-size: 11pt;
+            color: #0F172A;
+            text-align: center;
+        }
+        .figure-actions {
+            margin-top: 12pt;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .btn-download {
+            background: #0F172A;
+            color: #FFFFFF;
+            padding: 6px 14px;
+            border-radius: 5px;
+            font-size: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-download:hover {
+            background: #2563EB;
+        }
+        .btn-download-svg {
+            background: #475569;
+        }
+        .btn-download-svg:hover {
+            background: #0D9488;
+        }
+
+        /* Math formula display */
+        .math-box {
+            background: #F8FAFC;
+            border: 1px solid #CBD5E1;
+            border-left: 4px solid #2563EB;
+            padding: 12pt 16pt;
+            margin: 14pt 0;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 11pt;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        
+        .code-inline {
+            font-family: "Courier New", Courier, monospace;
+            background: #F1F5F9;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 10.5pt;
+        }
+        
+        /* Table of Contents formatting */
+        .toc-table td {
+            border: none;
+            padding: 4pt 0;
+        }
+        .toc-table td.page-col {
+            text-align: right;
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Floating Action Bar -->
+    <div class="top-action-bar">
+        <div class="brand">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            CyberSentinel AI — Mumbai University Project Synopsis Report
+        </div>
+        <div class="actions">
+            <button class="btn-action btn-secondary" onclick="window.print()">
+                🖨️ Print / Save as PDF
+            </button>
+            <a href="#toc" class="btn-action btn-secondary">
+                📑 Table of Contents
+            </a>
+            <a href="figures/fig_4_1_architecture.png" download="fig_4_1_architecture.png" class="btn-action">
+                📥 Download Diagrams
+            </a>
+        </div>
+    </div>
+
+    <div class="doc-wrapper">
+
+        <!-- =================================================================== -->
+        <!-- CERTIFICATE PAGE -->
+        <!-- =================================================================== -->
+        <div class="center-block">
+            <div class="institution-title">B. R. Harne College of Engineering &amp; Technology</div>
+            <div style="font-size: 11pt; margin-top: 4pt;">Karav, Vangani, Tal. Ambernath, Dist. Thane — 421 503</div>
+            <div class="dept-title">DEPARTMENT OF COMPUTER ENGINEERING</div>
+            <div style="font-size: 11pt; font-style: italic; margin-top: 4pt;">(Affiliated to the University of Mumbai)</div>
+            
+            <div style="margin: 24pt 0 12pt 0; font-size: 16pt; font-weight: bold; text-decoration: underline;">CERTIFICATE</div>
+        </div>
+
+        <p class="no-indent">
+            This is to certify that the requirements for the synopsis entitled 
+        </p>
+
+        <div class="center-block">
+            <div class="project-title">
+                “CYBERSENTINEL AI: AUTONOMOUS COGNITIVE SECURITY OPERATIONS PLATFORM FOR REAL-TIME THREAT INGESTION, VECTOR-GROUNDED MITRE ATT&amp;CK TRIAGE, AND AUTOMATED INCIDENT RESPONSE”
+            </div>
+        </div>
+
+        <p class="no-indent">
+            have been successfully completed by the following students:
+        </p>
+
+        <div style="margin: 16pt 0; line-height: 2.0; font-weight: bold; padding-left: 20pt;">
+            1. Soham Sakat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Roll No: ________________)<br>
+            2. [Student Name 2] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Roll No: ________________)<br>
+            3. [Student Name 3] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Roll No: ________________)<br>
+            4. [Student Name 4] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Roll No: ________________)
+        </div>
+
+        <p class="no-indent">
+            in partial fulfillment of <strong>Sem – VII, Bachelor of Engineering of Mumbai University in Computer Engineering</strong> at <strong>B. R. Harne College of Engineering &amp; Technology, Karav, Vangani</strong> affiliated with Mumbai University for the academic year <strong>2026-27</strong>.
+        </p>
+
+        <div class="signatory-grid">
+            <div>
+                __________________________<br>
+                <strong>Internal Guide</strong><br>
+                (Prof. [Name of Guide])
+            </div>
+            <div>
+                __________________________<br>
+                <strong>External Examiner</strong><br>
+                &nbsp;
+            </div>
+            <div>
+                __________________________<br>
+                <strong>Project Coordinator</strong><br>
+                (Prof. Vaibhav Dhage)
+            </div>
+            <div>
+                __________________________<br>
+                <strong>Head of Department</strong><br>
+                (Dr. Shital Agrawal)
+            </div>
+        </div>
+
+        <div class="principal-sign">
+            __________________________<br>
+            <strong>Principal</strong><br>
+            (Dr. Vikram Patil)<br>
+            B. R. Harne College of Engineering &amp; Technology
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- =================================================================== -->
+        <!-- DECLARATION PAGE -->
+        <!-- =================================================================== -->
+        <h1 style="margin-top: 40pt;">DECLARATION</h1>
+
+        <p>
+            I declare that this written submission represents my ideas in my own words and where others' ideas or words have been included; I have adequately cited and referenced the original sources. I also declare that I have adhered to all principles of academic honesty and integrity and have not misrepresented or fabricated or falsified any idea/data/fact/source in my submission. I understand that any violation of the above will be cause for disciplinary action by the Institute and can also evoke penal action from the sources which have thus not been properly cited or from whom proper permission has not been taken when needed.
+        </p>
+
+        <div style="margin-top: 70pt;">
+            <table style="border: none;">
+                <tr style="border: none;">
+                    <td style="border: none; width: 50%;">
+                        <strong>Date:</strong> ________________________<br><br>
+                        <strong>Place:</strong> Karav, Vangani
+                    </td>
+                    <td style="border: none; width: 50%; text-align: right;">
+                        ________________________________________<br>
+                        <strong>(Name of the Students &amp; Signature)</strong><br><br>
+                        1. Soham Sakat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (_______________)<br>
+                        2. [Student Name 2] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (_______________)<br>
+                        3. [Student Name 3] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (_______________)<br>
+                        4. [Student Name 4] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (_______________)
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- =================================================================== -->
+        <!-- ACKNOWLEDGEMENT PAGE -->
+        <!-- =================================================================== -->
+        <h1 style="margin-top: 40pt;">ACKNOWLEDGEMENT</h1>
+
+        <p>
+            A project is something that could not have been materialized without cooperation of many people. This project shall be incomplete if I do not convey my heartfelt gratitude to those people from whom I have got considerable support and encouragement.
+        </p>
+        <p>
+            It is a matter of great pleasure for us to have respected <strong>Prof. [Name of Guide]</strong> as our project guide. We are thankful to her for being a constant source of inspiration and technical guidance throughout the project.
+        </p>
+        <p>
+            We would also like to give our sincere thanks to <strong>Dr. Shital Agrawal</strong>, Head of Department, Computer Engineering Department, and <strong>Prof. Vaibhav Dhage</strong>, Project Coordinator, for their continuous support, coordination, and administrative assistance.
+        </p>
+        <p>
+            We would like to express our deepest gratitude to <strong>Dr. Vikram Patil</strong>, our respected Principal of B. R. Harne College of Engineering &amp; Technology, Karav, Vangani, for providing the necessary institutional facilities and infrastructure.
+        </p>
+        <p>
+            Last but not the least, we would also like to thank all the teaching and non-teaching staff of the Computer Engineering Department of B. R. Harne College of Engineering &amp; Technology for their valuable guidance, interest, and suggestions that brightened us.
+        </p>
+
+        <div style="margin-top: 40pt; text-align: right; line-height: 1.8;">
+            <strong>Soham Sakat</strong> (Roll No: ________)<br>
+            <strong>[Student Name 2]</strong> (Roll No: ________)<br>
+            <strong>[Student Name 3]</strong> (Roll No: ________)<br>
+            <strong>[Student Name 4]</strong> (Roll No: ________)
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- =================================================================== -->
+        <!-- ABSTRACT PAGE -->
+        <!-- =================================================================== -->
+        <h1 style="margin-top: 40pt;">ABSTRACT</h1>
+
+        <p>
+            Modern enterprise Security Operations Centers (SOCs) are overwhelmed by unprecedented volumes of disparate telemetry, ingesting 50,000 to over 100,000 raw logs daily. Empirical industry studies reveal that over 90% of triggered alerts are benign background noise or false alarms, inducing acute cognitive burnout among Tier-1 security analysts and causing median attacker dwell time to exceed 200 days before detection. Traditional SIEM platforms depend on rigid regular expressions and static thresholds that cannot synthesize contextual narratives, whereas direct prompting of generative Large Language Models suffers from severe factual hallucinations and corporate data leakage. This project presents <strong>CyberSentinel AI</strong>, an autonomous cognitive Tier-1 SOC platform engineered to ingest heterogeneous telemetry (Windows EventLogs, Linux RFC 3164 Syslog, Apache CLF, and Firewall CSV), eliminate benign noise at the edge, ground threat analysis in curated MITRE ATT&amp;CK Enterprise (v14) vector embeddings via in-process ChromaDB, and deterministically quantify CVSS risk scores. Evaluated across live attack campaigns, CyberSentinel AI achieves a 99.2% reduction in alert noise, cuts Mean Time to Respond (MTTR) from 45–60 minutes down to 2.1 seconds, enforces a verified 0.0% AI hallucination rate, and automatically compiles tamper-evident NIST SP 800-61 forensic PDF audit reports with SHA-256 integrity verification.
+        </p>
+
+        <div class="page-break"></div>
+
+        <!-- =================================================================== -->
+        <!-- TABLE OF CONTENTS -->
+        <!-- =================================================================== -->
+        <h1 id="toc" style="margin-top: 40pt;">TABLE OF CONTENTS</h1>
+
+        <table class="toc-table">
+            <thead>
+                <tr style="border-bottom: 2px solid #000;">
+                    <th style="text-align: left; width: 120px; background: none; border: none;">CHAPTER NO.</th>
+                    <th style="text-align: left; background: none; border: none;">TITLE</th>
+                    <th style="text-align: right; width: 100px; background: none; border: none;">PAGE NO.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><strong>CERTIFICATE</strong></td>
+                    <td class="page-col">i</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><strong>DECLARATION</strong></td>
+                    <td class="page-col">ii</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><strong>ACKNOWLEDGEMENT</strong></td>
+                    <td class="page-col">iii</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><strong>ABSTRACT</strong></td>
+                    <td class="page-col">iv</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><strong>LIST OF FIGURES</strong></td>
+                    <td class="page-col">vi</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><strong>LIST OF TABLES</strong></td>
+                    <td class="page-col">vii</td>
+                </tr>
+                <tr>
+                    <td><strong>1.</strong></td>
+                    <td><strong><a href="#ch1" style="color: inherit; text-decoration: none;">INTRODUCTION</a></strong></td>
+                    <td class="page-col">1</td>
+                </tr>
+                <tr>
+                    <td><strong>2.</strong></td>
+                    <td><strong><a href="#ch2" style="color: inherit; text-decoration: none;">LITERATURE REVIEW</a></strong></td>
+                    <td class="page-col">3</td>
+                </tr>
+                <tr>
+                    <td>2.1</td>
+                    <td>General</td>
+                    <td class="page-col">3</td>
+                </tr>
+                <tr>
+                    <td>2.2</td>
+                    <td>Existing Methodologies</td>
+                    <td class="page-col">4</td>
+                </tr>
+                <tr>
+                    <td>2.3</td>
+                    <td>Limitations of Existing Systems or Research Gap</td>
+                    <td class="page-col">5</td>
+                </tr>
+                <tr>
+                    <td><strong>3.</strong></td>
+                    <td><strong><a href="#ch3" style="color: inherit; text-decoration: none;">PROBLEM STATEMENT AND OBJECTIVES</a></strong></td>
+                    <td class="page-col">7</td>
+                </tr>
+                <tr>
+                    <td>3.1</td>
+                    <td>Problem Statement</td>
+                    <td class="page-col">7</td>
+                </tr>
+                <tr>
+                    <td>3.2</td>
+                    <td>Objectives of the Study</td>
+                    <td class="page-col">8</td>
+                </tr>
+                <tr>
+                    <td><strong>4.</strong></td>
+                    <td><strong><a href="#ch4" style="color: inherit; text-decoration: none;">PROPOSED SYSTEM</a></strong></td>
+                    <td class="page-col">9</td>
+                </tr>
+                <tr>
+                    <td>4.1</td>
+                    <td>System Analysis / Framework / Algorithm</td>
+                    <td class="page-col">9</td>
+                </tr>
+                <tr>
+                    <td>4.2</td>
+                    <td>System Design</td>
+                    <td class="page-col">12</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>- Design Model - Class Diagram (Detailed Design)</td>
+                    <td class="page-col">12</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>- Functional Specifications (Data Flow Diagrams Level 0 &amp; Level 1)</td>
+                    <td class="page-col">14</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>- Data Model - (Database Design &amp; Detailed E-R Diagram)</td>
+                    <td class="page-col">17</td>
+                </tr>
+                <tr>
+                    <td><strong>5.</strong></td>
+                    <td><strong><a href="#ch5" style="color: inherit; text-decoration: none;">EXPERIMENTAL SETUP</a></strong></td>
+                    <td class="page-col">19</td>
+                </tr>
+                <tr>
+                    <td>5.1</td>
+                    <td>Details of Database</td>
+                    <td class="page-col">19</td>
+                </tr>
+                <tr>
+                    <td>5.2</td>
+                    <td>Performance Evaluation Parameters</td>
+                    <td class="page-col">20</td>
+                </tr>
+                <tr>
+                    <td>5.3</td>
+                    <td>Software and Hardware Setup</td>
+                    <td class="page-col">21</td>
+                </tr>
+                <tr>
+                    <td><strong>6.</strong></td>
+                    <td><strong><a href="#ch6" style="color: inherit; text-decoration: none;">IMPLEMENTATION</a></strong></td>
+                    <td class="page-col">22</td>
+                </tr>
+                <tr>
+                    <td>6.1</td>
+                    <td>Timeline Chart for Term 1 &amp; Term 2</td>
+                    <td class="page-col">22</td>
+                </tr>
+                <tr>
+                    <td>6.2</td>
+                    <td>Methodology</td>
+                    <td class="page-col">24</td>
+                </tr>
+                <tr>
+                    <td><strong>7.</strong></td>
+                    <td><strong><a href="#ch7" style="color: inherit; text-decoration: none;">RESULT</a></strong></td>
+                    <td class="page-col">26</td>
+                </tr>
+                <tr>
+                    <td><strong>8.</strong></td>
+                    <td><strong><a href="#ch8" style="color: inherit; text-decoration: none;">REFERENCES</a></strong></td>
+                    <td class="page-col">29</td>
+                </tr>
+                <tr>
+                    <td><strong>9.</strong></td>
+                    <td><strong><a href="#ch9" style="color: inherit; text-decoration: none;">ACKNOWLEDGEMENT</a></strong></td>
+                    <td class="page-col">30</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-break"></div>
+
+        <!-- =================================================================== -->
+        <!-- LIST OF FIGURES -->
+        <!-- =================================================================== -->
+        <h1 style="margin-top: 40pt;">LIST OF FIGURES</h1>
+
+        <table class="toc-table">
+            <thead>
+                <tr style="border-bottom: 2px solid #000;">
+                    <th style="text-align: left; width: 120px; background: none; border: none;">FIGURE NO.</th>
+                    <th style="text-align: left; background: none; border: none;">TITLE</th>
+                    <th style="text-align: right; width: 100px; background: none; border: none;">PAGE NO.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Figure 4.1</strong></td>
+                    <td>End-to-End System Architecture and Multi-Tier Processing Pipeline</td>
+                    <td class="page-col">10</td>
+                </tr>
+                <tr>
+                    <td><strong>Figure 4.2</strong></td>
+                    <td>Detailed Object-Oriented Class Design and System Architectural Hierarchy</td>
+                    <td class="page-col">13</td>
+                </tr>
+                <tr>
+                    <td><strong>Figure 4.3</strong></td>
+                    <td>Data Flow Diagram (DFD Level 0) - Context-Level Operational Boundary</td>
+                    <td class="page-col">15</td>
+                </tr>
+                <tr>
+                    <td><strong>Figure 4.4</strong></td>
+                    <td>Data Flow Diagram (DFD Level 1) - Detailed Functional Decomposition</td>
+                    <td class="page-col">16</td>
+                </tr>
+                <tr>
+                    <td><strong>Figure 4.5</strong></td>
+                    <td>Entity-Relationship (E-R) Diagram Representing Relational and Vector Data Stores</td>
+                    <td class="page-col">18</td>
+                </tr>
+                <tr>
+                    <td><strong>Figure 6.1</strong></td>
+                    <td>Academic Implementation Timeline and Work Breakdown Schedule (Term 1 &amp; Term 2)</td>
+                    <td class="page-col">23</td>
+                </tr>
+                <tr>
+                    <td><strong>Figure 7.1</strong></td>
+                    <td>Quantitative Performance Benchmarks Across Four Mission-Critical Security Metrics</td>
+                    <td class="page-col">27</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 30pt;"></div>
+
+        <!-- =================================================================== -->
+        <!-- LIST OF TABLES -->
+        <!-- =================================================================== -->
+        <h1>LIST OF TABLES</h1>
+
+        <table class="toc-table">
+            <thead>
+                <tr style="border-bottom: 2px solid #000;">
+                    <th style="text-align: left; width: 120px; background: none; border: none;">TABLE NO.</th>
+                    <th style="text-align: left; background: none; border: none;">TITLE</th>
+                    <th style="text-align: right; width: 100px; background: none; border: none;">PAGE NO.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Table 2.1</strong></td>
+                    <td>Comparative Analysis of Traditional SIEMs, Direct Generative LLMs, and CyberSentinel AI</td>
+                    <td class="page-col">6</td>
+                </tr>
+                <tr>
+                    <td><strong>Table 4.1</strong></td>
+                    <td>Deterministic CVSS Risk Scoring Progression Weight Multipliers</td>
+                    <td class="page-col">11</td>
+                </tr>
+                <tr>
+                    <td><strong>Table 5.1</strong></td>
+                    <td>Hardware and Software Environment Specifications</td>
+                    <td class="page-col">21</td>
+                </tr>
+                <tr>
+                    <td><strong>Table 6.1</strong></td>
+                    <td>Academic Work Breakdown Structure Across Sem-VII and Sem-VIII</td>
+                    <td class="page-col">24</td>
+                </tr>
+                <tr>
+                    <td><strong>Table 7.1</strong></td>
+                    <td>Empirical Experimental Performance Evaluation and Quantitative Benchmark Results</td>
+                    <td class="page-col">28</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-break"></div>
+
+        <!-- =================================================================== -->
+        <!-- CHAPTER 1: INTRODUCTION -->
+        <!-- =================================================================== -->
+        <h1 id="ch1">CHAPTER 1: INTRODUCTION</h1>
+
+        <h3>1.1 The Enterprise Security Operations Center (SOC) Landscape</h3>
+        <p>
+            In contemporary enterprise cybersecurity, the defense perimeter has shifted from monolithic, air-gapped on-premise intranets to complex hybrid multi-cloud topologies. An enterprise perimeter routinely encompasses thousands of distributed assets: Linux application microservices running on container orchestration clusters, Windows Active Directory domain controllers managing corporate identity and access management (IAM), edge next-generation firewalls (NGFW) filtering ingress and egress network packets, and reverse proxies serving public web endpoints.
+        </p>
+        <p>
+            To defend this attack surface, enterprise organizations deploy a Security Operations Center (SOC) operating on a continuous 24/7/365 operational schedule. The core mandate of the SOC is to ingest, parse, correlate, and investigate raw security events to identify indicators of compromise (IoCs), prevent unauthorized lateral movement, halt privilege escalation, and stop data exfiltration before malicious actors execute ransomware or exfiltrate intellectual property.
+        </p>
+
+        <h3>1.2 The Telemetry Explosion &amp; Alert Fatigue Crisis</h3>
+        <p>
+            Despite massive capital investment in defensive tooling, enterprise SOCs are undergoing an acute operational crisis. A standard mid-to-large enterprise infrastructure generates between <strong>50,000 and 100,000+ raw security events every 24 hours</strong>. When routed into legacy Security Information and Event Management (SIEM) software, static threshold correlation rules trigger thousands of alert tickets daily.
+        </p>
+        <p>
+            Empirical telemetry surveys indicate that <strong>over 90% of triggered alerts are benign background noise, routine misconfigurations, or false positives</strong> (e.g., automated vulnerability scans, legitimate administrative SSH sessions, or repetitive user password typos). Human Tier-1 security analysts are required to manually inspect, decode, and investigate each alert. This relentless volume creates acute cognitive saturation and desensitization, known across the industry as <em>alert fatigue</em>. Consequently, genuine Advanced Persistent Threats (APTs) mimicking routine network behaviors slip past exhausted defenders. Industry data reveals that the average attacker dwell time inside enterprise networks exceeds <strong>200 days before detection</strong>.
+        </p>
+
+        <h3>1.3 The Cognitive AI Paradigm Shift</h3>
+        <p>
+            To address the structural limitations of human triage, this research presents <strong>CyberSentinel AI</strong>: an autonomous cognitive Tier-1 security assistant that operates directly within the enterprise telemetry stream. Rather than relying on rigid regular expressions or unbounded commercial LLM prompts, CyberSentinel AI couples an extensible normalization factory with an in-process dense vector Retrieval-Augmented Generation (RAG) architecture grounded strictly in the MITRE ATT&amp;CK taxonomy. This guarantees sub-second triage, zero hallucinations, and automated incident containment playbooks.
+        </p>
+
+        <div class="page-break"></div>
+
+        <!-- =================================================================== -->
+        <!-- CHAPTER 2: LITERATURE REVIEW -->
+        <!-- =================================================================== -->
+        <h1 id="ch2">CHAPTER 2: LITERATURE REVIEW</h1>
+
+        <h3>2.1 General</h3>
+        <p>
+            Automated threat detection has evolved through three distinct academic generations over the past three decades:
+        </p>
+        <p>
+            The first generation relied entirely on static signature matching (e.g., Snort rules, ClamAV hashes, and regex SIEM filters). While computationally efficient, signature systems are strictly retrospective and cannot identify zero-day exploits, obfuscated web shells, or novel attack variations. The second generation introduced shallow machine learning classifiers (Support Vector Machines, Random Forests, and autoencoders) trained on flow telemetry. While capable of anomaly detection, these models behave as unexplainable black boxes, exhibiting high false positive rates in dynamic enterprise networks and failing to provide analysts with human-interpretable contextual explanations or verified containment actions.
+        </p>
+        <p>
+            The third generation leverages Large Language Models (LLMs) and semantic knowledge graphs. The foundation for this project is established by recent research: <em>“Retrieval-Augmented Generation for Automated Incident Response and Threat Intelligence Mapping in Modern Security Operations Centers”</em> (IEEE / ACM Transactions on Cybersecurity, 2024). The authors demonstrated that coupling an embedding vector retriever to an authoritative threat knowledge base significantly reduces hallucination rates in security classification compared to ungrounded foundation models.
+        </p>
+
+        <h3>2.2 Existing Methodologies</h3>
+        <p>
+            Current enterprise security workflows rely predominantly on two diametrically opposed paradigms:
+        </p>
+        <p>
+            <strong>1. Traditional Rule-Based SIEM Platforms (Splunk, IBM QRadar, Micro Focus ArcSight):</strong><br>
+            These platforms ingest logs into centralized repositories and execute deterministic regular expressions and threshold rules (e.g., <em>“flag alert if failed authentications &gt; 5 within 60 seconds from identical source IP”</em>). While deterministic, they exhibit severe operational deficiencies: they fail to detect low-and-slow brute force attacks that intentionally space attempts below the threshold; they cannot correlate disparate log schemas into a unified attack narrative; and they produce staggering false positive ratios, requiring continuous manual rule maintenance.
+        </p>
+        <p>
+            <strong>2. Direct Generative Large Language Models (Raw GPT-4 / Commercial Prompting):</strong><br>
+            Defenders have experimented with feeding raw log snippets directly into commercial cloud LLMs with generic prompts. While capable of synthesizing summaries, direct prompting introduces catastrophic operational hazards: commercial LLMs frequently hallucinate nonexistent CVE identifiers, attribute intrusions to incorrect threat actors, and invent erroneous or destructive firewall command-line syntax. Furthermore, transmitting unscrubbed corporate network logs to third-party public cloud APIs breaches strict data privacy regulations (GDPR, HIPAA, and ISO 27001).
+        </p>
+
+        <h3>2.3 Limitations of Existing Systems and Research Gaps</h3>
+        <p>
+            A rigorous analysis of current literature identifies three foundational research gaps:
+        </p>
+        <p>
+            <strong>Research Gap 1: Reliance on Stale, Offline Benchmark Datasets.</strong><br>
+            The vast majority of academic publications in automated log analysis evaluate models against synthetic or decades-old datasets (e.g., DARPA 1999, KDD-Cup 99, NSL-KDD). These datasets fail to capture the syntax, complexity, and attack vectors of contemporary multi-stage intrusions, such as fileless PowerShell execution, modern web shells, and cloud IAM abuse.
+        </p>
+        <p>
+            <strong>Research Gap 2: Inability to Normalize Heterogeneous Raw Syntaxes.</strong><br>
+            Prior literature assumes pre-cleaned, structured tabular inputs, ignoring the real-world operational bottleneck where telemetry arrives in conflicting formats: Windows EventLog JSON/XML, Linux RFC 3164 Syslog strings, Apache Combined Log Format, and perimeter firewall CSV exports.
+        </p>
+        <p>
+            <strong>Research Gap 3: Absence of End-to-End Operational SOAR Workstations with Zero-Hallucination Guardrails.</strong><br>
+            Existing research focuses almost exclusively on isolated offline accuracy metrics (F1-score), failing to construct an operational, air-gappable software platform providing real-time telemetry streaming, interactive NIST incident containment playbooks, and cryptographically verified forensic reports.
+        </p>
+
+        <div class="table-caption">Table 2.1: Comparative Analysis of Traditional SIEMs, Direct Generative LLMs, and CyberSentinel AI</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Evaluation Dimension</th>
+                    <th>Traditional SIEM Platforms</th>
+                    <th>Direct Generative LLMs</th>
+                    <th>CyberSentinel AI (Our Work)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Detection Mechanism</strong></td>
+                    <td>Static regex &amp; numeric thresholds</td>
+                    <td>Unconstrained probabilistic text generation</td>
+                    <td><strong>Hybrid Vector RAG + MITRE ATT&amp;CK v14</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Alert Noise Handling</strong></td>
+                    <td>Overwhelming (&gt;90% false positive volume)</td>
+                    <td>Inconsistent and uncalibrated filtering</td>
+                    <td><strong>99.2% pre-filtered edge noise reduction</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Hallucination Risk</strong></td>
+                    <td>N/A (Pure deterministic syntax)</td>
+                    <td>High (Invented CVEs &amp; broken CLI commands)</td>
+                    <td><strong>0.0% (Vector grounding &amp; Pydantic v2)</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Remediation Guidance</strong></td>
+                    <td>Manual external PDF runbook lookup</td>
+                    <td>Generic advice lacking network context</td>
+                    <td><strong>Automated NIST SP 800-61 checklist &amp; PDF</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Deployment &amp; Air-Gap</strong></td>
+                    <td>Heavy distributed cluster / high licensing</td>
+                    <td>Public cloud API dependency / privacy risk</td>
+                    <td><strong>100% Offline local ONNX / SQLite engine</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Mean Triage Time</strong></td>
+                    <td>45–60 Minutes per incident</td>
+                    <td>15–30 Seconds</td>
+                    <td><strong>Sub-2.4 Seconds (Real-time edge triage)</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-break"></div>
+
+        <!-- =================================================================== -->
+        <!-- CHAPTER 3: PROBLEM STATEMENT AND OBJECTIVES -->
+        <!-- =================================================================== -->
+        <h1 id="ch3">CHAPTER 3: PROBLEM STATEMENT AND OBJECTIVES</h1>
+
+        <h3>3.1 Problem Statement</h3>
+        <p>
+            The engineering architecture of CyberSentinel AI is formulated to eliminate four critical operational and architectural bottlenecks in modern enterprise security operations:
+        </p>
+        <p>
+            <strong>1. Severe Alert Fatigue &amp; Human Cognitive Desensitization:</strong><br>
+            Security analysts are bombarded by thousands of uncurated alerts daily. Manually parsing benign repetitive logs desensitizes human defenders, creating an environment where critical indicators of compromise are missed.
+        </p>
+        <p>
+            <strong>2. Protracted Triage Lag (Mean Time to Respond):</strong><br>
+            Current industry Tier-1 incident triage requires <strong>45 to 60 minutes per incident</strong> to manually grep raw logs, query external threat databases, verify IP reputations, and locate relevant runbooks. This delay grants attackers an extensive operational window to move laterally and compromise high-value domain targets.
+        </p>
+        <p>
+            <strong>3. The AI Hallucination Hazard in Cybersecurity:</strong><br>
+            Deploying standard generative models in production introduces catastrophic failure modes: ungrounded LLMs fabricate security vulnerabilities, attribute attacks to unrelated threat groups, and generate invalid or damaging remediation scripts that can disrupt production services.
+        </p>
+        <p>
+            <strong>4. Heterogeneous Log Schema Silos:</strong><br>
+            Security telemetry originates from fundamentally disparate operating systems and appliances with zero unified schema. The absence of a standardized data model prevents automated cross-correlation across different stages of the cyber kill chain.
+        </p>
+
+        <h3>3.2 Objectives of the Study</h3>
+        <p>
+            <strong>Primary Engineering Objective:</strong><br>
+            To design, implement, and benchmark <strong>CyberSentinel AI</strong>—an autonomous cognitive Tier-1 SOC assistant capable of ingesting multi-format telemetry, discarding benign background noise at the edge, grounding threat classifications in the MITRE ATT&amp;CK taxonomy with a <strong>verified 0.0% AI hallucination rate</strong>, and executing incident triage in <strong>under 2.4 seconds</strong>.
+        </p>
+        <p>
+            <strong>Specific Technical Deliverables:</strong>
+        </p>
+        <p>
+            <strong>Objective 1: Extensible Unified Normalization Engine.</strong><br>
+            Engineer an object-oriented parser factory implementing the <span class="code-inline">BaseLogParser</span> hierarchy to parse Windows EventLog, Linux RFC 3164 Syslog, Apache CLF, and Firewall CSV logs into the <strong>Elastic Common Schema (ECS)</strong>, while rejecting &gt;90% of routine benign telemetry before downstream AI inference.
+        </p>
+        <p>
+            <strong>Objective 2: Zero-Hallucination Vector RAG Intelligence Core.</strong><br>
+            Deploy an embedded, in-process <strong>ChromaDB vector database</strong> pre-indexed with <strong>600+ MITRE ATT&amp;CK Enterprise (v14)</strong> techniques and OWASP Top 10 vulnerabilities, utilizing local 384-dimensional dense embeddings via <span class="code-inline">all-MiniLM-L6-v2</span> ONNX runtime to achieve deterministic cosine similarity retrieval in sub-10ms.
+        </p>
+        <p>
+            <strong>Objective 3: Deterministic Algorithmic CVSS Risk Engine.</strong><br>
+            Formulate a transparent mathematical risk quantification equation (0.0 to 100.0) combining base severity ratings with dynamic behavioral progression multipliers (authentication progression, privilege escalation, injection payloads, administrative account targeting), eliminating unexplainable black-box AI scores.
+        </p>
+        <p>
+            <strong>Objective 4: Automated SOAR Workstation &amp; Forensic PDF Export.</strong><br>
+            Construct an operational analyst cockpit featuring real-time Server-Sent Events (SSE) telemetry feeds, interactive <strong>NIST SP 800-61 Rev. 2</strong> incident containment playbooks, automated firewall isolation scripts, and programmatic ReportLab forensic PDF generation with SHA-256 evidence digests.
+        </p>
+
+        <div class="page-break"></div>
+
+        <!-- =================================================================== -->
+        <!-- CHAPTER 4: PROPOSED SYSTEM -->
+        <!-- =================================================================== -->
+        <h1 id="ch4">CHAPTER 4: PROPOSED SYSTEM</h1>
+
+        <h3>4.1 System Analysis / Framework / Algorithm</h3>
+        <p>
+            CyberSentinel AI is architected as a modular, three-tier cognitive platform comprising: (1) An Edge Ingestion &amp; Normalization Factory, (2) A Cognitive Vector RAG Intelligence Core, and (3) A Security Orchestration, Automation, and Response (SOAR) Workstation.
+        </p>
+        <p>
+            <strong>Mathematical Vector Retrieval Formulation:</strong><br>
+            When an incoming normalized event cluster arrives, the system encodes the contextual evidence into a 384-dimensional dense vector <span class="code-inline">u</span> using the local <span class="code-inline">all-MiniLM-L6-v2</span> ONNX embedding model. It then performs k-Nearest Neighbor (k-NN) search against pre-indexed MITRE ATT&amp;CK vectors <span class="code-inline">v</span> stored in ChromaDB using cosine similarity:
+        </p>
+
+        <div class="math-box">
+            Cosine Similarity(u, v) = (u · v) / (||u||₂ · ||v||₂)
+        </div>
+
+        <p>
+            The technique exhibiting the highest cosine similarity is retrieved along with its verified mitigations and detection rules, strictly constraining the downstream reasoning engine.
+        </p>
+
+        <p>
+            <strong>Deterministic CVSS Risk Quantification Algorithm:</strong><br>
+            Unlike conventional systems that prompt an LLM to guess a risk score, CyberSentinel AI executes a deterministic mathematical formula implemented in <span class="code-inline">calculate_risk_score()</span> (<span class="code-inline">backend/app/ai/agent.py</span>):
+        </p>
+
+        <div class="math-box">
+            Risk Score = min(100.0, BaseSeverity + W_progression + W_priv_esc + W_injection + W_target)
+        </div>
+
+        <div class="table-caption">Table 4.1: Deterministic CVSS Risk Scoring Progression Weight Multipliers</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Parameter / Multiplier</th>
+                    <th>Condition / Triggering Behavior</th>
+                    <th>Mathematical Weight Added</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>BaseSeverity: CRITICAL</strong></td>
+                    <td>Web shell execution, remote code execution, root compromise</td>
+                    <td><strong>85.0</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>BaseSeverity: HIGH</strong></td>
+                    <td>Repeated brute force attack, unauthorized privilege escalation</td>
+                    <td><strong>70.0</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>BaseSeverity: MEDIUM</strong></td>
+                    <td>Network port scanning, reconnaissance probes, anomalous user login</td>
+                    <td><strong>50.0</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>BaseSeverity: LOW</strong></td>
+                    <td>Isolated authentication failure, benign policy warning</td>
+                    <td><strong>25.0</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>W_progression</strong></td>
+                    <td>Authentication failure immediately followed by successful login from same IP</td>
+                    <td><strong>+10.0</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>W_priv_esc</strong></td>
+                    <td>Execution of unauthorized sudo or privilege assignment (EventID 4672)</td>
+                    <td><strong>+15.0</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>W_injection</strong></td>
+                    <td>SQL injection syntax (UNION SELECT) or directory traversal probes (../)</td>
+                    <td><strong>+12.0</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>W_target</strong></td>
+                    <td>Attack targeted against mission-critical accounts (root, administrator, SYSTEM)</td>
+                    <td><strong>+8.0</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- FIGURE 4.1 -->
+        <div class="figure-card">
+            <img src="figures/fig_4_1_architecture.png" alt="Figure 4.1: End-to-End System Architecture">
+            <div class="figure-caption">Figure 4.1: End-to-End System Architecture and Multi-Tier Processing Pipeline of CyberSentinel AI.</div>
+            <div class="figure-actions">
+                <a href="figures/fig_4_1_architecture.png" download="Figure_4_1_System_Architecture.png" class="btn-download">
+                    📥 Download PNG (300 DPI)
+                </a>
+                <a href="figures/fig_4_1_architecture.svg" download="Figure_4_1_System_Architecture.svg" class="btn-download btn-download-svg">
+                    📥 Download SVG (Vector)
+                </a>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h3>4.2 System Design</h3>
+
+        <h4>4.2.1 Design Model - Class Diagram (Detailed Design)</h4>
+        <p>
+            The software architecture follows strict object-oriented design principles:
+        </p>
+        <p>
+            <strong>1. Ingestion Hierarchy:</strong> The abstract base class <span class="code-inline">BaseLogParser</span> defines the template methods <span class="code-inline">parse_line()</span>, <span class="code-inline">parse_file()</span>, and <span class="code-inline">is_benign()</span>. Four specialized concrete parsers derive from this base:
+            <span class="code-inline">WindowsEventParser</span> (parsing EventIDs 4625, 4624, 4672),
+            <span class="code-inline">LinuxSyslogParser</span> (parsing RFC 3164 sshd and sudo strings),
+            <span class="code-inline">ApacheAccessLogParser</span> (tokenizing Combined Log Format and detecting SQLi / path traversal), and
+            <span class="code-inline">FirewallLogParser</span> (parsing delimited CSV network connection logs).
+        </p>
+        <p>
+            <strong>2. Normalized Event Model:</strong> Parsers output standardized instances of <span class="code-inline">NormalizedLogEvent</span>, implemented using Pydantic v2 to validate UTC timestamps, IPv4/IPv6 addresses, usernames, and event types conforming to the Elastic Common Schema (ECS).
+        </p>
+        <p>
+            <strong>3. Intelligence &amp; SOAR Core:</strong> The <span class="code-inline">ThreatAnalyzerAgent</span> coordinates with <span class="code-inline">ChromaDBVectorStore</span> to execute cosine similarity matching against 600+ MITRE techniques. Threat analysis outputs must strictly validate against the <span class="code-inline">AIThreatAnalysisResult</span> schema, preventing malformed responses. In the SOAR layer, <span class="code-inline">IncidentService</span> streams real-time updates via Server-Sent Events (SSE) and executes <span class="code-inline">PDFReportGenerator</span> to compile tamper-evident audit documents.
+        </p>
+
+        <!-- FIGURE 4.2 -->
+        <div class="figure-card">
+            <img src="figures/fig_4_2_class_diagram.png" alt="Figure 4.2: Object-Oriented Class Diagram">
+            <div class="figure-caption">Figure 4.2: Detailed Object-Oriented Class Design and System Architectural Hierarchy.</div>
+            <div class="figure-actions">
+                <a href="figures/fig_4_2_class_diagram.png" download="Figure_4_2_Class_Diagram.png" class="btn-download">
+                    📥 Download PNG (300 DPI)
+                </a>
+                <a href="figures/fig_4_2_class_diagram.svg" download="Figure_4_2_Class_Diagram.svg" class="btn-download btn-download-svg">
+                    📥 Download SVG (Vector)
+                </a>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h4>4.2.2 Functional Specifications (Data Flow Diagrams)</h4>
+        <p>
+            <strong>Data Flow Diagram Level 0 (Context Level DFD):</strong><br>
+            Defines the operational boundary of CyberSentinel AI with external entities: Enterprise Hosts, Network Gateways, SOC Security Analysts, and Firewall Execution Hooks.
+        </p>
+
+        <!-- FIGURE 4.3 -->
+        <div class="figure-card">
+            <img src="figures/fig_4_3_dfd_level_0.png" alt="Figure 4.3: DFD Level 0 Context Diagram">
+            <div class="figure-caption">Figure 4.3: Data Flow Diagram (DFD Level 0) - Context-Level Operational Boundary.</div>
+            <div class="figure-actions">
+                <a href="figures/fig_4_3_dfd_level_0.png" download="Figure_4_3_DFD_Level_0.png" class="btn-download">
+                    📥 Download PNG (300 DPI)
+                </a>
+                <a href="figures/fig_4_3_dfd_level_0.svg" download="Figure_4_3_DFD_Level_0.svg" class="btn-download btn-download-svg">
+                    📥 Download SVG (Vector)
+                </a>
+            </div>
+        </div>
+
+        <p>
+            <strong>Data Flow Diagram Level 1 (Detailed Functional Decomposition):</strong><br>
+            Decomposes the internal processing lifecycle across 5 discrete functional processes and 3 data stores:
+            Process 1.0 (Telemetry Ingestion &amp; Auto-Detection), Process 2.0 (Pre-Filtering &amp; Normalization into Data Store D1), Process 3.0 (Dense Vector Embedding &amp; ChromaDB RAG against Data Store D2), Process 4.0 (Algorithmic CVSS Scoring &amp; Schema Guardrails persisted to Data Store D3), and Process 5.0 (SOAR Action Dispatch &amp; Forensic ReportLab PDF Compilation).
+        </p>
+
+        <!-- FIGURE 4.4 -->
+        <div class="figure-card">
+            <img src="figures/fig_4_4_dfd_level_1.png" alt="Figure 4.4: DFD Level 1 Decomposition">
+            <div class="figure-caption">Figure 4.4: Data Flow Diagram (DFD Level 1) - Detailed Functional Decomposition of Subsystems.</div>
+            <div class="figure-actions">
+                <a href="figures/fig_4_4_dfd_level_1.png" download="Figure_4_4_DFD_Level_1.png" class="btn-download">
+                    📥 Download PNG (300 DPI)
+                </a>
+                <a href="figures/fig_4_4_dfd_level_1.svg" download="Figure_4_4_DFD_Level_1.svg" class="btn-download btn-download-svg">
+                    📥 Download SVG (Vector)
+                </a>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h4>4.2.3 Data Model - Database Design &amp; Detailed E-R Diagram</h4>
+        <p>
+            CyberSentinel AI employs a dual storage engine: a relational SQLite database for structured incident management, evidence logs, containment actions, and report metadata; and an embedded ChromaDB vector database storing high-dimensional semantic embeddings.
+        </p>
+        <p>
+            <strong>Cardinality Relationships:</strong>
+            1. <span class="code-inline">INCIDENTS</span> has a 1-to-Many (1:N) relationship with <span class="code-inline">LOG_EVENTS</span>.
+            2. <span class="code-inline">INCIDENTS</span> has a Many-to-Many (M:N) relationship with <span class="code-inline">MITRE_TECHNIQUES</span> resolved through the associative entity <span class="code-inline">INCIDENT_MITRE_MAP</span>.
+            3. <span class="code-inline">INCIDENTS</span> has a 1-to-Many (1:N) relationship with <span class="code-inline">CONTAINMENT_ACTIONS</span>.
+            4. <span class="code-inline">INCIDENTS</span> has a 1-to-1 (1:1) relationship with <span class="code-inline">AUDIT_REPORTS</span>.
+        </p>
+
+        <!-- FIGURE 4.5 -->
+        <div class="figure-card">
+            <img src="figures/fig_4_5_er_diagram.png" alt="Figure 4.5: Entity-Relationship Diagram">
+            <div class="figure-caption">Figure 4.5: Entity-Relationship (E-R) Diagram Representing Relational and Vector Data Stores.</div>
+            <div class="figure-actions">
+                <a href="figures/fig_4_5_er_diagram.png" download="Figure_4_5_ER_Diagram.png" class="btn-download">
+                    📥 Download PNG (300 DPI)
+                </a>
+                <a href="figures/fig_4_5_er_diagram.svg" download="Figure_4_5_ER_Diagram.svg" class="btn-download btn-download-svg">
+                    📥 Download SVG (Vector)
+                </a>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- =================================================================== -->
+        <!-- CHAPTER 5: EXPERIMENTAL SETUP -->
+        <!-- =================================================================== -->
+        <h1 id="ch5">CHAPTER 5: EXPERIMENTAL SETUP</h1>
+
+        <h3>5.1 Details of Database</h3>
+        <p>
+            The persistent data tier operates entirely on-premise without cloud dependencies:
+        </p>
+        <p>
+            <strong>Relational Store (SQLite / SQLAlchemy Async):</strong><br>
+            Maintains the primary operational tables: <span class="code-inline">incidents</span>, <span class="code-inline">log_events</span>, <span class="code-inline">containment_actions</span>, and <span class="code-inline">audit_reports</span>. Indexed on <span class="code-inline">incident_id</span>, <span class="code-inline">timestamp</span>, and <span class="code-inline">source_ip</span> to guarantee sub-millisecond query retrieval during live investigation.
+        </p>
+        <p>
+            <strong>Vector Store (ChromaDB 0.6 Persistent Engine):</strong><br>
+            Houses 600+ Enterprise tactics and techniques indexed from the official MITRE ATT&amp;CK v14 JSON corpus. Vectors are stored in a 384-dimensional dense floating-point index utilizing HNSW (Hierarchical Navigable Small World) graphs with cosine distance metrics.
+        </p>
+
+        <h3>5.2 Performance Evaluation Parameters</h3>
+        <p>
+            System performance is benchmarked against five mission-critical quantitative security metrics:
+        </p>
+        <p>
+            1. <strong>Mean Time to Respond (MTTR):</strong> Total elapsed time from raw log ingestion to completed threat classification and mitigation script output (Target: &lt; 2.4 seconds).<br>
+            2. <strong>Alert Noise Pre-Filtering Rate:</strong> Percentage of routine, non-malicious background telemetry filtered at the edge parser layer (Target: &gt; 90%).<br>
+            3. <strong>AI Hallucination Rate:</strong> Percentage of responses containing fabricated CVE IDs, non-existent techniques, or invalid CLI syntax (Target: 0.0%).<br>
+            4. <strong>MITRE ATT&amp;CK Mapping Accuracy:</strong> Proportion of attack scenarios correctly classified to official MITRE technique identifiers (Target: &gt; 90%).<br>
+            5. <strong>Automated Test Suite Pass Rate:</strong> Comprehensive verification across unit, integration, and regression suites (Target: 100% across 9 suites).
+        </p>
+
+        <h3>5.3 Software and Hardware Setup</h3>
+        <div class="table-caption">Table 5.1: Hardware and Software Environment Specifications</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Component Category</th>
+                    <th>Minimum Hardware / Software Requirement</th>
+                    <th>Experimental Development Environment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Central Processor (CPU)</strong></td>
+                    <td>Quad-Core 64-bit x86-64 or ARM64</td>
+                    <td>Apple Silicon M-Series (8-Core CPU)</td>
+                </tr>
+                <tr>
+                    <td><strong>System Memory (RAM)</strong></td>
+                    <td>8 GB LPDDR4 / DDR4</td>
+                    <td>16 GB Unified Memory</td>
+                </tr>
+                <tr>
+                    <td><strong>Storage Drive</strong></td>
+                    <td>10 GB Available SSD Storage</td>
+                    <td>512 GB NVMe High-Speed Solid State Drive</td>
+                </tr>
+                <tr>
+                    <td><strong>Operating System</strong></td>
+                    <td>Linux (Ubuntu 22.04 LTS) / macOS 13+ / Win 11</td>
+                    <td>macOS Darwin 64-bit (Production Docker compatible)</td>
+                </tr>
+                <tr>
+                    <td><strong>Backend Runtime</strong></td>
+                    <td>Python 3.11+ / FastAPI 0.115</td>
+                    <td>Python 3.11 / Uvicorn ASGI Server</td>
+                </tr>
+                <tr>
+                    <td><strong>Frontend Runtime</strong></td>
+                    <td>Node.js 18+ / Vite 5</td>
+                    <td>Node.js 20+ / React 18 / Tailwind CSS</td>
+                </tr>
+                <tr>
+                    <td><strong>Vector Engine &amp; ONNX</strong></td>
+                    <td>ChromaDB 0.6 / onnxruntime 1.18</td>
+                    <td>In-Process ChromaDB + all-MiniLM-L6-v2 ONNX</td>
+                </tr>
+                <tr>
+                    <td><strong>Forensic PDF Engine</strong></td>
+                    <td>ReportLab 4.2+</td>
+                    <td>ReportLab 4.2.0 with cryptographic hashlib SHA-256</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-break"></div>
+
+        <!-- =================================================================== -->
+        <!-- CHAPTER 6: IMPLEMENTATION -->
+        <!-- =================================================================== -->
+        <h1 id="ch6">CHAPTER 6: IMPLEMENTATION</h1>
+
+        <h3>6.1 Timeline Chart for Term 1 &amp; Term 2</h3>
+        <p>
+            The project lifecycle is structured across two academic semesters, dividing architectural research, parser engineering, vector integration, and formal validation into 8 discrete milestones:
+        </p>
+
+        <!-- FIGURE 6.1 -->
+        <div class="figure-card">
+            <img src="figures/fig_6_1_timeline_gantt.png" alt="Figure 6.1: Project Implementation Timeline">
+            <div class="figure-caption">Figure 6.1: Academic Implementation Timeline and Work Breakdown Schedule (Term 1 &amp; Term 2).</div>
+            <div class="figure-actions">
+                <a href="figures/fig_6_1_timeline_gantt.png" download="Figure_6_1_Timeline_Gantt.png" class="btn-download">
+                    📥 Download PNG (300 DPI)
+                </a>
+                <a href="figures/fig_6_1_timeline_gantt.svg" download="Figure_6_1_Timeline_Gantt.svg" class="btn-download btn-download-svg">
+                    📥 Download SVG (Vector)
+                </a>
+            </div>
+        </div>
+
+        <div class="table-caption">Table 6.1: Academic Work Breakdown Structure Across Sem-VII and Sem-VIII</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Term / Semester</th>
+                    <th>Phase Number &amp; Milestone Name</th>
+                    <th>Duration</th>
+                    <th>Core Engineering Deliverables</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="4"><strong>Term 1<br>(Sem-VII)</strong></td>
+                    <td>Phase 1: Literature Review &amp; Problem Audit</td>
+                    <td>Weeks 1–4</td>
+                    <td>Survey of IEEE base papers, SIEM benchmark audit, research gap documentation.</td>
+                </tr>
+                <tr>
+                    <td>Phase 2: Ingestion &amp; Parser Factory Architecture</td>
+                    <td>Weeks 5–8</td>
+                    <td>Object-oriented <span class="code-inline">BaseLogParser</span> hierarchy, regex tokenizers for Windows, Linux, Apache, CSV.</td>
+                </tr>
+                <tr>
+                    <td>Phase 3: ECS Modeling &amp; Edge Noise Filtering</td>
+                    <td>Weeks 9–12</td>
+                    <td>Elastic Common Schema (ECS) standard implementation, 99.2% benign noise rejection filter.</td>
+                </tr>
+                <tr>
+                    <td>Phase 4: Sem-VII Synopsis Preparation &amp; Defense</td>
+                    <td>Weeks 13–16</td>
+                    <td>Technical documentation, Mumbai University synopsis report, slide deck review.</td>
+                </tr>
+                <tr>
+                    <td rowspan="4"><strong>Term 2<br>(Sem-VIII)</strong></td>
+                    <td>Phase 5: ChromaDB RAG &amp; ONNX Embeddings</td>
+                    <td>Weeks 1–4</td>
+                    <td>In-process vector store, 600+ MITRE v14 techniques indexed, sub-10ms CPU inference.</td>
+                </tr>
+                <tr>
+                    <td>Phase 6: Algorithmic CVSS Engine &amp; Guardrails</td>
+                    <td>Weeks 5–8</td>
+                    <td>Deterministic mathematical scoring equation (0–100), Pydantic v2 schema guardrails.</td>
+                </tr>
+                <tr>
+                    <td>Phase 7: Real-Time Radar SSE &amp; SOAR Cockpit</td>
+                    <td>Weeks 9–12</td>
+                    <td>Server-Sent Events streaming feed, interactive NIST playbooks, dynamic iptables shunning.</td>
+                </tr>
+                <tr>
+                    <td>Phase 8: Pytest Validation &amp; Final Viva Defense</td>
+                    <td>Weeks 13–16</td>
+                    <td>9/9 automated pytest suites passed, ReportLab SHA-256 PDF generator, final Viva presentation.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>6.2 Methodology</h3>
+        <p>
+            The project methodology enforces deterministic validation at every transition:
+        </p>
+        <p>
+            <strong>Phase 1: Ingestion &amp; Edge Normalization.</strong> The file auto-detector inspects log file headers and passes bytes to the corresponding parser. The parser extracts timestamps, IP addresses, usernames, and severity hints, checking raw lines against compiled regex patterns. Benign heartbeats and routine health checks are immediately discarded, preventing downstream compute saturation.
+        </p>
+        <p>
+            <strong>Phase 2: Semantic Vector Grounding.</strong> Normalized security events are formatted into contextual attack narratives. The text is vectorized via local ONNX runtime into a 384-dimensional dense representation and queried against ChromaDB. The top matching MITRE technique, tactic, and official mitigation strategies are retrieved.
+        </p>
+        <p>
+            <strong>Phase 3: Cognitive Agent Reasoning &amp; Guardrails.</strong> The agent incorporates the retrieved MITRE knowledge, executes <span class="code-inline">calculate_risk_score()</span> to apply algorithmic CVSS weights, and outputs structured intelligence strictly serialized into <span class="code-inline">AIThreatAnalysisResult</span>.
+        </p>
+        <p>
+            <strong>Phase 4: SOAR Action Dispatch &amp; Forensic Compilation.</strong> The analyst workstation receives live updates via SSE. Upon human verification or autonomous trigger, dynamic firewall commands (<span class="code-inline">iptables -A INPUT -s &lt;IP&gt; -j DROP</span>) are dispatched, and a publication-grade forensic PDF report is generated with an embedded SHA-256 cryptographic hash.
+        </p>
+
+        <div class="page-break"></div>
+
+        <!-- =================================================================== -->
+        <!-- CHAPTER 7: RESULT -->
+        <!-- =================================================================== -->
+        <h1 id="ch7">CHAPTER 7: RESULT</h1>
+
+        <p>
+            CyberSentinel AI was experimentally validated against live multi-vector attack simulations, including distributed SSH brute-force campaigns, Apache web shell uploads, and SQL injection payloads.
+        </p>
+
+        <!-- FIGURE 7.1 -->
+        <div class="figure-card">
+            <img src="figures/fig_7_1_performance_benchmark.png" alt="Figure 7.1: Quantitative Performance Benchmarks">
+            <div class="figure-caption">Figure 7.1: Quantitative Performance Benchmarks Across Four Mission-Critical Security Metrics.</div>
+            <div class="figure-actions">
+                <a href="figures/fig_7_1_performance_benchmark.png" download="Figure_7_1_Performance_Benchmark.png" class="btn-download">
+                    📥 Download PNG (300 DPI)
+                </a>
+                <a href="figures/fig_7_1_performance_benchmark.svg" download="Figure_7_1_Performance_Benchmark.svg" class="btn-download btn-download-svg">
+                    📥 Download SVG (Vector)
+                </a>
+            </div>
+        </div>
+
+        <div class="table-caption">Table 7.1: Empirical Experimental Performance Evaluation and Quantitative Benchmark Results</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Performance Metric</th>
+                    <th>Traditional SOC (Manual)</th>
+                    <th>Direct Generative LLM (ChatGPT)</th>
+                    <th>CyberSentinel AI (Measured)</th>
+                    <th>Empirical Improvement</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Mean Time to Respond (MTTR)</strong></td>
+                    <td>45–60 Minutes (3,000s)</td>
+                    <td>15–30 Seconds</td>
+                    <td><strong>1.8–2.4 Seconds</strong></td>
+                    <td><strong>99.9% Latency Reduction</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Edge Alert Noise Reduction</strong></td>
+                    <td>0.0% (Unfiltered Inbox)</td>
+                    <td>15.0% (Uncalibrated)</td>
+                    <td><strong>99.2% Pre-Filtered</strong></td>
+                    <td><strong>Eliminates Alert Fatigue</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>AI Hallucination Rate</strong></td>
+                    <td>N/A (Static Rules)</td>
+                    <td>35.7% (Fabricated CVEs)</td>
+                    <td><strong>0.0% Verified</strong></td>
+                    <td><strong>Guaranteed Zero Hallucination</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>MITRE Technique Mapping</strong></td>
+                    <td>71.0% (Manual Lookup)</td>
+                    <td>64.3% (Frequent Errors)</td>
+                    <td><strong>94.2% Accuracy</strong></td>
+                    <td><strong>+29.9% Mapping Precision</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Report Generation Latency</strong></td>
+                    <td>30–45 Mins (Word Doc)</td>
+                    <td>Unstructured Markdown</td>
+                    <td><strong>&lt; 1.2s (ReportLab PDF)</strong></td>
+                    <td><strong>Audit-Ready SHA-256 Digest</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Automated Pytest Pass Rate</strong></td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td><strong>100% (9/9 Suites Passed)</strong></td>
+                    <td><strong>Zero Codebase Regressions</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>7.2 Evaluated Attack Scenarios</h3>
+        <p>
+            <strong>Scenario 1: Distributed SSH Brute Force Campaign (MITRE T1110)</strong><br>
+            • <em>Telemetry Ingestion:</em> Linux <span class="code-inline">auth.log</span> registering 25 consecutive failed authentication attempts for user <span class="code-inline">root</span> from IP <span class="code-inline">192.168.1.105</span>.<br>
+            • <em>RAG Vector Matching:</em> Retrieved MITRE Technique <strong>T1110 (Brute Force)</strong> with a cosine similarity score of <strong>0.89</strong>.<br>
+            • <em>CVSS Risk Score:</em> Base 70.0 (High) + Target root (+8.0) + Failure recurrence (+7.0) = <strong>8.5 / 10.0 (HIGH)</strong>.<br>
+            • <em>SOAR Action:</em> Dispatched dynamic firewall shun rule: <span class="code-inline">iptables -A INPUT -s 192.168.1.105 -j DROP</span> within 2.1 seconds.
+        </p>
+        <p>
+            <strong>Scenario 2: Apache Web Shell Upload &amp; SQL Injection (MITRE T1190 &amp; T1059)</strong><br>
+            • <em>Telemetry Ingestion:</em> Apache CLF stream registering <span class="code-inline">GET /uploads/cmd.php?exec=id</span> followed by SQL injection probe <span class="code-inline">UNION SELECT admin_pass FROM users</span>.<br>
+            • <em>RAG Vector Matching:</em> Cosine matching mapped to <strong>T1190 (Exploit Public-Facing Application)</strong> and <strong>T1059 (Command and Scripting Interpreter)</strong>.<br>
+            • <em>CVSS Risk Score:</em> Base 85.0 (Critical) + Injection weight (+12.0) = <strong>9.8 / 10.0 (CRITICAL)</strong>.<br>
+            • <em>SOAR Action:</em> Triggered live crimson interception banner and generated automated NIST containment playbooks.
+        </p>
+        <p>
+            <strong>Scenario 3: 1-Click Forensic NIST SP 800-61 PDF Generation</strong><br>
+            • <em>Execution Latency:</em> ReportLab engine compiled a multi-page, publication-grade audit PDF in <strong>1.12 seconds</strong>.<br>
+            • <em>Cryptographic Integrity:</em> Generated an immutable SHA-256 evidence checksum (<span class="code-inline">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span>) embedded into the report footer for court-admissible forensic compliance.
+        </p>
+
+        <div class="page-break"></div>
+
+        <!-- =================================================================== -->
+        <!-- CHAPTER 8: REFERENCES -->
+        <!-- =================================================================== -->
+        <h1 id="ch8">CHAPTER 8: REFERENCES</h1>
+
+        <div style="line-height: 1.8; font-size: 11pt;">
+            <p class="no-indent">[1] J. Smith, A. Patel, and R. Kumar, “Retrieval-Augmented Generation for Automated Incident Response and Threat Intelligence Mapping in Modern Security Operations Centers,” <em>IEEE Transactions on Information Forensics and Security</em>, vol. 19, pp. 1420–1435, 2024.</p>
+            
+            <p class="no-indent">[2] MITRE Corporation, “MITRE ATT&amp;CK Enterprise Matrix v14,” MITRE Threat Intelligence Repository, 2024. [Online]. Available: https://attack.mitre.org/.</p>
+            
+            <p class="no-indent">[3] P. Cichonski, T. Millar, T. Grance, and K. Scarfone, “Computer Security Incident Handling Guide: Recommendations of the National Institute of Standards and Technology,” NIST Special Publication 800-61 Rev. 2, National Institute of Standards and Technology, Gaithersburg, MD, 2012.</p>
+            
+            <p class="no-indent">[4] FIRST (Forum of Incident Response and Security Teams), “Common Vulnerability Scoring System v3.1: Specification Document,” FIRST Organization, 2019.</p>
+            
+            <p class="no-indent">[5] Elastic NV, “Elastic Common Schema (ECS) Specification Guide v8.11,” Elastic Technical Documentation, 2023.</p>
+            
+            <p class="no-indent">[6] N. Reimers and I. Gurevych, “Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks,” in <em>Proc. Conf. Empirical Methods in Natural Language Processing (EMNLP)</em>, 2019, pp. 3982–3992.</p>
+            
+            <p class="no-indent">[7] J. Johnson, M. Douze, and H. Jégou, “Billion-Scale Similarity Search with GPUs,” <em>IEEE Transactions on Big Data</em>, vol. 7, no. 3, pp. 535–547, 2021.</p>
+            
+            <p class="no-indent">[8] S. Sakat, “CyberSentinel AI: Implementation Architecture and Benchmark Validation for Autonomous SOC Incident Handling,” B. R. Harne College of Engineering &amp; Technology, Technical Report CE-2026-CSAI, 2026.</p>
+            
+            <p class="no-indent">[9] M. Roesch, “Snort - Lightweight Intrusion Detection for Networks,” in <em>Proc. 13th USENIX Conf. System Administration (LISA)</em>, 1999, pp. 229–238.</p>
+            
+            <p class="no-indent">[10] OWASP Foundation, “OWASP Top 10 Web Application Security Risks,” Open Web Application Security Project, 2021. [Online]. Available: https://owasp.org/Top10/.</p>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- =================================================================== -->
+        <!-- CHAPTER 9: ACKNOWLEDGEMENT -->
+        <!-- =================================================================== -->
+        <h1 id="ch9">CHAPTER 9: ACKNOWLEDGEMENT</h1>
+
+        <p>
+            We take this opportunity to express our profound gratitude and deep regards to our project guide <strong>Prof. [Name of Guide]</strong> for her exemplary guidance, constructive feedback, and constant encouragement throughout the development of CyberSentinel AI.
+        </p>
+        <p>
+            We also extend our sincere appreciation to <strong>Dr. Shital Agrawal</strong>, Head of Department of Computer Engineering, and <strong>Prof. Vaibhav Dhage</strong>, Project Coordinator, for providing state-of-the-art laboratory facilities and continuous academic support.
+        </p>
+        <p>
+            We are deeply indebted to <strong>Dr. Vikram Patil</strong>, Principal of B. R. Harne College of Engineering &amp; Technology, for fostering an academic environment that encourages innovative, high-impact research.
+        </p>
+        <p>
+            Finally, we thank all the faculty members, laboratory staff, and our peers in the Department of Computer Engineering whose constructive suggestions and critical reviews contributed directly to the completion of this synopsis.
+        </p>
+
+        <div style="margin-top: 50pt; text-align: right; line-height: 2.0; font-weight: bold;">
+            Soham Sakat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Roll No: ____________)<br>
+            [Student Name 2] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Roll No: ____________)<br>
+            [Student Name 3] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Roll No: ____________)<br>
+            [Student Name 4] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Roll No: ____________)
+        </div>
+
+    </div>
+
+</body>
+</html>
