@@ -70,7 +70,7 @@ export default function App() {
           setSelectedIncidentId(null);
         }} />
 
-        <main className="flex-1 overflow-y-auto bg-[#080c14]">
+        <main className="flex-1 overflow-y-auto bg-[#050507]">
           {selectedIncidentId ? (
             <IncidentDetail
               incidentId={selectedIncidentId}
