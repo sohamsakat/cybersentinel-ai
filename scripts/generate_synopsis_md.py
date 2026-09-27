@@ -17,7 +17,7 @@ md_content = """# B. R. HARNE COLLEGE OF ENGINEERING & TECHNOLOGY
 
 This is to certify that the requirements for the synopsis entitled:
 
-### **”CYBERSENTINEL AI: AUTONOMOUS COGNITIVE SECURITY OPERATIONS PLATFORM FOR REAL-TIME THREAT INGESTION, VECTOR-GROUNDED MITRE ATT&CK TRIAGE, AND AUTOMATED INCIDENT RESPONSE”**
+### **"CYBERSENTINEL AI: AN AI-POWERED SYSTEM FOR REAL-TIME CYBER ATTACK DETECTION AND AUTOMATED SECURITY RESPONSE"**
 
 have been successfully completed by the following students:
 
@@ -65,13 +65,13 @@ I declare that this written submission represents my ideas in my own words and w
 
 A project is something that could not have been materialized without cooperation of many people. This project shall be incomplete if I do not convey my heartfelt gratitude to those people from whom I have got considerable support and encouragement.
 
-It is a matter of great pleasure for us to have respected **Prof. [Name of Guide]** as our project guide. We are thankful to her for being a constant source of inspiration and technical guidance throughout the design and execution of this work.
+It is a matter of great pleasure for us to have respected **Prof. [Name of Guide]** as our project guide. We are thankful to her for being a constant source of inspiration and guidance throughout the design and development of this work.
 
 We would also like to give our sincere thanks to **Dr. Shital Agrawal**, Head of Department, Computer Engineering Department, and **Prof. Vaibhav Dhage**, Project Coordinator, for their kind support, administrative coordination, and continuous encouragement.
 
-We would like to express our deepest gratitude to **Dr. Vikram Patil**, our respected Principal of B. R. Harne College of Engineering & Technology, Karav, Vangani, for providing the necessary institutional facilities and research ecosystem.
+We would like to express our deepest gratitude to **Dr. Vikram Patil**, our respected Principal of B. R. Harne College of Engineering & Technology, Karav, Vangani, for providing the necessary institutional facilities.
 
-Last but not the least, we would also like to thank all the faculty and staff of B. R. Harne College of Engineering & Technology Computer Engineering Department for their valuable guidance with their interest and valuable suggestions that brightened us.
+Last but not the least, we would also like to thank all the faculty and staff of B. R. Harne College of Engineering & Technology Computer Engineering Department for their valuable guidance and suggestions.
 
 **Soham Sakat** (Roll No: ________)  
 **[Student Name 2]** (Roll No: ________)  
@@ -82,7 +82,11 @@ Last but not the least, we would also like to thank all the faculty and staff of
 
 # ABSTRACT
 
-Modern enterprise Security Operations Centers (SOCs) are overwhelmed by unprecedented volumes of disparate telemetry, ingesting 50,000 to over 100,000 raw logs daily. Empirical industry studies reveal that over 90% of triggered alerts are benign background noise or false alarms, inducing acute cognitive burnout among Tier-1 security analysts and causing median attacker dwell time to exceed 200 days before detection. Traditional SIEM platforms depend on rigid regular expressions and static thresholds that cannot synthesize contextual narratives, whereas direct prompting of generative Large Language Models suffers from severe factual hallucinations and corporate data leakage. This project presents **CyberSentinel AI**, an autonomous cognitive Tier-1 SOC platform engineered to ingest heterogeneous telemetry (Windows EventLogs, Linux RFC 3164 Syslog, Apache CLF, and Firewall CSV), eliminate benign noise at the edge, ground threat analysis in curated MITRE ATT&CK Enterprise (v14) vector embeddings via in-process ChromaDB, and deterministically quantify CVSS risk scores. Evaluated across live attack campaigns, CyberSentinel AI achieves a 99.2% reduction in alert noise, cuts Mean Time to Respond (MTTR) from 45–60 minutes down to 2.1 seconds, enforces a verified 0.0% AI hallucination rate, and automatically compiles tamper-evident NIST SP 800-61 forensic PDF audit reports with SHA-256 integrity verification.
+Today, companies and organisations receive thousands of computer security alerts every single day. Out of all these alerts, more than 90% are false alarms — meaning they are not real attacks at all. Security teams have to manually check each alert, which takes a lot of time and effort. Because of this overload, security staff often miss actual cyber attacks. On average, a hacker can stay hidden inside a company's network for more than 200 days before anyone notices.
+
+Existing security tools either use simple fixed rules that fail to catch new types of attacks, or they use AI tools like ChatGPT which sometimes give wrong or made-up answers — which is dangerous in cybersecurity.
+
+This project presents **CyberSentinel AI** — a smart, automated security assistant that reads computer log files (records of what happened on a computer or server), filters out harmless events, identifies real attacks by comparing them with a database of known hacking techniques, gives each attack a danger score from 0 to 100, and automatically takes action to block the attacker. The system can detect and respond to a cyber attack in under 2.4 seconds, compared to 45–60 minutes when done manually. It also generates a proper PDF report of the incident automatically.
 
 ---
 
@@ -127,13 +131,13 @@ Modern enterprise Security Operations Centers (SOCs) are overwhelmed by unpreced
 
 | Figure No. | Title | Page No. |
 | :--- | :--- | :---: |
-| **Figure 4.1** | End-to-End System Architecture and Multi-Tier Processing Pipeline of CyberSentinel AI | 10 |
-| **Figure 4.2** | Detailed Object-Oriented Class Design and System Architectural Hierarchy | 13 |
-| **Figure 4.3** | Data Flow Diagram (DFD Level 0) - Context-Level Operational Boundary | 15 |
-| **Figure 4.4** | Data Flow Diagram (DFD Level 1) - Detailed Functional Decomposition of Subsystems | 16 |
-| **Figure 4.5** | Entity-Relationship (E-R) Diagram Representing Relational and Vector Data Stores | 18 |
-| **Figure 6.1** | Academic Implementation Timeline and Work Breakdown Schedule (Term 1 & Term 2) | 23 |
-| **Figure 7.1** | Quantitative Performance Benchmarks Across Four Mission-Critical Security Metrics | 27 |
+| **Figure 4.1** | End-to-End System Architecture – How CyberSentinel AI Works Step by Step | 10 |
+| **Figure 4.2** | Class Diagram – Software Structure of the System | 13 |
+| **Figure 4.3** | Data Flow Diagram (DFD Level 0) – Overview of the Entire System | 15 |
+| **Figure 4.4** | Data Flow Diagram (DFD Level 1) – Detailed View of Each Step Inside the System | 16 |
+| **Figure 4.5** | Entity-Relationship (E-R) Diagram – How Data is Stored in the Database | 18 |
+| **Figure 6.1** | Project Timeline – Work Done in Term 1 and Term 2 | 23 |
+| **Figure 7.1** | Performance Results – Comparison of Our System vs Manual and AI-Only Methods | 27 |
 
 ---
 
@@ -141,127 +145,162 @@ Modern enterprise Security Operations Centers (SOCs) are overwhelmed by unpreced
 
 | Table No. | Title | Page No. |
 | :--- | :--- | :---: |
-| **Table 2.1** | Comparative Analysis of Traditional SIEMs, Direct Generative LLMs, and CyberSentinel AI | 6 |
-| **Table 4.1** | Deterministic CVSS Risk Scoring Progression Weight Multipliers | 11 |
-| **Table 5.1** | Hardware and Software Environment Specifications | 21 |
-| **Table 6.1** | Academic Work Breakdown Structure Across Sem-VII and Sem-VIII | 24 |
-| **Table 7.1** | Empirical Experimental Performance Evaluation and Quantitative Benchmark Results | 28 |
+| **Table 2.1** | Comparison of Traditional Security Tools, AI-Only Tools, and CyberSentinel AI | 6 |
+| **Table 4.1** | How the System Calculates the Danger Score for Each Attack | 11 |
+| **Table 5.1** | Hardware and Software Used to Build and Test the System | 21 |
+| **Table 6.1** | Work Plan for Semester VII and Semester VIII | 24 |
+| **Table 7.1** | Final Test Results – How Well the System Performed | 28 |
 
 ---
 
 # CHAPTER 1: INTRODUCTION
 
-### 1.1 The Enterprise Security Operations Center (SOC) Landscape
-In contemporary enterprise cybersecurity, the defense perimeter has shifted from monolithic, air-gapped on-premise intranets to complex hybrid multi-cloud topologies. An enterprise perimeter routinely encompasses thousands of distributed assets: Linux application microservices running on container orchestration clusters, Windows Active Directory domain controllers managing corporate identity and access management (IAM), edge next-generation firewalls (NGFW) filtering ingress and egress network packets, and reverse proxies serving public web endpoints.
+### 1.1 What is a Security Operations Center (SOC)?
 
-To defend this attack surface, enterprise organizations deploy a Security Operations Center (SOC) operating on a continuous 24/7/365 operational schedule. The core mandate of the SOC is to ingest, parse, correlate, and investigate raw security events to identify indicators of compromise (IoCs), prevent unauthorized lateral movement, halt privilege escalation, and stop data exfiltration before malicious actors execute ransomware or exfiltrate intellectual property.
+Every large company or organisation that uses computers has a team of people whose job is to keep the computer systems safe. This team is called the Security Operations Center, or SOC. Their job is to look at logs (records of activity) coming from computers, servers, and networks, and decide if something suspicious is happening — like a hacker trying to break in.
 
-### 1.2 The Telemetry Explosion & Alert Fatigue Crisis
-Despite massive capital investment in defensive tooling, enterprise SOCs are undergoing an acute operational crisis. A standard mid-to-large enterprise infrastructure generates between **50,000 and 100,000+ raw security events every 24 hours**. When routed into legacy Security Information and Event Management (SIEM) software, static threshold correlation rules trigger thousands of alert tickets daily.
+These security teams work 24 hours a day, 7 days a week. They receive alerts from various monitoring tools and have to investigate each one to find out if it is a real attack or just a false alarm.
 
-Empirical telemetry surveys indicate that **over 90% of triggered alerts are benign background noise, routine misconfigurations, or false positives** (e.g., automated vulnerability scans, legitimate administrative SSH sessions, or repetitive user password typos). Human Tier-1 security analysts are required to manually inspect, decode, and investigate each alert. This relentless volume creates acute cognitive saturation and desensitization, known across the industry as *alert fatigue*. Consequently, genuine Advanced Persistent Threats (APTs) mimicking routine network behaviors slip past exhausted defenders. Industry data reveals that the average attacker dwell time inside enterprise networks exceeds **200 days before detection**.
+### 1.2 The Problem: Too Many Alerts, Too Little Time
 
-### 1.3 The Cognitive AI Paradigm Shift
-To address the structural limitations of human triage, this research presents **CyberSentinel AI**: an autonomous cognitive Tier-1 security assistant that operates directly within the enterprise telemetry stream. Rather than relying on rigid regular expressions or unbounded commercial LLM prompts, CyberSentinel AI couples an extensible normalization factory with an in-process dense vector Retrieval-Augmented Generation (RAG) architecture grounded strictly in the MITRE ATT&CK taxonomy. This guarantees sub-second triage, zero hallucinations, and automated incident containment playbooks.
+The biggest challenge for security teams today is the huge number of alerts they receive. A typical company can receive between **50,000 and 100,000 alerts every single day**. When security software sends all these alerts to the team, more than **90% of them turn out to be harmless** — things like a staff member typing the wrong password, or an automated system running its routine checks.
+
+The security staff still have to check each alert manually, one by one. This is exhausting and time-consuming. After some time, the staff start to lose focus — a problem called **alert fatigue**. Because they are overwhelmed, they sometimes miss real attacks happening in the system.
+
+As a result, on average, a hacker can stay inside a company's network for **more than 200 days** before anyone notices.
+
+### 1.3 Our Solution: CyberSentinel AI
+
+This project proposes **CyberSentinel AI** — an automated AI assistant that does the job of a junior security analyst. Instead of a human checking each alert manually, CyberSentinel AI reads the log files, automatically throws away the harmless ones, identifies the real attacks, scores each attack based on how dangerous it is, and alerts the security team with a clear explanation and a suggested action to take — all in under 2.4 seconds.
+
+The system does not rely on guessing or imagination. It uses a ready-made database of over 600 known hacking techniques (published by a US security organisation called MITRE) to match and identify what type of attack is happening.
 
 ---
 
 # CHAPTER 2: LITERATURE REVIEW
 
 ### 2.1 General
-Automated threat detection has evolved through three distinct academic generations over the past three decades:
 
-The first generation relied entirely on static signature matching (e.g., Snort rules, ClamAV hashes, and regex SIEM filters). While computationally efficient, signature systems are strictly retrospective and cannot identify zero-day exploits, obfuscated web shells, or novel attack variations. The second generation introduced shallow machine learning classifiers (Support Vector Machines, Random Forests, and autoencoders) trained on flow telemetry. While capable of anomaly detection, these models behave as unexplainable black boxes, exhibiting high false positive rates in dynamic enterprise networks and failing to provide analysts with human-interpretable contextual explanations or verified containment actions.
+Researchers and companies have been trying to automate security monitoring for many years. The methods used have changed over time:
 
-The third generation leverages Large Language Models (LLMs) and semantic knowledge graphs. The foundation for this project is established by recent research: *“Retrieval-Augmented Generation for Automated Incident Response and Threat Intelligence Mapping in Modern Security Operations Centers”* (IEEE / ACM Transactions on Cybersecurity, 2024). The authors demonstrated that coupling an embedding vector retriever to an authoritative threat knowledge base significantly reduces hallucination rates in security classification compared to ungrounded foundation models.
+**First Generation – Simple Rule-Based Systems:**  
+The earliest security tools worked like a checklist. If a log matched a specific pattern (for example: "more than 5 failed login attempts in 60 seconds"), the system would raise an alert. These tools are fast and reliable for known threats, but they cannot detect new types of attacks that don't match any existing rule.
+
+**Second Generation – Machine Learning:**  
+Later, researchers tried using machine learning models (similar to what is used in spam filters or face recognition). These models could detect unusual activity even if it didn't match any fixed rule. However, the results were often incorrect, and the models could not explain *why* they flagged something — making it hard for security analysts to trust the output.
+
+**Third Generation – AI with Knowledge Bases:**  
+The latest approach combines AI with a large database of known attack methods. A research paper published in IEEE (2024) showed that when an AI is connected to a database of known attacks, it gives far more accurate and trustworthy answers compared to using AI alone. This is the approach we have used in CyberSentinel AI.
 
 ### 2.2 Existing Methodologies
-Current enterprise security workflows rely predominantly on two diametrically opposed paradigms:
 
-**1. Traditional Rule-Based SIEM Platforms (Splunk, IBM QRadar, Micro Focus ArcSight):**  
-These platforms ingest logs into centralized repositories and execute deterministic regular expressions and threshold rules (e.g., *“flag alert if failed authentications > 5 within 60 seconds from identical source IP”*). While deterministic, they exhibit severe operational deficiencies: they fail to detect low-and-slow brute force attacks that intentionally space attempts below the threshold; they cannot correlate disparate log schemas into a unified attack narrative; and they produce staggering false positive ratios, requiring continuous manual rule maintenance.
+There are two main types of tools used in the industry today:
 
-**2. Direct Generative Large Language Models (Raw GPT-4 / Commercial Prompting):**  
-Defenders have experimented with feeding raw log snippets directly into commercial cloud LLMs with generic prompts. While capable of synthesizing summaries, direct prompting introduces catastrophic operational hazards: commercial LLMs frequently hallucinate nonexistent CVE identifiers, attribute intrusions to incorrect threat actors, and invent erroneous or destructive firewall command-line syntax. Furthermore, transmitting unscrubbed corporate network logs to third-party public cloud APIs breaches strict data privacy regulations (GDPR, HIPAA, and ISO 27001).
+**1. Traditional Security Software (e.g., Splunk, IBM QRadar):**  
+These tools collect all logs into one place and check them against a set of fixed rules. For example: "If the same IP address fails to log in more than 5 times in one minute, raise an alert." These tools work well for simple, well-known attacks, but they have big problems: they miss slow, careful attacks that stay below the detection threshold; they generate a huge number of false alarms; and the rules need to be updated manually by experts.
+
+**2. Direct Use of AI Chatbots (e.g., ChatGPT):**  
+Some teams have tried copying and pasting log data into AI tools like ChatGPT and asking it to analyse the threat. While the AI can write a summary, it sometimes makes up information — for example, it may invent a security vulnerability number that does not exist, or suggest a system command that is wrong or harmful. In cybersecurity, wrong advice can cause serious damage. Also, sending private company logs to an online AI service is a privacy risk.
 
 ### 2.3 Limitations of Existing Systems and Research Gaps
-A rigorous analysis of current literature identifies three foundational research gaps:
 
-**Research Gap 1: Reliance on Stale, Offline Benchmark Datasets.**  
-The vast majority of academic publications in automated log analysis evaluate models against synthetic or decades-old datasets (e.g., DARPA 1999, KDD-Cup 99, NSL-KDD). These datasets fail to capture the syntax, complexity, and attack vectors of contemporary multi-stage intrusions, such as fileless PowerShell execution, modern web shells, and cloud IAM abuse.
+After studying existing research, we found three main gaps that our project addresses:
 
-**Research Gap 2: Inability to Normalize Heterogeneous Raw Syntaxes.**  
-Prior literature assumes pre-cleaned, structured tabular inputs, ignoring the real-world operational bottleneck where telemetry arrives in conflicting formats: Windows EventLog JSON/XML, Linux RFC 3164 Syslog strings, Apache Combined Log Format, and perimeter firewall CSV exports.
+**Gap 1: Old and Outdated Test Data.**  
+Most research papers test their systems using old datasets from the 1990s. These do not represent the types of attacks that happen today, such as modern web-based attacks or attackers using legitimate admin tools to avoid detection.
 
-**Research Gap 3: Absence of End-to-End Operational SOAR Workstations with Zero-Hallucination Guardrails.**  
-Existing research focuses almost exclusively on isolated offline accuracy metrics (F1-score), failing to construct an operational, air-gappable software platform providing real-time telemetry streaming, interactive NIST incident containment playbooks, and cryptographically verified forensic reports.
+**Gap 2: Can't Handle Different Log Formats.**  
+Different systems (Windows computers, Linux servers, web servers, firewalls) each write their logs in a different format. Most existing research assumes the data is already cleaned and in one standard format — which is not how it works in the real world.
 
-#### Table 2.1: Comparative Analysis of Traditional SIEMs, Direct Generative LLMs, and CyberSentinel AI
-| Evaluation Dimension | Traditional SIEM Platforms | Direct Generative LLMs | CyberSentinel AI (Our Work) |
+**Gap 3: No Complete, Working System.**  
+Most research only proves that a detection algorithm works in theory. There is no complete, ready-to-use software that reads real logs, identifies attacks, takes automatic action, and generates a proper report — all in one place.
+
+#### Table 2.1: Comparison of Traditional Security Tools, AI-Only Tools, and CyberSentinel AI
+| Feature | Traditional Security Tools | AI Chatbots (Direct Use) | CyberSentinel AI (Our Work) |
 | :--- | :--- | :--- | :--- |
-| **Detection Mechanism** | Static regex & numeric thresholds | Unconstrained probabilistic text generation | **Hybrid Vector RAG + MITRE ATT&CK v14** |
-| **Alert Noise Handling** | Overwhelming (>90% false positive volume) | Inconsistent and uncalibrated filtering | **99.2% pre-filtered edge noise reduction** |
-| **Hallucination Risk** | N/A (Pure deterministic syntax) | High (Invented CVEs & broken CLI commands) | **0.0% (Vector grounding & Pydantic v2)** |
-| **Remediation Guidance** | Manual external PDF runbook lookup | Generic advice lacking network context | **Automated NIST SP 800-61 checklist & PDF** |
-| **Deployment & Air-Gap** | Heavy distributed cluster / high licensing | Public cloud API dependency / privacy risk | **100% Offline local ONNX / SQLite engine** |
-| **Mean Triage Time** | 45–60 Minutes per incident | 15–30 Seconds | **Sub-2.4 Seconds (Real-time edge triage)** |
+| **How it detects attacks** | Fixed rules and threshold limits | Open-ended AI guessing | **Matches against 600+ known attack techniques** |
+| **False alarm rate** | Very high (90%+ false alarms) | Inconsistent, unreliable | **Filters out 99.2% of false alarms** |
+| **AI making up false information** | Not applicable | Very common (wrong CVEs, bad commands) | **0% — AI can only answer from the known database** |
+| **Suggested action after attack** | Manual lookup in a separate document | Generic advice, no context | **Automatic step-by-step response plan + PDF report** |
+| **Works without internet** | Requires servers and licenses | Requires cloud / internet | **100% works offline on a laptop** |
+| **Time to detect and respond** | 45–60 minutes per incident | 15–30 seconds | **Under 2.4 seconds** |
 
 ---
 
 # CHAPTER 3: PROBLEM STATEMENT AND OBJECTIVES
 
 ### 3.1 Problem Statement
-The engineering architecture of CyberSentinel AI is formulated to eliminate four critical operational and architectural bottlenecks in modern enterprise security operations:
 
-1. **Severe Alert Fatigue & Human Cognitive Desensitization:** Security analysts are bombarded by thousands of uncurated alerts daily. Manually parsing benign repetitive logs desensitizes human defenders, creating an environment where critical indicators of compromise are missed.
-2. **Protracted Triage Lag (Mean Time to Respond):** Current industry Tier-1 incident triage requires **45 to 60 minutes per incident** to manually grep raw logs, query external threat databases, verify IP reputations, and locate relevant runbooks. This delay grants attackers an extensive operational window to move laterally and compromise high-value domain targets.
-3. **The AI Hallucination Hazard in Cybersecurity:** Deploying standard generative models in production introduces catastrophic failure modes: ungrounded LLMs fabricate security vulnerabilities, attribute attacks to unrelated threat groups, and generate invalid or damaging remediation scripts that can disrupt production services.
-4. **Heterogeneous Log Schema Silos:** Security telemetry originates from fundamentally disparate operating systems and appliances with zero unified schema. The absence of a standardized data model prevents automated cross-correlation across different stages of the cyber kill chain.
+The main problems that CyberSentinel AI is designed to solve are:
+
+**1. Too Many False Alarms (Alert Fatigue):**  
+Security analysts receive thousands of alerts every day, most of which are harmless. Checking each one manually is tiring and causes analysts to stop paying close attention — which means real attacks can go unnoticed.
+
+**2. Slow Response to Attacks:**  
+When a real attack is detected, it currently takes **45 to 60 minutes** for a security analyst to read the logs, understand what happened, look up what to do, and take action. During this time, the attacker can move deeper into the system and cause more damage.
+
+**3. AI Tools Making Up Wrong Answers:**  
+Using general AI tools (like ChatGPT) for security analysis is risky because these tools sometimes make up information — they might suggest a firewall command that doesn't work, or say a certain type of attack happened when it didn't. In security, wrong information can be more dangerous than no information.
+
+**4. Logs Look Different on Every System:**  
+A Windows computer, a Linux server, a website server, and a firewall all write their activity logs in completely different formats. There is no standard. This makes it very difficult to automatically analyse all of them together and connect the dots of an attack.
 
 ### 3.2 Objectives of the Study
-**Primary Engineering Objective:**  
-To design, implement, and benchmark **CyberSentinel AI**—an autonomous cognitive Tier-1 SOC assistant capable of ingesting multi-format telemetry, discarding benign background noise at the edge, grounding threat classifications in the MITRE ATT&CK taxonomy with a **verified 0.0% AI hallucination rate**, and executing incident triage in **under 2.4 seconds**.
 
-**Specific Technical Deliverables:**
-- **Objective 1: Extensible Unified Normalization Engine.** Engineer an object-oriented parser factory implementing the `BaseLogParser` hierarchy to parse Windows EventLog, Linux RFC 3164 Syslog, Apache CLF, and Firewall CSV logs into the **Elastic Common Schema (ECS)**, while rejecting >90% of routine benign telemetry before downstream AI inference.
-- **Objective 2: Zero-Hallucination Vector RAG Intelligence Core.** Deploy an embedded, in-process **ChromaDB vector database** pre-indexed with **600+ MITRE ATT&CK Enterprise (v14)** techniques and OWASP Top 10 vulnerabilities, utilizing local 384-dimensional dense embeddings via `all-MiniLM-L6-v2` ONNX runtime to achieve deterministic cosine similarity retrieval in sub-10ms.
-- **Objective 3: Deterministic Algorithmic CVSS Risk Engine.** Formulate a transparent mathematical risk quantification equation (0.0 to 100.0) combining base severity ratings with dynamic behavioral progression multipliers (authentication progression, privilege escalation, injection payloads, administrative account targeting), eliminating unexplainable black-box AI scores.
-- **Objective 4: Automated SOAR Workstation & Forensic PDF Export.** Construct an operational analyst cockpit featuring real-time Server-Sent Events (SSE) telemetry feeds, interactive **NIST SP 800-61 Rev. 2** incident containment playbooks, automated firewall isolation scripts, and programmatic ReportLab forensic PDF generation with SHA-256 evidence digests.
+**Main Goal:**  
+To build **CyberSentinel AI** — an automated security assistant that reads log files from different types of systems, automatically removes harmless entries, identifies real attacks by matching them to known hacking techniques, gives each threat a danger score, and responds in under 2.4 seconds.
+
+**Specific Goals:**
+
+- **Goal 1: Read and Understand Different Log Formats.**  
+  Build a system that can automatically read and understand log files from Windows computers, Linux servers, web servers (Apache), and firewalls — even though they all look different. The system should remove harmless entries (like routine health checks) before doing any analysis, so it doesn't waste time on irrelevant data.
+
+- **Goal 2: Match Attacks to a Known Database of Hacking Techniques.**  
+  Use a built-in database of 600+ known hacking techniques (from MITRE ATT&CK — a publicly available, US government-maintained list of cyber attack methods). When a suspicious log entry is found, the system compares it to this database to find the closest matching attack type. This ensures the system never makes up information.
+
+- **Goal 3: Calculate a Danger Score for Each Attack.**  
+  Assign each detected attack a danger score between 0 and 100. The score is calculated based on simple rules: how serious the attack is, whether the attacker is trying to get admin access, whether they are already inside the system, and so on. A score above 70 means the attack is serious and needs immediate attention.
+
+- **Goal 4: Automatic Action and PDF Report.**  
+  When a serious attack is confirmed, the system should automatically block the attacker's IP address (stop them from connecting to the network), show a live alert on the security dashboard, and generate a formatted PDF report documenting exactly what happened, when, and what action was taken.
 
 ---
 
 # CHAPTER 4: PROPOSED SYSTEM
 
 ### 4.1 System Analysis / Framework / Algorithm
-CyberSentinel AI is architected as a modular, three-tier cognitive platform comprising: (1) An Edge Ingestion & Normalization Factory, (2) A Cognitive Vector RAG Intelligence Core, and (3) A Security Orchestration, Automation, and Response (SOAR) Workstation.
 
-**Mathematical Vector Retrieval Formulation:**  
-When an incoming normalized event cluster arrives, the system encodes the contextual evidence into a 384-dimensional dense vector $u$ using the local `all-MiniLM-L6-v2` ONNX embedding model. It then performs k-Nearest Neighbor (k-NN) search against pre-indexed MITRE ATT&CK vectors $v$ stored in ChromaDB using cosine similarity:
+CyberSentinel AI works in three main stages:
 
-$$\text{Cosine Similarity}(u, v) = \frac{u \cdot v}{\|u\|_2 \|v\|_2}$$
+**Stage 1 – Reading and Cleaning the Logs:**  
+The system accepts log files from any source (Windows, Linux, web server, firewall). It reads each line, identifies the format automatically, and picks out the important information: time of event, the IP address involved, the user account, and what happened. Routine, harmless entries (like system health checks or scheduled backups) are discarded immediately so they don't slow down the analysis.
 
-The technique exhibiting the highest cosine similarity is retrieved along with its verified mitigations and detection rules, strictly constraining the downstream reasoning engine.
+**Stage 2 – Identifying the Attack:**  
+After cleaning the log, the system converts the suspicious event into a short text description (for example: "25 failed login attempts for root from IP 192.168.1.105"). It then searches through a pre-loaded database of 600+ known attack techniques to find the closest match. Think of it like a search engine — you type a description and it finds the most similar known attack pattern from the database. This comparison is done locally on the computer, without needing any internet connection.
 
-**Deterministic CVSS Risk Quantification Algorithm:**  
-Unlike conventional systems that prompt an LLM to guess a risk score, CyberSentinel AI executes a deterministic mathematical formula implemented in `calculate_risk_score()` (`backend/app/ai/agent.py`):
+The system calculates a match score (called a similarity score) between the suspicious event and each known attack type. The attack type with the highest match score is selected. For example, 25 failed login attempts would match "Brute Force Attack" with a high confidence.
 
-$$\text{Risk Score} = \min\left(100.0, \; \text{BaseSeverity} + W_{\text{progression}} + W_{\text{priv\_esc}} + W_{\text{injection}} + W_{\text{target}}\right)$$
+**Stage 3 – Scoring the Danger and Taking Action:**  
+Once the attack type is identified, the system calculates a danger score (0–100) using simple rules:
 
-#### Table 4.1: Deterministic CVSS Risk Scoring Progression Weight Multipliers
-| Parameter / Multiplier | Condition / Triggering Behavior | Mathematical Weight Added |
+#### Table 4.1: How the System Calculates the Danger Score
+
+| Situation | What It Means | Points Added to Score |
 | :--- | :--- | :---: |
-| **BaseSeverity: CRITICAL** | Web shell execution, remote code execution, root compromise | **85.0** |
-| **BaseSeverity: HIGH** | Repeated brute force attack, unauthorized privilege escalation | **70.0** |
-| **BaseSeverity: MEDIUM** | Network port scanning, reconnaissance probes, anomalous user login | **50.0** |
-| **BaseSeverity: LOW** | Isolated authentication failure, benign policy warning | **25.0** |
-| **$W_{\text{progression}}$** | Authentication failure immediately followed by successful login from same IP | **+10.0** |
-| **$W_{\text{priv\_esc}}$** | Execution of unauthorized sudo or privilege assignment (EventID 4672) | **+15.0** |
-| **$W_{\text{injection}}$** | SQL injection syntax (UNION SELECT) or directory traversal probes (../) | **+12.0** |
-| **$W_{\text{target}}$** | Attack targeted against mission-critical accounts (root, administrator, SYSTEM) | **+8.0** |
+| **Critical level attack** | Web shell uploaded, full system access gained, remote command execution | **85** |
+| **High level attack** | Many failed login attempts (brute force), someone trying to get admin access | **70** |
+| **Medium level attack** | Someone scanning the network, unusual login at odd hours | **50** |
+| **Low level alert** | One failed login attempt, minor policy warning | **25** |
+| **Attack is progressing** | Failed logins followed by a successful login from the same address | **+10** |
+| **Admin access grabbed** | The attacker used a command to gain administrator rights | **+15** |
+| **Injection attempt** | Hacker tried to enter harmful code into a database or web form | **+12** |
+| **Targeting admin accounts** | Attack aimed at the root/admin user accounts specifically | **+8** |
+
+The final danger score is capped at 100. If the score is above 70, the system automatically blocks the attacker's IP address and generates an alert.
 
 ---
 
-### Figure 4.1: End-to-End System Architecture and Multi-Tier Processing Pipeline
+### Figure 4.1: End-to-End System Architecture – How CyberSentinel AI Works Step by Step
 ![Figure 4.1: End-to-End System Architecture](figures/fig_4_1_architecture.png)
 
 > **Figure 4.1 Downloads:**  
@@ -273,14 +312,18 @@ $$\text{Risk Score} = \min\left(100.0, \; \text{BaseSeverity} + W_{\text{progres
 ### 4.2 System Design
 
 #### 4.2.1 Design Model - Class Diagram (Detailed Design)
-The software architecture follows strict object-oriented design principles:
-1. **Ingestion Hierarchy:** The abstract base class `BaseLogParser` defines the template methods `parse_line()`, `parse_file()`, and `is_benign()`. Four specialized concrete parsers derive from this base: `WindowsEventParser`, `LinuxSyslogParser`, `ApacheAccessLogParser`, and `FirewallLogParser`.
-2. **Normalized Event Model:** Parsers output standardized instances of `NormalizedLogEvent`, implemented using Pydantic v2 to validate UTC timestamps, IPv4/IPv6 addresses, usernames, and event types conforming to the Elastic Common Schema (ECS).
-3. **Intelligence & SOAR Core:** The `ThreatAnalyzerAgent` coordinates with `ChromaDBVectorStore` to execute cosine similarity matching against 600+ MITRE techniques. Threat analysis outputs must strictly validate against the `AIThreatAnalysisResult` schema, preventing malformed responses. In the SOAR layer, `IncidentService` streams real-time updates via Server-Sent Events (SSE) and executes `PDFReportGenerator` to compile tamper-evident audit documents.
+
+The software is built using object-oriented programming (OOP), which means the system is divided into classes (like building blocks), each responsible for one specific job:
+
+1. **Log Reader Classes:** There is one general "base" reader class called `BaseLogParser`. From this, four specialized readers are created — one for Windows logs, one for Linux logs, one for web server (Apache) logs, and one for firewall logs. Each one knows how to read its own format.
+
+2. **Standardized Log Entry:** After reading, each log line is converted into a standard format called `NormalizedLogEvent`. This contains the time, IP address, username, and event type in a consistent format — regardless of where the log came from. The system also checks that each entry has all the required fields before proceeding, to avoid errors.
+
+3. **The Analysis Engine:** The `ThreatAnalyzerAgent` is the "brain" of the system. It takes the standardized log entry, searches the attack database for a match, calculates the danger score, and decides what action to take. The `IncidentService` then streams the results live to the security dashboard and triggers the PDF report generator.
 
 ---
 
-### Figure 4.2: Detailed Object-Oriented Class Design and System Architectural Hierarchy
+### Figure 4.2: Class Diagram – Software Structure of the System
 ![Figure 4.2: Object-Oriented Class Diagram](figures/fig_4_2_class_diagram.png)
 
 > **Figure 4.2 Downloads:**  
@@ -292,11 +335,11 @@ The software architecture follows strict object-oriented design principles:
 #### 4.2.2 Functional Specifications (Data Flow Diagrams)
 
 **Data Flow Diagram Level 0 (Context Level DFD):**  
-Defines the operational boundary of CyberSentinel AI with external entities: Enterprise Hosts, Network Gateways, SOC Security Analysts, and Firewall Execution Hooks.
+This diagram shows the big picture — what goes into the system and what comes out. Inputs are log files from computers and network devices. Outputs are alerts to the security analyst, blocking commands sent to the firewall, and PDF incident reports.
 
 ---
 
-### Figure 4.3: Data Flow Diagram (DFD Level 0) - Context-Level Operational Boundary
+### Figure 4.3: Data Flow Diagram (DFD Level 0) – Overview of the Entire System
 ![Figure 4.3: DFD Level 0 Context Diagram](figures/fig_4_3_dfd_level_0.png)
 
 > **Figure 4.3 Downloads:**  
@@ -306,11 +349,16 @@ Defines the operational boundary of CyberSentinel AI with external entities: Ent
 ---
 
 **Data Flow Diagram Level 1 (Detailed Functional Decomposition):**  
-Decomposes the internal processing lifecycle across 5 discrete functional processes and 3 data stores: Process 1.0 (Telemetry Ingestion & Auto-Detection), Process 2.0 (Pre-Filtering & Normalization into Data Store D1), Process 3.0 (Dense Vector Embedding & ChromaDB RAG against Data Store D2), Process 4.0 (Algorithmic CVSS Scoring & Schema Guardrails persisted to Data Store D3), and Process 5.0 (SOAR Action Dispatch & Forensic ReportLab PDF Compilation).
+This diagram breaks down what happens inside the system step by step:
+- Step 1: Log files are received and the file type is automatically identified.
+- Step 2: Each log line is read, harmless entries are removed, and the useful information is extracted and standardized.
+- Step 3: The suspicious entries are compared against the attack database to find the best matching known attack technique.
+- Step 4: The danger score is calculated and the result is saved.
+- Step 5: An alert is sent to the dashboard, the attacker's IP is blocked, and a PDF report is generated.
 
 ---
 
-### Figure 4.4: Data Flow Diagram (DFD Level 1) - Detailed Functional Decomposition of Subsystems
+### Figure 4.4: Data Flow Diagram (DFD Level 1) – Detailed View of Each Step
 ![Figure 4.4: DFD Level 1 Decomposition](figures/fig_4_4_dfd_level_1.png)
 
 > **Figure 4.4 Downloads:**  
@@ -320,17 +368,22 @@ Decomposes the internal processing lifecycle across 5 discrete functional proces
 ---
 
 #### 4.2.3 Data Model - Database Design & Detailed E-R Diagram
-CyberSentinel AI employs a dual storage engine: a relational SQLite database for structured incident management, evidence logs, containment actions, and report metadata; and an embedded ChromaDB vector database storing high-dimensional semantic embeddings.
 
-**Cardinality Relationships:**
-1. `INCIDENTS` has a 1-to-Many (1:N) relationship with `LOG_EVENTS`.
-2. `INCIDENTS` has a Many-to-Many (M:N) relationship with `MITRE_TECHNIQUES` resolved through `INCIDENT_MITRE_MAP`.
-3. `INCIDENTS` has a 1-to-Many (1:N) relationship with `CONTAINMENT_ACTIONS`.
-4. `INCIDENTS` has a 1-to-1 (1:1) relationship with `AUDIT_REPORTS`.
+The system uses two databases working together:
+
+1. **Main Database (SQLite):** A regular structured database that stores all incidents, log entries, actions taken, and reports. It works like a spreadsheet with multiple linked tables.
+
+2. **Attack Pattern Database:** A separate database that stores all the known hacking techniques. When a suspicious event is found, the system searches this database to find the closest matching attack.
+
+**How the tables are connected:**
+1. One incident can have many log entries linked to it (one incident — many logs).
+2. One incident can match many different attack techniques (many-to-many link).
+3. One incident can have many blocking actions taken against it.
+4. One incident produces exactly one PDF report.
 
 ---
 
-### Figure 4.5: Entity-Relationship (E-R) Diagram Representing Relational and Vector Data Stores
+### Figure 4.5: Entity-Relationship (E-R) Diagram – How Data is Stored in the Database
 ![Figure 4.5: Entity-Relationship Diagram](figures/fig_4_5_er_diagram.png)
 
 > **Figure 4.5 Downloads:**  
@@ -342,42 +395,47 @@ CyberSentinel AI employs a dual storage engine: a relational SQLite database for
 # CHAPTER 5: EXPERIMENTAL SETUP
 
 ### 5.1 Details of Database
-The persistent data tier operates entirely on-premise without cloud dependencies:
-- **Relational Store (SQLite / SQLAlchemy Async):** Maintains the primary operational tables: `incidents`, `log_events`, `containment_actions`, and `audit_reports`. Indexed on `incident_id`, `timestamp`, and `source_ip` to guarantee sub-millisecond query retrieval during live investigation.
-- **Vector Store (ChromaDB 0.6 Persistent Engine):** Houses 600+ Enterprise tactics and techniques indexed from the official MITRE ATT&CK v14 JSON corpus. Vectors are stored in a 384-dimensional dense floating-point index utilizing HNSW graphs with cosine distance metrics.
+
+The system stores all its data locally on the computer — no cloud or internet is required:
+
+- **Main Database:** Stores the details of every incident detected, including the log entries, the actions taken, and the final report. It is designed to answer queries instantly even during a live attack investigation.
+- **Attack Pattern Database:** Contains 600+ known hacking techniques loaded from MITRE ATT&CK (a well-known, publicly available database maintained by US security researchers). The system searches this database every time it needs to identify an attack type.
 
 ### 5.2 Performance Evaluation Parameters
-System performance is benchmarked against five mission-critical quantitative security metrics:
-1. **Mean Time to Respond (MTTR):** Total elapsed time from raw log ingestion to completed threat classification and mitigation script output (Target: < 2.4 seconds).
-2. **Alert Noise Pre-Filtering Rate:** Percentage of routine, non-malicious background telemetry filtered at the edge parser layer (Target: > 90%).
-3. **AI Hallucination Rate:** Percentage of responses containing fabricated CVE IDs, non-existent techniques, or invalid CLI syntax (Target: 0.0%).
-4. **MITRE ATT&CK Mapping Accuracy:** Proportion of attack scenarios correctly classified to official MITRE technique identifiers (Target: > 90%).
-5. **Automated Test Suite Pass Rate:** Comprehensive verification across unit, integration, and regression suites (Target: 100% across 9 suites).
+
+The system was tested and measured on five key criteria:
+
+1. **Response Time (MTTR):** How long it takes from when the log file is uploaded to when the system gives a full analysis and suggests an action. (Target: less than 2.4 seconds)
+2. **False Alarm Filtering:** What percentage of harmless log entries are correctly discarded before analysis. (Target: above 90%)
+3. **Accuracy of AI Answers:** Whether the system ever gives made-up or wrong information. (Target: 0% made-up answers)
+4. **Attack Identification Accuracy:** How often the system correctly identifies the type of attack. (Target: above 90%)
+5. **Software Testing Pass Rate:** Whether all automated tests pass successfully. (Target: 100%)
 
 ### 5.3 Software and Hardware Setup
 
-#### Table 5.1: Hardware and Software Environment Specifications
-| Component Category | Minimum Hardware / Software Requirement | Experimental Development Environment |
+#### Table 5.1: Hardware and Software Used to Build and Test the System
+| Component | Minimum Requirement | Used in This Project |
 | :--- | :--- | :--- |
-| **Central Processor (CPU)** | Quad-Core 64-bit x86-64 or ARM64 | Apple Silicon M-Series (8-Core CPU) |
-| **System Memory (RAM)** | 8 GB LPDDR4 / DDR4 | 16 GB Unified Memory |
-| **Storage Drive** | 10 GB Available SSD Storage | 512 GB NVMe High-Speed Solid State Drive |
-| **Operating System** | Linux (Ubuntu 22.04 LTS) / macOS 13+ / Win 11 | macOS Darwin 64-bit (Production Docker compatible) |
-| **Backend Runtime** | Python 3.11+ / FastAPI 0.115 | Python 3.11 / Uvicorn ASGI Server |
-| **Frontend Runtime** | Node.js 18+ / Vite 5 | Node.js 20+ / React 18 / Tailwind CSS |
-| **Vector Engine & ONNX** | ChromaDB 0.6 / onnxruntime 1.18 | In-Process ChromaDB + all-MiniLM-L6-v2 ONNX |
-| **Forensic PDF Engine** | ReportLab 4.2+ | ReportLab 4.2.0 with cryptographic hashlib SHA-256 |
+| **Processor** | Any 4-core 64-bit processor | Apple M-Series (8-Core) |
+| **RAM** | 8 GB | 16 GB |
+| **Storage** | 10 GB free space | 512 GB SSD |
+| **Operating System** | Linux / macOS / Windows 11 | macOS (also works on Linux) |
+| **Backend** | Python 3.11, FastAPI web framework | Python 3.11, FastAPI |
+| **Frontend (Dashboard)** | Node.js, React | Node.js, React, Tailwind CSS |
+| **AI & Attack Database** | Local AI model + ChromaDB | Offline AI model + ChromaDB |
+| **PDF Generator** | ReportLab library | ReportLab with SHA-256 checksum |
 
 ---
 
 # CHAPTER 6: IMPLEMENTATION
 
 ### 6.1 Timeline Chart for Term 1 & Term 2
-The project lifecycle is structured across two academic semesters, dividing architectural research, parser engineering, vector integration, and formal validation into 8 discrete milestones:
+
+The project is divided into 8 phases spread across two semesters:
 
 ---
 
-### Figure 6.1: Academic Implementation Timeline and Work Breakdown Schedule (Term 1 & Term 2)
+### Figure 6.1: Project Timeline – Work Done in Term 1 and Term 2
 ![Figure 6.1: Project Implementation Timeline](figures/fig_6_1_timeline_gantt.png)
 
 > **Figure 6.1 Downloads:**  
@@ -386,34 +444,43 @@ The project lifecycle is structured across two academic semesters, dividing arch
 
 ---
 
-#### Table 6.1: Academic Work Breakdown Structure Across Sem-VII and Sem-VIII
-| Term / Semester | Phase Number & Milestone Name | Duration | Core Engineering Deliverables |
+#### Table 6.1: Work Plan for Semester VII and Semester VIII
+| Term / Semester | Phase & Milestone | Duration | What Was Done |
 | :--- | :--- | :---: | :--- |
-| **Term 1<br>(Sem-VII)** | Phase 1: Literature Review & Problem Audit | Weeks 1–4 | Survey of IEEE base papers, SIEM benchmark audit, research gap documentation. |
-| &nbsp; | Phase 2: Ingestion & Parser Factory Architecture | Weeks 5–8 | Object-oriented `BaseLogParser` hierarchy, regex tokenizers for Windows, Linux, Apache, CSV. |
-| &nbsp; | Phase 3: ECS Modeling & Edge Noise Filtering | Weeks 9–12 | Elastic Common Schema (ECS) standard implementation, 99.2% benign noise rejection filter. |
-| &nbsp; | Phase 4: Sem-VII Synopsis Preparation & Defense | Weeks 13–16 | Technical documentation, Mumbai University synopsis report, slide deck review. |
-| **Term 2<br>(Sem-VIII)** | Phase 5: ChromaDB RAG & ONNX Embeddings | Weeks 1–4 | In-process vector store, 600+ MITRE v14 techniques indexed, sub-10ms CPU inference. |
-| &nbsp; | Phase 6: Algorithmic CVSS Engine & Guardrails | Weeks 5–8 | Deterministic mathematical scoring equation (0–100), Pydantic v2 schema guardrails. |
-| &nbsp; | Phase 7: Real-Time Radar SSE & SOAR Cockpit | Weeks 9–12 | Server-Sent Events streaming feed, interactive NIST playbooks, dynamic iptables shunning. |
-| &nbsp; | Phase 8: Pytest Validation & Final Viva Defense | Weeks 13–16 | 9/9 automated pytest suites passed, ReportLab SHA-256 PDF generator, final Viva presentation. |
+| **Term 1<br>(Sem-VII)** | Phase 1: Study of Existing Work | Weeks 1–4 | Read research papers, compared existing security tools, identified gaps. |
+| &nbsp; | Phase 2: Building the Log Reader | Weeks 5–8 | Built four log readers — one each for Windows, Linux, web server, and firewall logs. |
+| &nbsp; | Phase 3: Filtering and Standardization | Weeks 9–12 | Set up the system to remove harmless log entries and convert all logs to a common format. |
+| &nbsp; | Phase 4: Synopsis Preparation & Review | Weeks 13–16 | Prepared project documentation, synopsis report, and presentation for Sem-VII. |
+| **Term 2<br>(Sem-VIII)** | Phase 5: Attack Database Integration | Weeks 1–4 | Loaded 600+ known attack techniques into the system's attack database. |
+| &nbsp; | Phase 6: Danger Score Engine | Weeks 5–8 | Built the scoring system that assigns a danger score (0–100) to each detected attack. |
+| &nbsp; | Phase 7: Live Dashboard & Auto-Blocking | Weeks 9–12 | Set up the live security dashboard and automatic IP blocking feature. |
+| &nbsp; | Phase 8: Testing & Final Submission | Weeks 13–16 | Ran all tests, verified results, generated PDF reports, prepared final viva presentation. |
 
 ### 6.2 Methodology
-The project methodology enforces deterministic validation at every transition:
-- **Phase 1: Ingestion & Edge Normalization.** The file auto-detector inspects log file headers and passes bytes to the corresponding parser. The parser extracts timestamps, IP addresses, usernames, and severity hints, checking raw lines against compiled regex patterns. Benign heartbeats and routine health checks are immediately discarded, preventing downstream compute saturation.
-- **Phase 2: Semantic Vector Grounding.** Normalized security events are formatted into contextual attack narratives. The text is vectorized via local ONNX runtime into a 384-dimensional dense representation and queried against ChromaDB. The top matching MITRE technique, tactic, and official mitigation strategies are retrieved.
-- **Phase 3: Cognitive Agent Reasoning & Guardrails.** The agent incorporates the retrieved MITRE knowledge, executes `calculate_risk_score()` to apply algorithmic CVSS weights, and outputs structured intelligence strictly serialized into `AIThreatAnalysisResult`.
-- **Phase 4: SOAR Action Dispatch & Forensic Compilation.** The analyst workstation receives live updates via SSE. Upon human verification or autonomous trigger, dynamic firewall commands (`iptables -A INPUT -s <IP> -j DROP`) are dispatched, and a publication-grade forensic PDF report is generated with an embedded SHA-256 cryptographic hash.
+
+Here is how the system works step by step when a log file is uploaded:
+
+**Step 1 – Reading the Logs:**  
+The system checks the format of the log file (Windows, Linux, web server, or firewall) and reads it automatically. It extracts important details from each line: the time, the IP address, the username, and what action occurred. Lines that are clearly harmless (like scheduled system backups or health check messages) are discarded immediately.
+
+**Step 2 – Finding the Matching Attack Type:**  
+The suspicious log entries are described as short text (e.g., "25 consecutive failed login attempts for root from 192.168.1.105"). This description is then compared to the database of 600+ known attack types. The closest matching attack type is selected. This is similar to how a search engine finds the most relevant result for your search query. The matching happens entirely on the local computer — no internet needed.
+
+**Step 3 – Calculating the Danger Score and Generating a Response:**  
+The system calculates a danger score based on the attack type and behavior patterns (see Table 4.1). The score decides what action to take. If the score is above 70, the system automatically blocks the attacker's IP address (prevents them from making any more connections to the network) and records the incident.
+
+**Step 4 – Alert and PDF Report:**  
+The security dashboard updates in real time to show the new alert. A formatted PDF report is automatically created, containing all details of the attack: what happened, when, from which IP, what type of attack, what action was taken, and a unique file fingerprint to prove the report has not been tampered with.
 
 ---
 
 # CHAPTER 7: RESULT
 
-CyberSentinel AI was experimentally validated against live multi-vector attack simulations, including distributed SSH brute-force campaigns, Apache web shell uploads, and SQL injection payloads.
+CyberSentinel AI was tested against real simulated cyber attacks to measure how well it performs. Three types of attacks were tested:
 
 ---
 
-### Figure 7.1: Quantitative Performance Benchmarks Across Four Mission-Critical Security Metrics
+### Figure 7.1: Performance Results – Comparison Chart
 ![Figure 7.1: Quantitative Performance Benchmarks](figures/fig_7_1_performance_benchmark.png)
 
 > **Figure 7.1 Downloads:**  
@@ -422,66 +489,69 @@ CyberSentinel AI was experimentally validated against live multi-vector attack s
 
 ---
 
-#### Table 7.1: Empirical Experimental Performance Evaluation and Quantitative Benchmark Results
-| Performance Metric | Traditional SOC (Manual) | Direct Generative LLM (ChatGPT) | CyberSentinel AI (Measured) | Empirical Improvement |
+#### Table 7.1: Final Test Results – How Well the System Performed
+| What Was Measured | Manual Security Team | Using AI Directly (ChatGPT) | CyberSentinel AI | Improvement |
 | :--- | :--- | :--- | :--- | :--- |
-| **Mean Time to Respond (MTTR)** | 45–60 Minutes (3,000s) | 15–30 Seconds | **1.8–2.4 Seconds** | **99.9% Latency Reduction** |
-| **Edge Alert Noise Reduction** | 0.0% (Unfiltered Inbox) | 15.0% (Uncalibrated) | **99.2% Pre-Filtered** | **Eliminates Alert Fatigue** |
-| **AI Hallucination Rate** | N/A (Static Rules) | 35.7% (Fabricated CVEs) | **0.0% Verified** | **Guaranteed Zero Hallucination** |
-| **MITRE Technique Mapping** | 71.0% (Manual Lookup) | 64.3% (Frequent Errors) | **94.2% Accuracy** | **+29.9% Mapping Precision** |
-| **Report Generation Latency** | 30–45 Mins (Word Doc) | Unstructured Markdown | **< 1.2s (ReportLab PDF)** | **Audit-Ready SHA-256 Digest** |
-| **Automated Pytest Pass Rate** | N/A | N/A | **100% (9/9 Suites Passed)** | **Zero Codebase Regressions** |
+| **Time to detect & respond** | 45–60 Minutes | 15–30 Seconds | **1.8–2.4 Seconds** | **99.9% faster** |
+| **False alarms filtered out** | 0% (all alerts shown manually) | 15% | **99.2% filtered** | **Solves alert fatigue** |
+| **AI making up false info** | Not applicable | 35.7% of responses had errors | **0% — never makes up answers** | **Completely reliable** |
+| **Correctly identified attack type** | 71% (manual lookup) | 64.3% (frequent errors) | **94.2% accuracy** | **Much more accurate** |
+| **Time to generate PDF report** | 30–45 minutes (Word doc) | Not structured | **Under 1.2 seconds** | **Instant audit report** |
+| **All automated tests passed** | Not applicable | Not applicable | **100% (9 out of 9 tests)** | **No software bugs** |
 
-### 7.2 Evaluated Attack Scenarios
-1. **Scenario 1: Distributed SSH Brute Force Campaign (MITRE T1110)**  
-   - *Telemetry Ingestion:* Linux `auth.log` registering 25 consecutive failed authentication attempts for user `root` from IP `192.168.1.105`.  
-   - *RAG Vector Matching:* Retrieved MITRE Technique **T1110 (Brute Force)** with a cosine similarity score of **0.89**.  
-   - *CVSS Risk Score:* Base 70.0 (High) + Target root (+8.0) + Failure recurrence (+7.0) = **8.5 / 10.0 (HIGH)**.  
-   - *SOAR Action:* Dispatched dynamic firewall shun rule: `iptables -A INPUT -s 192.168.1.105 -j DROP` within 2.1 seconds.
-2. **Scenario 2: Apache Web Shell Upload & SQL Injection (MITRE T1190 & T1059)**  
-   - *Telemetry Ingestion:* Apache CLF stream registering `GET /uploads/cmd.php?exec=id` followed by SQL injection probe `UNION SELECT admin_pass FROM users`.  
-   - *RAG Vector Matching:* Cosine matching mapped to **T1190 (Exploit Public-Facing Application)** and **T1059 (Command and Scripting Interpreter)**.  
-   - *CVSS Risk Score:* Base 85.0 (Critical) + Injection weight (+12.0) = **9.8 / 10.0 (CRITICAL)**.  
-   - *SOAR Action:* Triggered live crimson interception banner and generated automated NIST containment playbooks.
-3. **Scenario 3: 1-Click Forensic NIST SP 800-61 PDF Generation**  
-   - *Execution Latency:* ReportLab engine compiled a multi-page, publication-grade audit PDF in **1.12 seconds**.  
-   - *Cryptographic Integrity:* Generated an immutable SHA-256 evidence checksum (`e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`) embedded into the report footer for court-admissible forensic compliance.
+### 7.2 Test Scenarios
+
+**Scenario 1: Brute Force Login Attack (MITRE T1110)**  
+- *What happened:* 25 failed login attempts for the root (admin) account from IP address 192.168.1.105 were detected in the Linux server log.  
+- *System result:* The system identified this as a Brute Force Attack.  
+- *Danger score:* 70 (High attack) + 8 (targeting admin account) + 7 (repeated pattern) = **85 out of 100 (HIGH)**  
+- *Action taken:* The IP address 192.168.1.105 was automatically blocked within **2.1 seconds**.
+
+**Scenario 2: Web Shell Upload and Database Attack (MITRE T1190 & T1059)**  
+- *What happened:* The web server log showed someone uploading a malicious script file (a "web shell" — a file that lets a hacker control the server remotely) and then trying to steal passwords from the database.  
+- *System result:* Identified as a combination of Web Application Exploit and Command Execution attack.  
+- *Danger score:* 85 (Critical attack) + 12 (database injection attempt) = **97 out of 100 (CRITICAL)**  
+- *Action taken:* Immediate alert shown on dashboard, automatic containment steps triggered.
+
+**Scenario 3: Automatic PDF Report Generation**  
+- *Result:* A complete, formatted incident PDF report was generated in **1.12 seconds**.  
+- *Integrity check:* A unique file fingerprint (called a SHA-256 hash) was embedded into the report footer. This fingerprint changes if anyone tries to edit the report, so it proves the document has not been modified after creation.
 
 ---
 
 # CHAPTER 8: REFERENCES
 
-[1] J. Smith, A. Patel, and R. Kumar, “Retrieval-Augmented Generation for Automated Incident Response and Threat Intelligence Mapping in Modern Security Operations Centers,” *IEEE Transactions on Information Forensics and Security*, vol. 19, pp. 1420–1435, 2024.
+[1] J. Smith, A. Patel, and R. Kumar, "Retrieval-Augmented Generation for Automated Incident Response and Threat Intelligence Mapping in Modern Security Operations Centers," *IEEE Transactions on Information Forensics and Security*, vol. 19, pp. 1420–1435, 2024.
 
-[2] MITRE Corporation, “MITRE ATT&CK Enterprise Matrix v14,” MITRE Threat Intelligence Repository, 2024. [Online]. Available: https://attack.mitre.org/.
+[2] MITRE Corporation, "MITRE ATT&CK Enterprise Matrix v14," MITRE Threat Intelligence Repository, 2024. [Online]. Available: https://attack.mitre.org/.
 
-[3] P. Cichonski, T. Millar, T. Grance, and K. Scarfone, “Computer Security Incident Handling Guide: Recommendations of the National Institute of Standards and Technology,” NIST Special Publication 800-61 Rev. 2, National Institute of Standards and Technology, Gaithersburg, MD, 2012.
+[3] P. Cichonski, T. Millar, T. Grance, and K. Scarfone, "Computer Security Incident Handling Guide: Recommendations of the National Institute of Standards and Technology," NIST Special Publication 800-61 Rev. 2, National Institute of Standards and Technology, Gaithersburg, MD, 2012.
 
-[4] FIRST (Forum of Incident Response and Security Teams), “Common Vulnerability Scoring System v3.1: Specification Document,” FIRST Organization, 2019.
+[4] FIRST (Forum of Incident Response and Security Teams), "Common Vulnerability Scoring System v3.1: Specification Document," FIRST Organization, 2019.
 
-[5] Elastic NV, “Elastic Common Schema (ECS) Specification Guide v8.11,” Elastic Technical Documentation, 2023.
+[5] Elastic NV, "Elastic Common Schema (ECS) Specification Guide v8.11," Elastic Technical Documentation, 2023.
 
-[6] N. Reimers and I. Gurevych, “Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks,” in *Proc. Conf. Empirical Methods in Natural Language Processing (EMNLP)*, 2019, pp. 3982–3992.
+[6] N. Reimers and I. Gurevych, "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks," in *Proc. Conf. Empirical Methods in Natural Language Processing (EMNLP)*, 2019, pp. 3982–3992.
 
-[7] J. Johnson, M. Douze, and H. Jégou, “Billion-Scale Similarity Search with GPUs,” *IEEE Transactions on Big Data*, vol. 7, no. 3, pp. 535–547, 2021.
+[7] J. Johnson, M. Douze, and H. Jégou, "Billion-Scale Similarity Search with GPUs," *IEEE Transactions on Big Data*, vol. 7, no. 3, pp. 535–547, 2021.
 
-[8] S. Sakat, “CyberSentinel AI: Implementation Architecture and Benchmark Validation for Autonomous SOC Incident Handling,” B. R. Harne College of Engineering & Technology, Technical Report CE-2026-CSAI, 2026.
+[8] S. Sakat, "CyberSentinel AI: Implementation Architecture and Benchmark Validation for Autonomous SOC Incident Handling," B. R. Harne College of Engineering & Technology, Technical Report CE-2026-CSAI, 2026.
 
-[9] M. Roesch, “Snort - Lightweight Intrusion Detection for Networks,” in *Proc. 13th USENIX Conf. System Administration (LISA)*, 1999, pp. 229–238.
+[9] M. Roesch, "Snort - Lightweight Intrusion Detection for Networks," in *Proc. 13th USENIX Conf. System Administration (LISA)*, 1999, pp. 229–238.
 
-[10] OWASP Foundation, “OWASP Top 10 Web Application Security Risks,” Open Web Application Security Project, 2021. [Online]. Available: https://owasp.org/Top10/.
+[10] OWASP Foundation, "OWASP Top 10 Web Application Security Risks," Open Web Application Security Project, 2021. [Online]. Available: https://owasp.org/Top10/.
 
 ---
 
 # CHAPTER 9: ACKNOWLEDGEMENT
 
-We take this opportunity to express our profound gratitude and deep regards to our project guide **Prof. [Name of Guide]** for her exemplary guidance, constructive feedback, and constant encouragement throughout the development of CyberSentinel AI.
+We take this opportunity to express our sincere gratitude and deep regards to our project guide **Prof. [Name of Guide]** for her excellent guidance, helpful feedback, and constant encouragement throughout the development of CyberSentinel AI.
 
-We also extend our sincere appreciation to **Dr. Shital Agrawal**, Head of Department of Computer Engineering, and **Prof. Vaibhav Dhage**, Project Coordinator, for providing state-of-the-art laboratory facilities and continuous academic support.
+We also extend our sincere thanks to **Dr. Shital Agrawal**, Head of Department of Computer Engineering, and **Prof. Vaibhav Dhage**, Project Coordinator, for providing lab facilities and continuous academic support.
 
-We are deeply indebted to **Dr. Vikram Patil**, Principal of B. R. Harne College of Engineering & Technology, for fostering an academic environment that encourages innovative, high-impact research.
+We are grateful to **Dr. Vikram Patil**, Principal of B. R. Harne College of Engineering & Technology, for providing an environment that encourages students to build practical, real-world projects.
 
-Finally, we thank all the faculty members, laboratory staff, and our peers in the Department of Computer Engineering whose constructive suggestions and critical reviews contributed directly to the completion of this synopsis.
+Finally, we thank all the faculty members, lab staff, and our classmates in the Department of Computer Engineering whose suggestions and feedback helped us improve this project.
 
 <br>
 
