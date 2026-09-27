@@ -108,17 +108,17 @@ Oct 14 03:15:20 srv-prod-01 sudo:   deploy : 3 incorrect password attempts ; TTY
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-[#111114] border border-zinc-800 rounded-2xl w-full max-w-xl overflow-hidden shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+      <div className="bg-[#111114] border border-zinc-800 rounded-2xl w-full max-w-xl overflow-hidden shadow-2xl animate-fade-in-up">
         {/* Header */}
         <div className="px-6 py-4 border-b border-zinc-800 flex justify-between items-center bg-[#09090b]">
           <div className="flex items-center space-x-2.5">
-            <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center text-white">
+            <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center text-white animate-glow-pulse-white">
               <UploadCloud className="w-4 h-4" />
             </div>
             <div>
               <h3 className="text-sm font-semibold text-white">Ingest Security Logs</h3>
-              <p className="text-[11px] text-zinc-400">Multi-format parser & AI RAG Threat Correlation</p>
+              <p className="text-[11px] text-zinc-400">Multi-format parser &amp; AI RAG Threat Correlation</p>
             </div>
           </div>
           <button
@@ -135,7 +135,7 @@ Oct 14 03:15:20 srv-prod-01 sudo:   deploy : 3 incorrect password attempts ; TTY
           {/* Quick Demo Presets */}
           <div>
             <label className="text-[11px] font-mono uppercase text-zinc-400 block mb-2 flex items-center gap-1.5 font-semibold">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-float" style={{ animationDuration: '2s' }} />
               Quick Demo Presets (1-Click Viva Demonstration)
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -144,9 +144,9 @@ Oct 14 03:15:20 srv-prod-01 sudo:   deploy : 3 incorrect password attempts ; TTY
                   key={preset.name}
                   type="button"
                   onClick={() => handleLoadSample(preset)}
-                  className="px-2.5 py-2 rounded-lg bg-[#09090b] border border-zinc-800 hover:border-zinc-600 hover:bg-[#18181c] text-[11px] font-medium text-zinc-300 transition-all text-left flex items-center gap-2 group"
+                  className="px-2.5 py-2 rounded-lg bg-[#09090b] border border-zinc-800 hover:border-zinc-500 hover:bg-[#18181c] text-[11px] font-medium text-zinc-300 transition-all duration-200 text-left flex items-center gap-2 group card-hover active:scale-95"
                 >
-                  <Server className="w-3.5 h-3.5 text-zinc-400 group-hover:scale-110 transition-transform" />
+                  <Server className="w-3.5 h-3.5 text-zinc-400 group-hover:scale-110 group-hover:text-white transition-all" />
                   <span className="truncate">{preset.name}</span>
                 </button>
               ))}
@@ -154,7 +154,7 @@ Oct 14 03:15:20 srv-prod-01 sudo:   deploy : 3 incorrect password attempts ; TTY
           </div>
 
           {/* Upload Area */}
-          <div className="border-2 border-dashed border-zinc-800 hover:border-zinc-600 rounded-xl p-6 text-center transition-colors bg-[#09090b]">
+          <div className="border-2 border-dashed border-zinc-800 hover:border-zinc-500 rounded-xl p-6 text-center transition-all duration-200 bg-[#09090b] group cursor-pointer">
             <input
               type="file"
               id="logFileInput"
@@ -164,7 +164,7 @@ Oct 14 03:15:20 srv-prod-01 sudo:   deploy : 3 incorrect password attempts ; TTY
               disabled={isUploading}
             />
             <label htmlFor="logFileInput" className="cursor-pointer block">
-              <div className="w-12 h-12 rounded-full bg-[#111114] border border-zinc-700 flex items-center justify-center mx-auto mb-3 text-zinc-300">
+              <div className="w-12 h-12 rounded-full bg-[#111114] border border-zinc-700 flex items-center justify-center mx-auto mb-3 text-zinc-300 group-hover:scale-110 group-hover:border-zinc-500 transition-all duration-200">
                 <FileText className="w-6 h-6 text-white" />
               </div>
               <p className="text-xs font-semibold text-white mb-1">
@@ -185,7 +185,7 @@ Oct 14 03:15:20 srv-prod-01 sudo:   deploy : 3 incorrect password attempts ; TTY
               <select
                 value={sourceType}
                 onChange={(e) => setSourceType(e.target.value)}
-                className="w-full bg-[#09090b] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-white font-mono"
+                className="w-full bg-[#09090b] border border-zinc-800 hover:border-zinc-700 rounded-lg px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-white font-mono transition-colors"
               >
                 <option value="">Auto-Detect Format</option>
                 <option value="windows">Windows Event (JSON)</option>
@@ -201,14 +201,17 @@ Oct 14 03:15:20 srv-prod-01 sudo:   deploy : 3 incorrect password attempts ; TTY
               </label>
               <div className="bg-[#09090b] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-400 font-mono flex items-center justify-between">
                 <span>RAG + ChromaDB</span>
-                <span className="text-emerald-400 font-bold text-[10px]">ACTIVE</span>
+                <span className="text-emerald-400 font-bold text-[10px] flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping inline-block" />
+                  ACTIVE
+                </span>
               </div>
             </div>
           </div>
 
           {/* Error message */}
           {error && (
-            <div className="p-3 bg-[#C10230]/10 border border-[#C10230]/40 rounded-lg text-xs text-[#ff4d6d] flex items-center gap-2">
+            <div className="p-3 bg-[#C10230]/10 border border-[#C10230]/40 rounded-lg text-xs text-[#ff4d6d] flex items-center gap-2 animate-slide-in-right">
               <AlertCircle className="w-4 h-4 shrink-0 text-[#ff4d6d]" />
               <span>{error}</span>
             </div>
@@ -216,13 +219,13 @@ Oct 14 03:15:20 srv-prod-01 sudo:   deploy : 3 incorrect password attempts ; TTY
 
           {/* Uploading progress status */}
           {isUploading && (
-            <div className="p-3.5 bg-zinc-900 border border-zinc-800 rounded-lg text-xs text-zinc-200 space-y-2">
+            <div className="p-3.5 bg-zinc-900 border border-zinc-800 rounded-lg text-xs text-zinc-200 space-y-2 animate-fade-in">
               <div className="flex items-center gap-2 font-mono">
                 <Loader2 className="w-4 h-4 animate-spin text-white" />
                 <span>{uploadProgress}</span>
               </div>
               <div className="w-full bg-[#09090b] h-1.5 rounded-full overflow-hidden">
-                <div className="bg-white h-full rounded-full animate-pulse w-3/4" />
+                <div className="bg-gradient-to-r from-zinc-500 via-white to-zinc-500 h-full rounded-full animate-pulse w-3/4" />
               </div>
             </div>
           )}
@@ -242,7 +245,7 @@ Oct 14 03:15:20 srv-prod-01 sudo:   deploy : 3 incorrect password attempts ; TTY
             type="button"
             onClick={handleUpload}
             disabled={isUploading || !selectedFile}
-            className="px-5 py-2 rounded-lg text-xs font-bold bg-white hover:bg-zinc-200 disabled:opacity-40 text-black transition-all border border-white shadow-sm flex items-center gap-2 active:scale-95"
+            className="px-5 py-2 rounded-lg text-xs font-bold bg-white hover:bg-zinc-200 disabled:opacity-40 text-black transition-all duration-200 border border-white shadow-sm flex items-center gap-2 active:scale-95 hover:scale-105 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
           >
             {isUploading ? (
               <>

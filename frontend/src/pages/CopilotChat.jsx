@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Send, Bot, User, BookOpen, Loader2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Send, Bot, User, BookOpen, Loader2, Sparkles } from 'lucide-react';
 import { sendCopilotMessage } from '../api/client';
 
 export default function CopilotChat({ activeIncidentId = null }) {
@@ -13,6 +13,15 @@ export default function CopilotChat({ activeIncidentId = null }) {
   const [inputQuery, setInputQuery] = useState('');
   const [incidentContextId, setIncidentContextId] = useState(activeIncidentId || '');
   const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isLoading]);
 
   const quickPrompts = [
     'How do I mitigate MITRE technique T1110 Brute Force?',
@@ -56,12 +65,12 @@ export default function CopilotChat({ activeIncidentId = null }) {
   };
 
   return (
-    <div className="p-6 max-w-5xl mx-auto h-[calc(100vh-5rem)] flex flex-col space-y-4">
+    <div className="p-6 max-w-5xl mx-auto h-[calc(100vh-5rem)] flex flex-col space-y-4 animate-fade-in">
       {/* Header Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-zinc-800 gap-2">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-            <Bot className="w-5 h-5 text-white" />
+          <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2 text-shimmer">
+            <Bot className="w-5 h-5 text-white animate-float" style={{ animationDuration: '3s' }} />
             SECOPS AI COPILOT
           </h1>
           <p className="text-xs text-zinc-400 font-mono mt-0.5">
@@ -70,7 +79,7 @@ export default function CopilotChat({ activeIncidentId = null }) {
         </div>
 
         {/* Incident Context Selector */}
-        <div className="flex items-center space-x-2 bg-[#111114] border border-zinc-800 px-3 py-1.5 rounded-lg">
+        <div className="flex items-center space-x-2 bg-[#111114] border border-zinc-800 hover:border-zinc-700 px-3 py-1.5 rounded-lg transition-colors">
           <span className="text-[11px] font-mono text-zinc-400 font-semibold">Context:</span>
           <input
             type="number"
@@ -83,22 +92,24 @@ export default function CopilotChat({ activeIncidentId = null }) {
       </div>
 
       {/* Messages Scroll Area */}
-      <div className="flex-1 overflow-y-auto space-y-4 pr-2">
+      <div className="flex-1 overflow-y-auto space-y-4 pr-2 scroll-smooth">
         {messages.map((msg, idx) => {
           const isUser = msg.role === 'user';
           return (
             <div
               key={idx}
-              className={`flex space-x-3 ${isUser ? 'justify-end' : 'justify-start'}`}
+              className={`flex space-x-3 transition-all duration-300 ${
+                isUser ? 'justify-end animate-slide-in-right' : 'justify-start animate-slide-in-left'
+              }`}
             >
               {!isUser && (
-                <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center text-white shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center text-white shrink-0 shadow-sm animate-glow-pulse-white">
                   <Bot className="w-4 h-4" />
                 </div>
               )}
 
               <div
-                className={`max-w-2xl rounded-xl p-4 text-xs leading-relaxed ${
+                className={`max-w-2xl rounded-xl p-4 text-xs leading-relaxed transition-all card-hover ${
                   isUser
                     ? 'bg-white text-black font-medium shadow-sm'
                     : 'bg-[#111114] border border-zinc-800 text-zinc-200'
@@ -117,7 +128,7 @@ export default function CopilotChat({ activeIncidentId = null }) {
                       {msg.cited_sources.map((src, sIdx) => (
                         <span
                           key={sIdx}
-                          className="px-2 py-0.5 rounded bg-[#09090b] border border-zinc-800 text-[10px] font-mono text-zinc-300 font-semibold"
+                          className="px-2 py-0.5 rounded bg-[#09090b] border border-zinc-800 text-[10px] font-mono text-zinc-300 font-semibold hover:border-zinc-600 transition-colors"
                         >
                           {src}
                         </span>
@@ -137,11 +148,15 @@ export default function CopilotChat({ activeIncidentId = null }) {
         })}
 
         {isLoading && (
-          <div className="flex items-center space-x-3 text-xs font-mono text-zinc-400 pl-11">
-            <Loader2 className="w-4 h-4 animate-spin text-white" />
-            <span>Querying ChromaDB vector store & formulating grounded answer...</span>
+          <div className="flex items-center space-x-3 text-xs font-mono text-zinc-400 pl-11 animate-fade-in">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#C10230] animate-ping" />
+              <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+            </div>
+            <span className="typewriter">Querying ChromaDB vector store & formulating grounded answer...</span>
           </div>
         )}
+        <div ref={messagesEndRef} />
       </div>
 
       {/* Suggested Query Chips */}
@@ -151,7 +166,7 @@ export default function CopilotChat({ activeIncidentId = null }) {
             key={pIdx}
             disabled={isLoading}
             onClick={() => handleSendMessage(prompt)}
-            className="text-[11px] font-mono px-3 py-1.5 rounded-lg bg-[#111114] border border-zinc-800 hover:border-zinc-600 text-zinc-300 hover:text-white transition-colors text-left"
+            className="text-[11px] font-mono px-3 py-1.5 rounded-lg bg-[#111114] border border-zinc-800 hover:border-zinc-500 hover:bg-[#18181c] text-zinc-300 hover:text-white transition-all duration-200 text-left active:scale-95 card-hover"
           >
             {prompt}
           </button>
@@ -164,7 +179,7 @@ export default function CopilotChat({ activeIncidentId = null }) {
           e.preventDefault();
           handleSendMessage();
         }}
-        className="relative"
+        className="relative group"
       >
         <input
           type="text"
@@ -172,12 +187,12 @@ export default function CopilotChat({ activeIncidentId = null }) {
           onChange={(e) => setInputQuery(e.target.value)}
           disabled={isLoading}
           placeholder="Ask Copilot about IoCs, MITRE techniques, or incident mitigation..."
-          className="w-full pl-4 pr-12 py-3 bg-[#111114] border border-zinc-800 rounded-xl text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-white font-sans shadow-lg"
+          className="w-full pl-4 pr-12 py-3 bg-[#111114] border border-zinc-800 group-hover:border-zinc-700 rounded-xl text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-white focus:ring-1 focus:ring-white/10 font-sans shadow-lg transition-all duration-200"
         />
         <button
           type="submit"
           disabled={isLoading || !inputQuery.trim()}
-          className="absolute right-2 top-2 p-2 bg-white hover:bg-zinc-200 text-black disabled:opacity-40 rounded-lg transition-colors"
+          className="absolute right-2 top-2 p-2 bg-white hover:bg-zinc-200 text-black disabled:opacity-40 rounded-lg transition-all duration-200 hover:scale-105 active:scale-90"
         >
           <Send className="w-3.5 h-3.5" />
         </button>
